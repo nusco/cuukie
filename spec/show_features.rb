@@ -18,13 +18,12 @@ describe 'The Cuukie server' do
     last_response.body.should match 'Cucumber Features'
   end
 
-  it "shows the names of features" do
+  it "cleans up all features at the beginning of a run" do
     post '/feature_name', {'name' => 'Create User'}.to_json
-    post '/feature_name', {'name' => 'Delete User'}.to_json
+    post '/before_features'
 
     get '/'
-    last_response.body.should match 'Feature: Create User'
-    last_response.body.should match 'Feature: Delete User'
+    last_response.body.should_not match 'Feature: Create User'
   end
 
   it "shows the keywords of features" do
