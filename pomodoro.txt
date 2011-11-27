@@ -1,3 +1,4 @@
+- finish extracting CSS and JQuery
 - begin extracting CSS and JQuery
 - return example Cucumber HTML
 - set up environment
