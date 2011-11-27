@@ -12,7 +12,7 @@ describe 'The Cuukie server' do
     Sinatra::Application
   end
 
-  it "shows a single page" do
+  it "shows a home page" do
     get '/'
     last_response.should be_ok
     last_response.body.should match 'Cucumber Features'
