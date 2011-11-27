@@ -42,4 +42,8 @@ describe 'The Cuukie server' do
     get '/'
     last_response.body.should match 'Use Case: Create User'
   end
+  
+  it "runs Cucumber" do
+    system "cucumber --format Cuukie::Formatter --require lib/formatter"
+  end
 end
