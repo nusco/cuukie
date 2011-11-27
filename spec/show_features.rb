@@ -1,8 +1,7 @@
 require 'cuukie'
 require 'rack/test'
 
-#set :environment, :test
-
+set :environment, :test
 
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
@@ -19,5 +18,12 @@ describe 'The Cuukie server' do
     get '/'
     last_response.should be_ok
     last_response.body.should match 'Cucumber Features'
+  end
+
+  it "lists a single feature" do
+    post '/features', {:name => 'Create User'}.to_json
+
+    get '/'
+    last_response.body.should match 'Feature: Create User'
   end
 end
