@@ -15,9 +15,9 @@ describe 'The Cuukie server' do
     Sinatra::Application
   end
 
-  it "has a home page" do
+  it "shows a header on the home page" do
     get '/'
     last_response.should be_ok
-    last_response.body.should == 'hello!'
+    last_response.body.should match 'Cucumber Features'
   end
 end
