@@ -8,7 +8,9 @@ get '/' do
   erb :index
 end
 
-post '/features' do
-  $FEATURES << JSON.parse(request.body.read)
+post '/feature_name' do
+  feature = JSON.parse(request.body.read)
+  feature['keyword'] = 'Feature' unless feature['keyword'] # is this necessary with a Cucumber formatter?
+  $FEATURES << feature
   'OK'
 end
