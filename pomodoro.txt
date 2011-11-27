@@ -1,3 +1,4 @@
+- set up Cucumber test app
 - multiple features
 - post feature
 - finish extracting CSS and JQuery
