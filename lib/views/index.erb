@@ -28,70 +28,72 @@
       </div>
     </div>
 
-    <div class="feature">
-      <h2>
-        <span class="val">
-          Feature: <%= @feature['name'] %>
-        </span>
-      </h2>
-      <p class="narrative">
-        As a developer<br/>I want an example feature<br/>So that I can see what it looks like<bbr/r>
-      </p>
-      <div class="scenario">
-        <span style="display: block;" class="scenario_file">
-          features/example.feature:6
-        </span>
-        <h3 style="cursor: pointer;" id="scenario_1">
-          <span class="keyword">
-            Scenario:
-          </span>
+    <% @features.each do |feature| %>
+      <div class="feature">
+        <h2>
           <span class="val">
-            Test something AJAXy
+            Feature: <%= feature['name'] %>
           </span>
-        </h3>
-        <ol style="display: block;">
-          <li id="features_example_feature_7" class="step passed">
-            <div class="step_name">
-              <span class="keyword">
-                Given 
-              </span>
-              <span class="step val">
-                I am on 
-                <span class="param">
-                  rubygems.org
+        </h2>
+        <p class="narrative">
+          As a developer<br/>I want an example feature<br/>So that I can see what it looks like<bbr/r>
+        </p>
+        <div class="scenario">
+          <span style="display: block;" class="scenario_file">
+            features/example.feature:6
+          </span>
+          <h3 style="cursor: pointer;" id="scenario_1">
+            <span class="keyword">
+              Scenario:
+            </span>
+            <span class="val">
+              Test something AJAXy
+            </span>
+          </h3>
+          <ol style="display: block;">
+            <li id="features_example_feature_7" class="step passed">
+              <div class="step_name">
+                <span class="keyword">
+                  Given 
                 </span>
-              </span>
-            </div>
-            <div class="step_file">
-              <span>
-                features/step_definitions/example_steps.rb:5
-              </span>
-            </div>
-          </li>
-          <script type="text/javascript">moveProgressBar('75.0');</script>
-          <li id="features_example_feature_10" class="step passed">
-            <div class="step_name">
-              <span class="keyword">
-                Then 
-              </span>
-              <span class="step val">
-                I should see "
-                <span class="param">
-                  Sinatra is a DSL for quickly creating web applications
+                <span class="step val">
+                  I am on 
+                  <span class="param">
+                    rubygems.org
+                  </span>
                 </span>
-                "
-              </span>
-            </div>
-            <div class="step_file">
-              <span>
-                features/step_definitions/example_steps.rb:17
-              </span>
-            </div>
-          </li>
-          <script type="text/javascript">moveProgressBar('100.0');</script>
-        </ol>
+              </div>
+              <div class="step_file">
+                <span>
+                  features/step_definitions/example_steps.rb:5
+                </span>
+              </div>
+            </li>
+            <script type="text/javascript">moveProgressBar('75.0');</script>
+            <li id="features_example_feature_10" class="step passed">
+              <div class="step_name">
+                <span class="keyword">
+                  Then 
+                </span>
+                <span class="step val">
+                  I should see "
+                  <span class="param">
+                    Sinatra is a DSL for quickly creating web applications
+                  </span>
+                  "
+                </span>
+              </div>
+              <div class="step_file">
+                <span>
+                  features/step_definitions/example_steps.rb:17
+                </span>
+              </div>
+            </li>
+            <script type="text/javascript">moveProgressBar('100.0');</script>
+          </ol>
+        </div>
       </div>
-    </div>
+    <% end %>
     <script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0m8.171s seconds</strong>";</script>
     <script type="text/javascript">document.getElementById('totals').innerHTML = "1 scenario (1 passed)<br />4 steps (4 passed)";</script>
   </div>

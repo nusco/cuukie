@@ -1,13 +1,14 @@
 require 'sinatra'
 require 'json'
 
-$FEATURE = ''
+$FEATURES = []
 
 get '/' do
-  @feature = $FEATURE
+  @features = $FEATURES
   erb :index
 end
 
 post '/features' do
-  $FEATURE = JSON.parse request.body.read
+  $FEATURES << JSON.parse(request.body.read)
+  'OK'
 end
