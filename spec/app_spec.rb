@@ -10,26 +10,23 @@ describe 'Cuukie' do
   end
 
   it "shows a home page" do
-    response = Server.get '/'
-    response.body.should match '<h1>Cucumber Features</h1>'
-    response.body.should match '<title>Cuukie</title>'
+    Server.home.body.should match '<h1>Cucumber Features</h1>'
+    Server.home.body.should match '<title>Cuukie</title>'
   end
 
   it "cleans up previous features at the beginning of a run" do
     # FIXNE: once feature names work, just run Cucumber twice
-    Server.post '/feature_name', {'name' => 'Some feature from the last run'}.to_json
+    Server.POST '/feature_name', {'name' => 'Some feature from the last run'}.to_json
     run_cucumber
 
-    response = Server.get '/'
-    response.body.should_not match 'Some feature from the last run'
+    Server.home.body.should_not match 'Some feature from the last run'
   end
     
-#  it "shows the names of features" do
-#    system "cucumber --format Cuukie::Formatter --require lib/formatter"
-#    result = RestClient.get 'http://localhost:4567/'
-#    result.body.should match 'Create User'
-#    result.body.should match 'Delete User'
-#  end
+  it "shows the names of features" do
+    system "cucumber --format Cuukie::Formatter --require lib/formatter"
+    Server.home.body.should match 'Feature: Create User'
+    Server.home.body.should match 'Feature: Delete User'
+  end
 end
 
 class Server
@@ -40,7 +37,7 @@ class Server
       # wait until it's up
       loop do
         begin
-          RestClient.get 'http://localhost:4567/ping'
+          GET '/ping'
           return
         rescue; end
       end
@@ -48,15 +45,19 @@ class Server
 
     def stop
       begin
-        RestClient.delete 'http://localhost:4567/'
+        DELETE '/'
       rescue
         # the server dies without replying, so we expect an error here
       end
     end
 
+    def home
+      GET '/'
+    end
+    
     def method_missing(name, *args)
       args[0] = "http://localhost:4567#{args[0]}"
-      RestClient.send name, *args
+      RestClient.send name.downcase, *args
     end
   end
 end
