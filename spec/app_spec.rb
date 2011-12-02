@@ -1,4 +1,3 @@
-require 'cuukie'
 require 'rest-client'
 
 describe 'Cuukie' do
@@ -9,13 +8,23 @@ describe 'Cuukie' do
   after(:each) do
     stop_server
   end
-  
-  it "does things" do
+
+  it "shows a home page" do
+    response = RestClient.get 'http://localhost:4567/'
+    response.body.should match '<h1>Cucumber Features</h1>'
+    response.body.should match '<title>Cuukie</title>'
   end
+    
+#  it "shows the names of features" do
+#    system "cucumber --format Cuukie::Formatter --require lib/formatter"
+#    result = RestClient.get 'http://localhost:4567/'
+#    result.body.should match 'Create User'
+#    result.body.should match 'Delete User'
+#  end
 end
 
 def start_server
-  Process.detach fork { exec "ruby lib/cuukie.rb >& /dev/null" }
+  Process.detach fork { exec "ruby lib/server.rb >& /dev/null" }
 
   # wait until it's up
   loop do

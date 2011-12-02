@@ -1,4 +1,4 @@
-require 'cuukie'
+require 'server'
 require 'rack/test'
 
 set :environment, :test
@@ -10,13 +10,6 @@ end
 describe 'The Cuukie server' do
   def app
     Sinatra::Application
-  end
-
-  it "shows a home page" do
-    get '/'
-    last_response.should be_ok
-    last_response.body.should match '<h1>Cucumber Features</h1>'
-    last_response.body.should match '<title>Cuukie</title>'
   end
   
   it "cleans up all features at the beginning of a run" do
@@ -41,9 +34,5 @@ describe 'The Cuukie server' do
 
     get '/'
     last_response.body.should match 'Use Case: Create User'
-  end
-  
-  it "runs Cucumber" do
-    system "cucumber --format Cuukie::Formatter --require lib/formatter"
   end
 end
