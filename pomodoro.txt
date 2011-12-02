@@ -1,3 +1,6 @@
+- progress on full-stack testing
+- use separate Sinatra server for testing
+- try to use separate Sinatra server for testing
 - set up Cucumber test app
 - multiple features
 - post feature
@@ -5,4 +8,3 @@
 - begin extracting CSS and JQuery
 - return example Cucumber HTML
 - set up environment
-- try to use separate Sinatra server for testing
