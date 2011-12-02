@@ -18,3 +18,6 @@ post '/feature_name' do
   $FEATURES << feature
   'OK'
 end
+
+get('/ping') { 'pong!' }
+delete('/') { exit! }
