@@ -21,7 +21,7 @@ describe 'Cuukie' do
 
     Server.home.body.should_not match 'Some feature from the last run'
   end
-    
+
   it "shows the names of features" do
     system "cucumber --format Cuukie::Formatter --require lib/formatter"
     Server.home.body.should match 'Feature: Create User'
