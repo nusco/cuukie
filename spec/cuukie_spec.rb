@@ -52,6 +52,7 @@ describe 'Cuukie' do
   it "marks failed steps" do
     Server.home.body.should match 'class="step passed"'
     Server.home.body.should match 'class="step failed"'
+    Server.home.body.should match 'class="step skipped"'
   end
 end
 
