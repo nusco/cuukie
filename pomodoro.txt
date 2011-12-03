@@ -1,4 +1,5 @@
-- pomodoro: show step names
+- fix visualization
+- show step names
 - show scenario names and files
 - show scenarios (first test)
 - look around and think
