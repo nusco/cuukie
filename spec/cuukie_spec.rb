@@ -33,6 +33,11 @@ describe 'Cuukie' do
     Server.home.body.should match '>Scenario:</span> <span class="val">New User<'
     Server.home.body.should match '>Scenario:</span> <span class="val">Existing User<'
   end
+
+  it "shows the scenario source data" do
+    run_cucumber
+    Server.home.body.should match '>spec/test_project/features/create_user.feature:6<'
+  end
 end
 
 require 'rest-client'

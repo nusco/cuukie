@@ -17,6 +17,7 @@ class Cuukie
 
   def scenario_name(keyword, name, file_colon_line, source_indent)
     RestClient.post 'http://localhost:4569/scenario_name',
-                      { 'name' => name }.to_json
+                      { 'name' => name,
+                        'file_colon_line' => file_colon_line }.to_json
   end
 end
