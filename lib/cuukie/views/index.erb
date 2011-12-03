@@ -23,14 +23,12 @@
           <div class="scenario">
             <span style="display: block;" class="scenario_file"><%= scenario['file_colon_line'] %></span>
             <h3 style="cursor: pointer;" id="scenario_1">
-              <span class="keyword">Scenario:</span> <span class="val"><%= scenario['name'] %></span>
+              <span class="keyword">Scenario: </span><span class="val"><%= scenario['name'] %></span>
             </h3>
             <ol style="display: block;">
+            <% scenario['steps'].each do |step| %>
               <li id="features_example_feature_7" class="step passed">
-                <div class="step_name">
-                  <span class="keyword">Given </span>
-                  <span class="step val">I am on <span class="param">rubygems.org</span></span>
-                </div>
+                <div class="step_name"><span class="keyword"><%= step['keyword'] %></span><span class="step val"><%= step['name'] %></span></div>
                 <div class="step_file"><span>features/step_definitions/example_steps.rb:5</span></div>
               </li>
               <script type="text/javascript">moveProgressBar('75.0');</script>
@@ -47,13 +45,10 @@
                     "
                   </span>
                 </div>
-                <div class="step_file">
-                  <span>
-                    features/step_definitions/example_steps.rb:17
-                  </span>
-                </div>
+                <div class="step_file"><span>features/step_definitions/example_steps.rb:17</span></div>
               </li>
-              <script type="text/javascript">moveProgressBar('100.0');</script>
+            <% end %>
+            <script type="text/javascript">moveProgressBar('100.0');</script>
             </ol>
           </div>
         <% end %>

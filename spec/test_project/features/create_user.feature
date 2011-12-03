@@ -4,11 +4,12 @@ Feature: Create User
   So that he will love me
 
 Scenario: New User
-  Given I go to the Admin page
-  And I create a new User
+  Given I am on the Admin page
+  When I create a new User
+  And press "OK"
   Then I should see the new User's details
 
 Scenario: Existing User
-  Given I go to the Admin page
-  And I create a User with an existing id
+  Given I am on the Admin page
+  When I create a User with an existing id
   Then I should see an error message

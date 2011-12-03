@@ -14,7 +14,7 @@ describe 'Cuukie' do
   end
 
   it "cleans up previous data at the beginning of a run" do
-    2.times { run_cucumber }
+    run_cucumber
     Server.home.body.scan('Feature: Create User').size.should == 1
   end
 
@@ -28,13 +28,17 @@ describe 'Cuukie' do
   end
 
   it "shows the scenario names" do
-    Server.home.body.should match '>Scenario:</span> <span class="val">New User<'
-    Server.home.body.should match '>Scenario:</span> <span class="val">Existing User<'
+    Server.home.body.should match '>Scenario: </span><span class="val">New User<'
+    Server.home.body.should match '>Scenario: </span><span class="val">Existing User<'
   end
 
   it "shows the scenario source data" do
-    run_cucumber
     Server.home.body.should match '>spec/test_project/features/create_user.feature:6<'
+  end
+
+  it "shows the step names" do
+    Server.home.body.should match '>Given </span><span class="step val">I am on the Admin page</span></div>'
+    Server.home.body.should match '>And </span><span class="step val">press "OK"</span></div>'
   end
 end
 

@@ -23,7 +23,14 @@ end
 
 post '/scenario_name' do
   scenario = JSON.parse(request.body.read)
+  scenario['steps'] = []
   settings.features.last['scenarios'] << scenario
+  'OK'
+end
+
+post '/step_name' do
+  step = JSON.parse(request.body.read)
+  settings.features.last['scenarios'].last['steps'] << step
   'OK'
 end
 
