@@ -1,5 +1,3 @@
-require 'rest-client'
-
 describe 'Cuukie' do
   before(:each) do
     Server.start
@@ -25,6 +23,8 @@ describe 'Cuukie' do
     Server.home.body.should match 'Feature: Delete User'
   end
 end
+
+require 'rest-client'
 
 class Server
   class << self
@@ -53,6 +53,7 @@ class Server
     end
     
     def method_missing(name, *args)
+      super unless [:GET, :POST, :PUT, :DELETE].include? name.to_sym
       args[0] = "http://localhost:4567#{args[0]}"
       RestClient.send name.downcase, *args
     end
