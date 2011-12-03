@@ -1,3 +1,4 @@
+- refactoring
 - full-stack testing
 - progress on full-stack testing
 - use separate Sinatra server for testing
