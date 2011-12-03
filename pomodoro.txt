@@ -1,6 +1,7 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- mark failed scenarios (harder than I thought)
 - mark failed scenarios (almost there)
 - mark failed scenarios (still broken)
 - mark failed steps (broken)
