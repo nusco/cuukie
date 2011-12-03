@@ -42,7 +42,16 @@ describe 'Cuukie' do
   end
 
   it "shows the step source data" do
-    Server.home.body.should match '>spec/test_project/features/create_user.feature:7<'
+    Server.home.body.should match '>spec/test_project/features/step_definitions/example_steps.rb:5<'
+  end
+
+  it "assigns a sequential id to scenarios" do
+    Server.home.body.should match 'id="scenario_1_2"'
+  end
+
+  it "marks failed steps" do
+    Server.home.body.should match 'class="step passed"'
+    Server.home.body.should match 'class="step failed"'
   end
 end
 
@@ -81,5 +90,5 @@ class Server
 end
 
 def run_cucumber
-  system 'cucumber spec/test_project/features --format Cuukie --require lib/cuukie/formatter'
+  system 'cucumber spec/test_project/features --require spec/test_project/features/step_definitions/ --require lib/cuukie/formatter  --format Cuukie --guess'
 end
