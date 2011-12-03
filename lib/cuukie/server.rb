@@ -1,25 +1,22 @@
 require 'sinatra'
 require 'json'
 
-configure do
-  set :port, 4569
-end
- 
-$FEATURES = []
+set :port, 4569
+set :features, []
 
 get '/' do
-  @features = $FEATURES
+  @features = settings.features
   erb :index
 end
 
 post '/before_features' do
-  $FEATURES = []
+  settings.features.clear
 end
 
 post '/before_feature' do
   feature = JSON.parse(request.body.read)
   feature['description'] = feature['description'].split("\n")
-  $FEATURES << feature
+  settings.features << feature
   'OK'
 end
 
