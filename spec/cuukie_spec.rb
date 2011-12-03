@@ -31,6 +31,7 @@ describe 'Cuukie' do
   it "shows the scenario names" do
     run_cucumber
     Server.home.body.should match '>Scenario:</span> <span class="val">New User<'
+    Server.home.body.should match '>Scenario:</span> <span class="val">Existing User<'
   end
 end
 
