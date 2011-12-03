@@ -29,7 +29,7 @@ require 'rest-client'
 class Server
   class << self
     def start
-      Process.detach fork { exec "ruby lib/server.rb >& /dev/null" }
+      Process.detach fork { exec "ruby lib/server.rb >/dev/null 2>&1" }
 
       # wait until it's up
       loop do
