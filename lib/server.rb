@@ -16,7 +16,7 @@ post '/before_features' do
   $FEATURES = []
 end
 
-post '/feature_name' do
+post '/before_feature' do
   $FEATURES << JSON.parse(request.body.read)
   'OK'
 end

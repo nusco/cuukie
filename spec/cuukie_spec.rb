@@ -19,8 +19,8 @@ describe 'Cuukie' do
 
   it "shows the names of features" do
     run_cucumber
-    Server.home.body.should match 'Feature: Create User'
-    Server.home.body.should match 'Feature: Delete User'
+    Server.home.body.should match '>Feature: Create User<'
+    Server.home.body.should match '>Feature: Delete User<'
   end
 end
 
