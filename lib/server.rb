@@ -1,6 +1,10 @@
 require 'sinatra'
 require 'json'
 
+configure do
+  set :port, 4569
+end
+ 
 $FEATURES = []
 
 get '/' do

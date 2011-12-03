@@ -54,12 +54,12 @@ class Server
     
     def method_missing(name, *args)
       super unless [:GET, :POST, :PUT, :DELETE].include? name.to_sym
-      args[0] = "http://localhost:4567#{args[0]}"
+      args[0] = "http://localhost:4569#{args[0]}"
       RestClient.send name.downcase, *args
     end
   end
 end
 
 def run_cucumber
-  system "cucumber spec/mock_project/features --format Cuukie::Formatter --require lib/formatter"
+  system "cucumber spec/test_project/features --format Cuukie::Formatter --require lib/formatter"
 end

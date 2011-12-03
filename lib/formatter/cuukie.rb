@@ -6,11 +6,11 @@ module Cuukie
     end
  
     def before_features(features)
-      RestClient.post 'http://localhost:4567/before_features', ''
+      RestClient.post 'http://localhost:4569/before_features', ''
     end
     
     def feature_name(keyword, name)
-      RestClient.post 'http://localhost:4567/feature_name', {'keyword' => keyword, 'name' => name}.to_json
+      RestClient.post 'http://localhost:4569/feature_name', {'keyword' => keyword, 'name' => name}.to_json
     end
   end
 end
