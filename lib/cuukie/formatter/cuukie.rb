@@ -11,7 +11,12 @@ class Cuukie
 
   def before_feature(feature)
     RestClient.post 'http://localhost:4569/before_feature',
-                      {'short_name' => feature.short_name,
-                       'description' => feature.description}.to_json
+                      { 'short_name' => feature.short_name,
+                       'description' => feature.description }.to_json
+  end
+
+  def scenario_name(keyword, name, file_colon_line, source_indent)
+    RestClient.post 'http://localhost:4569/scenario_name',
+                      { 'name' => name }.to_json
   end
 end

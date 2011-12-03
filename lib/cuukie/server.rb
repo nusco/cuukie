@@ -16,7 +16,14 @@ end
 post '/before_feature' do
   feature = JSON.parse(request.body.read)
   feature['description'] = feature['description'].split("\n")
+  feature['scenarios'] = []
   settings.features << feature
+  'OK'
+end
+
+post '/scenario_name' do
+  scenario = JSON.parse(request.body.read)
+  settings.features.last['scenarios'] << scenario
   'OK'
 end
 

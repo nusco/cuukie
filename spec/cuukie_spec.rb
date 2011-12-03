@@ -30,7 +30,7 @@ describe 'Cuukie' do
 
   it "shows the scenario names" do
     run_cucumber
-#    Server.home.body.should match '>As an Administrator<br/>I want to create a new User<br/>So that he will love me<bbr/r><'
+    Server.home.body.should match '>Scenario:</span> <span class="val">New User<'
   end
 end
 
