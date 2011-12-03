@@ -4,5 +4,5 @@ Feature: Create User
   So that he will love me
 
 Scenario: Happy user
-  Given I use Cukie
+  Given I use Cuukie
   Then I should be happy

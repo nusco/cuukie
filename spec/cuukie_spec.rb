@@ -34,7 +34,7 @@ require 'rest-client'
 class Server
   class << self
     def start
-      Process.detach fork { exec "ruby lib/server.rb >/dev/null 2>&1" }
+      Process.detach fork { exec "ruby lib/cuukie/server.rb >/dev/null 2>&1" }
 
       # wait until it's up
       loop do
@@ -66,5 +66,5 @@ class Server
 end
 
 def run_cucumber
-  system "cucumber spec/test_project/features --format Cuukie::Formatter --require lib/formatter"
+  system 'cucumber spec/test_project/features --format Cuukie --require lib/cuukie/formatter'
 end
