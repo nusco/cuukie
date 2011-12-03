@@ -8,9 +8,9 @@
   </head>
 
   <body>
-    <div class="cucumber">
-      <div id="cucumber-header">
-        <div id="label"><h1>Cucumber Features</h1></div>
+    <div class="cucumber"><div id="cucumber-header"><div id="label"><h1>Cucumber Features</h1></div>
+      <div id="summary"><!--<p id="totals"></p><p id="duration"></p>-->
+        <div id="expand-collapse"><p id="expander">Expand All</p><p id="collapser">Collapse All</p></div>
       </div>
     </div>
 
@@ -31,24 +31,8 @@
                 <div class="step_name"><span class="keyword"><%= step['keyword'] %></span><span class="step val"><%= step['name'] %></span></div>
                 <div class="step_file"><span>features/step_definitions/example_steps.rb:5</span></div>
               </li>
-              <script type="text/javascript">moveProgressBar('75.0');</script>
-              <li id="features_example_feature_10" class="step passed">
-                <div class="step_name">
-                  <span class="keyword">
-                    Then 
-                  </span>
-                  <span class="step val">
-                    I should see "
-                    <span class="param">
-                      Sinatra is a DSL for quickly creating web applications
-                    </span>
-                    "
-                  </span>
-                </div>
-                <div class="step_file"><span>features/step_definitions/example_steps.rb:17</span></div>
-              </li>
+              <!-- <script type="text/javascript">moveProgressBar('75.0');</script> -->
             <% end %>
-            <script type="text/javascript">moveProgressBar('100.0');</script>
             </ol>
           </div>
         <% end %>
