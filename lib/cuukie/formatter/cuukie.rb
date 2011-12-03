@@ -24,6 +24,7 @@ class Cuukie
   def step_name(keyword, step_match, status, source_indent, background)
     RestClient.post 'http://localhost:4569/step_name',
                       { 'keyword' => keyword,
-                        'name' => step_match.name }.to_json
+                        'name' => step_match.name,
+                        'file_colon_line' => step_match.file_colon_line }.to_json
   end
 end

@@ -37,8 +37,12 @@ describe 'Cuukie' do
   end
 
   it "shows the step names" do
-    Server.home.body.should match '>Given </span><span class="step val">I am on the Admin page</span></div>'
-    Server.home.body.should match '>And </span><span class="step val">press "OK"</span></div>'
+    Server.home.body.should match '>Given </span><span class="step val">I am on the Admin page</span>'
+    Server.home.body.should match '>And </span><span class="step val">press "OK"</span>'
+  end
+
+  it "shows the step source data" do
+    Server.home.body.should match '>spec/test_project/features/create_user.feature:7<'
   end
 end
 
