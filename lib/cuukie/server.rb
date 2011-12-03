@@ -25,23 +25,36 @@ end
 post '/scenario_name' do
   scenario = JSON.parse(request.body.read)
   scenario['steps'] = []
-  scenarios = settings.features.last['scenarios']
-  scenario['id'] = "#{settings.features.last['id']}_#{scenarios.size + 1}"
-  scenarios << scenario
+  scenario['id'] = "#{current_feature['id']}_#{current_scenarios.size + 1}"
+  current_scenarios << scenario
   'OK'
 end
 
 post '/before_step_result' do
-  step = JSON.parse(request.body.read)
-  settings.features.last['scenarios'].last['steps'] << step
+  current_scenario['steps'] << JSON.parse(request.body.read)
   'OK'
 end
 
 post '/after_step_result' do
-  current_step = settings.features.last['scenarios'].last['steps'].last
-  current_step['status'] = JSON.parse(request.body.read)['status']
+  current_step.merge! JSON.parse(request.body.read)
   'OK'
 end
 
 get('/ping') { 'pong!' }
 delete('/') { exit! }
+
+def current_feature
+  settings.features.last
+end
+
+def current_scenarios
+  current_feature['scenarios']
+end
+
+def current_scenario
+  current_scenarios.last
+end
+
+def current_step
+  current_scenario['steps'].last
+end
