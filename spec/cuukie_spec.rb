@@ -38,7 +38,7 @@ describe 'Cuukie' do
 
   it "shows the step names" do
     Server.home.body.should match '>Given </span><span class="step val">I am on the Admin page</span>'
-    Server.home.body.should match '>And </span><span class="step val">press "OK"</span>'
+    Server.home.body.should match '>And </span><span class="step val">I press "OK"</span>'
   end
 
   it "shows the step source data" do

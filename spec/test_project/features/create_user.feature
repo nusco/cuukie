@@ -6,7 +6,7 @@ Feature: Create User
 Scenario: New User
   Given I am on the Admin page
   When I create a new User
-  And press "OK"
+  And I press "OK"
   Then I should see the new User's details
 
 Scenario: Existing User
