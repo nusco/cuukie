@@ -3,6 +3,7 @@ Feature: Delete User
   I want to delete a User
   So that I'll show them who's boss
 
-Scenario: Happy user
-  Given I use Cuukie
-  Then I should be happy
+Scenario: New User
+  Given I go to a User page
+  And I press "Delete"
+  Then I should not see the User anymore

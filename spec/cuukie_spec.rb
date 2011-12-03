@@ -27,6 +27,11 @@ describe 'Cuukie' do
     run_cucumber
     Server.home.body.should match '>As an Administrator<br/>I want to create a new User<br/>So that he will love me<bbr/r><'
   end
+
+  it "shows the scenario names" do
+    run_cucumber
+#    Server.home.body.should match '>As an Administrator<br/>I want to create a new User<br/>So that he will love me<bbr/r><'
+  end
 end
 
 require 'rest-client'
@@ -46,11 +51,9 @@ class Server
     end
 
     def stop
-      begin
-        DELETE '/'
-      rescue
-        # the server dies without replying, so we expect an error here
-      end
+      # the server dies without replying, so we expect an error here
+      DELETE '/'
+    rescue
     end
 
     def home
