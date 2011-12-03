@@ -13,9 +13,7 @@ post '/before_features' do
 end
 
 post '/feature_name' do
-  feature = JSON.parse(request.body.read)
-  feature['keyword'] = 'Feature' unless feature['keyword'] # is this necessary with a Cucumber formatter?
-  $FEATURES << feature
+  $FEATURES << JSON.parse(request.body.read)
   'OK'
 end
 
