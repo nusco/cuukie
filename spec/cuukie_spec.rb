@@ -15,15 +15,12 @@ describe 'Cuukie' do
   end
 
   it "cleans up previous features at the beginning of a run" do
-    # FIXNE: once feature names work, just run Cucumber twice
-    Server.POST '/feature_name', {'name' => 'Some feature from the last run'}.to_json
-    run_cucumber
-
-    Server.home.body.should_not match 'Some feature from the last run'
+    2.times { run_cucumber }
+    Server.home.body.scan('Feature: Create User').size.should == 1
   end
 
   it "shows the names of features" do
-    system "cucumber --format Cuukie::Formatter --require lib/formatter"
+    run_cucumber
     Server.home.body.should match 'Feature: Create User'
     Server.home.body.should match 'Feature: Delete User'
   end
@@ -63,5 +60,5 @@ class Server
 end
 
 def run_cucumber
-  system "cucumber --format Cuukie::Formatter --require lib/formatter"
+  system "cucumber spec/mock_project/features --format Cuukie::Formatter --require lib/formatter"
 end
