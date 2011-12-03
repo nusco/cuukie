@@ -1,3 +1,4 @@
+- show feature narratives
 - clean up feature name
 - report travis issue after crash
 - put on travis... and managed to crash travis ;)

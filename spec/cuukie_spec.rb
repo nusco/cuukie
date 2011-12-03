@@ -17,10 +17,15 @@ describe 'Cuukie' do
     Server.home.body.scan('Feature: Create User').size.should == 1
   end
 
-  it "shows the names of features" do
+  it "shows the feature names" do
     run_cucumber
     Server.home.body.should match '>Feature: Create User<'
     Server.home.body.should match '>Feature: Delete User<'
+  end
+
+  it "shows the feature narratives" do
+    run_cucumber
+    Server.home.body.should match '>As an Administrator<br/>I want to create a new User<br/>So that he will love me<bbr/r><'
   end
 end
 

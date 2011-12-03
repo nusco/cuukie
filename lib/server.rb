@@ -17,7 +17,9 @@ post '/before_features' do
 end
 
 post '/before_feature' do
-  $FEATURES << JSON.parse(request.body.read)
+  feature = JSON.parse(request.body.read)
+  feature['description'] = feature['description'].split("\n")
+  $FEATURES << feature
   'OK'
 end
 

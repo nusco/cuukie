@@ -33,9 +33,7 @@
         <h2>
           <span class="val">Feature: <%= feature['short_name'] %></span>
         </h2>
-        <p class="narrative">
-          As a developer<br/>I want an example feature<br/>So that I can see what it looks like<bbr/r>
-        </p>
+        <p class="narrative"><%= feature['description'].join '<br/>' %><bbr/r></p>
         <div class="scenario">
           <span style="display: block;" class="scenario_file">
             features/example.feature:6

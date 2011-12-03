@@ -1,7 +1,7 @@
 Feature: Delete User
   As an Administrator
-  I want to create a new User
-  So that somebody can use my application
+  I want to delete a User
+  So that I'll show them who's boss
 
 Scenario: Happy user
   Given I use Cukie
