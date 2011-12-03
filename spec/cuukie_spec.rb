@@ -1,9 +1,10 @@
 describe 'Cuukie' do
-  before(:each) do
+  before(:all) do
     Server.start
+    run_cucumber
   end
   
-  after(:each) do
+  after(:all) do
     Server.stop
   end
 
@@ -12,24 +13,21 @@ describe 'Cuukie' do
     Server.home.body.should match '<title>Cuukie</title>'
   end
 
-  it "cleans up previous features at the beginning of a run" do
+  it "cleans up previous data at the beginning of a run" do
     2.times { run_cucumber }
     Server.home.body.scan('Feature: Create User').size.should == 1
   end
 
   it "shows the feature names" do
-    run_cucumber
     Server.home.body.should match '>Feature: Create User<'
     Server.home.body.should match '>Feature: Delete User<'
   end
 
   it "shows the feature narratives" do
-    run_cucumber
     Server.home.body.should match '>As an Administrator<br/>I want to create a new User<br/>So that he will love me<bbr/r><'
   end
 
   it "shows the scenario names" do
-    run_cucumber
     Server.home.body.should match '>Scenario:</span> <span class="val">New User<'
     Server.home.body.should match '>Scenario:</span> <span class="val">Existing User<'
   end
