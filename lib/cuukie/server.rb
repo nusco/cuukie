@@ -1,13 +1,11 @@
 require 'sinatra/base'
 require 'json'
 
-require 'sinatra/base'
-
 module Cuukie
   class Server < Sinatra::Base
     set :port, 4569
     set :features, []
-
+    
     get '/' do
       @features = settings.features
       erb :index
@@ -18,7 +16,7 @@ module Cuukie
     end
 
     post '/before_feature' do
-      feature = JSON.parse(request.body.read)
+      feature = escaped_jsonized_request
       feature['description'] = feature['description'].split("\n")
       feature['scenarios'] = []
       feature['id'] = settings.features.size + 1
@@ -27,7 +25,7 @@ module Cuukie
     end
 
     post '/scenario_name' do
-      scenario = JSON.parse(request.body.read)
+      scenario = escaped_jsonized_request
       scenario['steps'] = []
       scenario['id'] = "scenario_#{current_feature['id']}_#{current_scenarios.size + 1}"
       current_scenarios << scenario
@@ -35,12 +33,12 @@ module Cuukie
     end
 
     post '/before_step_result' do
-      current_scenario['steps'] << JSON.parse(request.body.read)
+      current_scenario['steps'] << escaped_jsonized_request
       'OK'
     end
 
     post '/after_step_result' do
-      current_step.merge! JSON.parse(request.body.read)
+      current_step.merge! escaped_jsonized_request
       'OK'
     end
 
@@ -61,6 +59,13 @@ module Cuukie
 
     def current_step
       current_scenario['steps'].last
+    end
+    
+    include Rack::Utils
+    
+    def escaped_jsonized_request
+      result = JSON.parse(request.body.read)
+      result.each {|k, v| result[k] = escape_html v }
     end
   end
 end

@@ -33,7 +33,7 @@ describe 'Cuukie' do
   end
 
   it "shows the scenario source position" do
-    html.should match '>spec/test_project/features/create_user.feature:6<'
+    html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;create_user.feature:6<'
   end
 
   it "assigns a sequential id to scenarios" do
@@ -42,25 +42,32 @@ describe 'Cuukie' do
 
   it "shows the step names" do
     html.should match '>Given </span><span class="step val">I am on the Admin page</span>'
-    html.should match '>And </span><span class="step val">I press "OK"</span>'
+    html.should match '>When </span><span class="step val">I create a new User</span>'
   end
 
   it "shows the step source position" do
-    html.should match '>spec/test_project/features/step_definitions/example_steps.rb:5<'
+    html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;step_definitions&#x2F;example_steps.rb:4<'
   end
 
   it "shows the test result" do
      html.should match /makeRed\('cucumber-header'\)/
   end
   
-  it "shows the scenario status" do
+  it "shows the failed scenarios in red" do
     html.should match /makeRed\('scenario_1_2'\)/
+  end
+  
+  it "shows the pending scenarios in yellow" do
     html.should match /makeYellow\('scenario_1_3'\)/
   end
   
   it "shows the step status" do
     html.should match 'class="step passed"'
     html.should match 'class="step pending"'
+  end
+  
+  it "escapes step names" do
+    html.should match 'I press &quot;Delete&quot;'
   end
 end
 
