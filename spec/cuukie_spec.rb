@@ -14,11 +14,11 @@ describe 'The Cuukie header' do
   end
 
   it "is red if any steps failed" do
-    run_cucumber 'spec/test_project/features/create_user.feature:12'
+    run_cucumber 'spec/test_project/features/create_user.feature'
     html.should match /failedColors\('cucumber-header'\)/
   end
 
-  it "is yellow if any steps are pending" do
+  it "is yellow if no steps failed but some are pending" do
     run_cucumber 'spec/test_project/features/create_user.feature:17'
     html.should match /pendingColors\('cucumber-header'\)/
   end

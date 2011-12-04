@@ -1,6 +1,7 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- refactor build status
 - status for entire suite
 - better scenario status
 - HTML escaping

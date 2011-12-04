@@ -5,21 +5,21 @@ module Cuukie
   class Server < Sinatra::Base
     set :port, 4569
     set :features, []
-    set :status, 'undefined'
+    set :build_status, nil
     
     get '/' do
       @features = settings.features
-      @status = settings.status
+      @build_status = settings.build_status
       erb :index
     end
 
     post '/before_features' do
       settings.features.clear
-      settings.status = 'undefined'
+      settings.build_status = nil
     end
 
     post '/before_feature' do
-      feature = escaped_jsonized_request
+      feature = read_from_request
       feature['description'] = feature['description'].split("\n")
       feature['scenarios'] = []
       feature['id'] = settings.features.size + 1
@@ -28,8 +28,7 @@ module Cuukie
     end
 
     post '/scenario_name' do
-      scenario = escaped_jsonized_request
-      scenario['status'] = 'undefined'
+      scenario = read_from_request
       scenario['steps'] = []
       scenario['id'] = "scenario_#{current_feature['id']}_#{current_scenarios.size + 1}"
       current_scenarios << scenario
@@ -37,35 +36,28 @@ module Cuukie
     end
 
     post '/before_step_result' do
-      current_scenario['steps'] << escaped_jsonized_request
+      current_scenario['steps'] << read_from_request
       'OK'
     end
 
     post '/after_step_result' do
-      status = escaped_jsonized_request['status']
-      current_step['status'] = status
-      if status == 'failed'
-        settings.status = 'failed'
-      elsif status == 'pending'
-        settings.status = 'pending'
+      current_step.merge! read_from_request
+      if current_step['status'] == 'failed'
+        current_scenario['status'] = settings.build_status = 'failed' 
+      elsif current_step['status'] == 'pending'
+        current_scenario['status'] = 'pending'
+        settings.build_status ||= 'pending' 
       end
       'OK'
     end
 
     post '/after_steps' do
-      steps = current_scenario['steps']
-      if steps.find {|step| step['status'] == 'failed' }
-        current_scenario['status'] = 'failed'
-      elsif steps.find {|step| step['status'] == 'pending' }
-        current_scenario['status'] = 'pending'
-      else
-        current_scenario['status'] = 'passed'
-      end
+      current_scenario['status'] ||= 'passed'
       'OK'
     end
 
     post '/after_features' do
-      settings.status = 'passed' if settings.status == 'undefined'
+      settings.build_status ||= 'passed'
       'OK'
     end
     
@@ -90,7 +82,7 @@ module Cuukie
     
     include Rack::Utils
     
-    def escaped_jsonized_request
+    def read_from_request
       result = JSON.parse(request.body.read)
       result.each {|k, v| result[k] = escape_html v }
     end
