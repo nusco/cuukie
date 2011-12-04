@@ -26,6 +26,7 @@ module Cuukie
 
     post '/scenario_name' do
       scenario = escaped_jsonized_request
+      scenario['status'] = 'undefined'
       scenario['steps'] = []
       scenario['id'] = "scenario_#{current_feature['id']}_#{current_scenarios.size + 1}"
       current_scenarios << scenario
@@ -42,6 +43,18 @@ module Cuukie
       'OK'
     end
 
+    post '/after_steps' do
+      steps = current_scenario['steps']
+      if steps.find {|step| step['status'] == 'pending' }
+        current_scenario['status'] = 'pending'
+      elsif steps.find {|step| step['status'] == 'failed' }
+        current_scenario['status'] = 'failed'
+      else
+        current_scenario['status'] = 'passed'
+      end
+      'OK'
+    end
+    
     get('/ping') { 'pong!' }
     delete('/') { exit! }
 

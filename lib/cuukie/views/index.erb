@@ -25,13 +25,15 @@
             <h3 style="cursor: pointer;" id="<%= scenario['id'] %>">
               <span class="keyword">Scenario: </span><span class="val"><%= scenario['name'] %></span>
             </h3>
+            <% if scenario['status'] == 'failed' %>
+              <script>makeRed('cucumber-header');makeRed('<%= scenario['id'] %>');</script>
+            <% elsif scenario['status'] == 'pending' %>
+              <script>makeRed('cucumber-header');makeYellow('<%= scenario['id'] %>');</script>
+            <% elsif scenario['status'] == 'passed' %>
+              <script>makeGreen('cucumber-header');makeGreen('<%= scenario['id'] %>');</script>
+            <% end %>
             <ol style="display: block;">
-              <% scenario['steps'].each do |step| %>
-              <% if step['status'] == 'failed' %>
-                <script>makeRed('cucumber-header');makeRed('<%= scenario['id'] %>');</script>
-              <% elsif step['status'] == 'pending' %>
-                <script>makeRed('cucumber-header');makeYellow('<%= scenario['id'] %>');</script>
-              <% end %>
+            <% scenario['steps'].each do |step| %>
               <li id="features_" class="step <%= step['status'] %>">
                 <div class="step_name">
                   <span class="keyword"><%= step['keyword'] %></span><span class="step val"><%= step['name'] %></span>

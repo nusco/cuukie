@@ -53,6 +53,10 @@ describe 'Cuukie' do
      html.should match /makeRed\('cucumber-header'\)/
   end
   
+  it "shows the passed scenarios in green" do
+    html.should match /makeGreen\('scenario_1_1'\)/
+  end
+  
   it "shows the failed scenarios in red" do
     html.should match /makeRed\('scenario_1_2'\)/
   end
