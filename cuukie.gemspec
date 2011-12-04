@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "cuukie"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paolo \"Nusco\" Perrotta"]
@@ -27,14 +27,14 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "bin/cuukie_server",
+    "cuukie.gemspec",
     "lib/cuukie/formatter/cuukie.rb",
     "lib/cuukie/public/cucumber.css",
+    "lib/cuukie/public/cuukie.js",
     "lib/cuukie/public/jquery-1.7.min.js",
-    "lib/cuukie/public/scenarios.js",
     "lib/cuukie/server.rb",
     "lib/cuukie/views/index.erb",
     "pomodoro.txt",
-    "smoke_test.sh",
     "spec/commands_spec.rb",
     "spec/cuukie_spec.rb",
     "spec/test_project/features/create_user.feature",
