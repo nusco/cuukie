@@ -8,51 +8,55 @@ describe 'Cuukie' do
     Server.stop
   end
 
-  it "shows a home page" do
-    Server.home.body.should match '<h1>Cucumber Features</h1>'
-    Server.home.body.should match '<title>Cuukie</title>'
+  it "shows a html page" do
+    html.should match '<h1>Cucumber Features</h1>'
+    html.should match '<title>Cuukie</title>'
   end
 
   it "cleans up previous data at the beginning of a run" do
     run_cucumber
-    Server.home.body.scan('Feature: Create User').size.should == 1
+    html.scan('Feature: Create User').size.should == 1
   end
 
   it "shows the feature names" do
-    Server.home.body.should match '>Feature: Create User<'
-    Server.home.body.should match '>Feature: Delete User<'
+    html.should match '>Feature: Create User<'
+    html.should match '>Feature: Delete User<'
   end
 
   it "shows the feature narratives" do
-    Server.home.body.should match '>As an Administrator<br/>I want to create a new User<br/>So that he will love me<bbr/r><'
+    html.should match '>As an Administrator<br/>I want to create a new User<br/>So that he will love me<bbr/r><'
   end
 
   it "shows the scenario names" do
-    Server.home.body.should match '>Scenario: </span><span class="val">New User<'
-    Server.home.body.should match '>Scenario: </span><span class="val">Existing User<'
+    html.should match '>Scenario: </span><span class="val">New User<'
+    html.should match '>Scenario: </span><span class="val">Existing User<'
   end
 
-  it "shows the scenario source data" do
-    Server.home.body.should match '>spec/test_project/features/create_user.feature:6<'
-  end
-
-  it "shows the step names" do
-    Server.home.body.should match '>Given </span><span class="step val">I am on the Admin page</span>'
-    Server.home.body.should match '>And </span><span class="step val">I press "OK"</span>'
-  end
-
-  it "shows the step source data" do
-    Server.home.body.should match '>spec/test_project/features/step_definitions/example_steps.rb:5<'
+  it "shows the scenario source position" do
+    html.should match '>spec/test_project/features/create_user.feature:6<'
   end
 
   it "assigns a sequential id to scenarios" do
-    Server.home.body.should match 'id="scenario_1_2"'
+    html.should match 'id="scenario_1_2"'
   end
 
-  it "marks failed steps" do
-    Server.home.body.should match 'class="step passed"'
-    Server.home.body.should match 'class="step failed"'
-    Server.home.body.should match 'class="step skipped"'
+  it "shows the step names" do
+    html.should match '>Given </span><span class="step val">I am on the Admin page</span>'
+    html.should match '>And </span><span class="step val">I press "OK"</span>'
+  end
+
+  it "shows the step source position" do
+    html.should match '>spec/test_project/features/step_definitions/example_steps.rb:5<'
+  end
+
+  it "shows the scenario status" do
+    html.should match "makeRed('scenario_1_2')"
+  end
+  
+  it "shows the step status" do
+    html.should match 'class="step passed"'
+    html.should match 'class="step failed"'
+    html.should match 'class="step skipped"'
   end
 end
 
@@ -78,16 +82,16 @@ class Server
     rescue
     end
 
-    def home
-      GET '/'
-    end
-    
     def method_missing(name, *args)
       super unless [:GET, :POST, :PUT, :DELETE].include? name.to_sym
       args[0] = "http://localhost:4569#{args[0]}"
       RestClient.send name.downcase, *args
     end
   end
+end
+
+def html
+  Server.GET('/').body
 end
 
 def run_cucumber

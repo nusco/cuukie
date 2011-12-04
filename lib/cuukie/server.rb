@@ -25,7 +25,7 @@ end
 post '/scenario_name' do
   scenario = JSON.parse(request.body.read)
   scenario['steps'] = []
-  scenario['id'] = "#{current_feature['id']}_#{current_scenarios.size + 1}"
+  scenario['id'] = "scenario_#{current_feature['id']}_#{current_scenarios.size + 1}"
   current_scenarios << scenario
   'OK'
 end

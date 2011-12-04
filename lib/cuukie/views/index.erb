@@ -22,11 +22,14 @@
         <% feature['scenarios'].each do |scenario| %>
           <div class="scenario">
             <span style="display: block;" class="scenario_file"><%= scenario['file_colon_line'] %></span>
-            <h3 style="cursor: pointer;" id="scenario_<%= scenario['id'] %>">
+            <h3 style="cursor: pointer;" id="<%= scenario['id'] %>">
               <span class="keyword">Scenario: </span><span class="val"><%= scenario['name'] %></span>
             </h3>
             <ol style="display: block;">
               <% scenario['steps'].each do |step| %>
+              <% if step['status'] == 'failed' %>
+              <script>makeRed('cucumber-header');makeRed('<%= scenario['id'] %>');</script>
+              <% end %>
               <li id="features_" class="step <%= step['status'] %>">
                 <div class="step_name">
                   <span class="keyword"><%= step['keyword'] %></span><span class="step val"><%= step['name'] %></span>
