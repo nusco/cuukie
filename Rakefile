@@ -15,6 +15,11 @@ task :default => :spec
 desc "Run all specs"
 RSpec::Core::RakeTask.new(:spec)
 
+desc "Run Cuukie (assumes that there is a cuukie_server on the local machine and the default port)"
+task :smoke_test do
+  system "cucumber spec/test_project/features --require spec/test_project/features/step_definitions/ --require lib/cuukie/formatter --format Cuukie --guess"
+end
+
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
