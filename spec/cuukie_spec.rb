@@ -51,12 +51,14 @@ describe 'Cuukie' do
 
   it "shows the scenario status" do
     html.should match /makeRed\('scenario_1_2'\)/
+    html.should match /makeYellow\('scenario_1_3'\)/
   end
   
   it "shows the step status" do
     html.should match 'class="step passed"'
     html.should match 'class="step failed"'
     html.should match 'class="step skipped"'
+    html.should match 'class="step pending"'
   end
 end
 

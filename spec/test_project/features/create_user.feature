@@ -13,3 +13,8 @@ Scenario: Existing User
   Given I am on the Admin page
   When I create a User with an existing id
   Then I should see an error message
+
+Scenario: Invalid User
+  Given I am on the Admin page
+  When I create a User with an empty name
+  Then I should see an error message

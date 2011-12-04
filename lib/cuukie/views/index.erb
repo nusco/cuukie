@@ -29,6 +29,8 @@
               <% scenario['steps'].each do |step| %>
               <% if step['status'] == 'failed' %>
               <script>makeRed('cucumber-header');makeRed('<%= scenario['id'] %>');</script>
+              <% elsif step['status'] == 'pending' %>
+              <script>makeRed('cucumber-header');makeYellow('<%= scenario['id'] %>');</script>
               <% end %>
               <li id="features_" class="step <%= step['status'] %>">
                 <div class="step_name">
