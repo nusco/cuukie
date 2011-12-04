@@ -1,28 +1,20 @@
-# FIXME: why does this fail after loading Bundler?
-require 'rspec/core/rake_task'
+require 'bundler/setup'
 
-require 'bundler'
-begin
-  Bundler.setup(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
+task :default => 'test:specs'
 
-task :default => :spec
+namespace :test do
+  require 'rspec/core/rake_task'
+  desc "Run all specs"
+  RSpec::Core::RakeTask.new(:specs)
 
-desc "Run all specs"
-RSpec::Core::RakeTask.new(:spec)
-
-desc "Run Cuukie (assumes that there is a cuukie_server on the local machine and the default port)"
-task :smoke_test do
-  system "cucumber spec/test_project/features --require spec/test_project/features/step_definitions/ --require lib/cuukie/formatter --format Cuukie --guess"
+  desc "Run Cuukie on the test project (needs a cuukie_server on localhost, default port)"
+  task :smoke do
+    system "cucumber spec/test_project/features --require spec/test_project/features/step_definitions/ --require lib/cuukie/formatter --format Cuukie --guess"
+  end
 end
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "cuukie"
   gem.homepage = "http://github.com/nusco/cuukie"
   gem.license = "MIT"
@@ -30,16 +22,5 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Cuukie shows the result of running Cucumber feature on a remote server.}
   gem.email = "paolo.nusco.perrotta@gmail.com"
   gem.authors = ['Paolo "Nusco" Perrotta']
-  # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
-
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "cuukie #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
