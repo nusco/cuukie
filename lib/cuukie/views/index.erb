@@ -3,7 +3,7 @@
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
     <link rel="stylesheet" type="text/css" href="cucumber.css">
     <script type="text/javascript" src="jquery-1.7.min.js"></script>
-    <script type="text/javascript" src="scenarios.js"></script>
+    <script type="text/javascript" src="cuukie.js"></script>
     <title>Cuukie</title>
   </head>
 
@@ -14,7 +14,7 @@
       </div>
     </div>
     
-    <script>failedColors('cucumber-header')</script>
+    <script><%= @status %>Colors('cucumber-header')</script>
 
     <% @features.each do |feature| %>
       <div class="feature">

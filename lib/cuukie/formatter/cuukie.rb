@@ -29,8 +29,12 @@ class Cuukie
     post 'after_step_result', { 'status' => status }
   end
   
-  def after_steps(steps)
+  def after_steps(*)
     post 'after_steps', {}
+  end
+  
+  def after_features(*)
+    post 'after_features', {}
   end
   
   private

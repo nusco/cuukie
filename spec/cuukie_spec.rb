@@ -1,4 +1,35 @@
-describe 'Cuukie' do
+describe 'The Cuukie header' do
+  before(:all) do
+    start_server
+  end
+  
+  after(:all) do
+    stop_server
+  end
+  
+  it "contains essential information" do
+    run_cucumber
+    html.should match '<h1>Cucumber Features</h1>'
+    html.should match '<title>Cuukie</title>'
+  end
+
+  it "is red if any steps failed" do
+    run_cucumber 'spec/test_project/features/create_user.feature:12'
+    html.should match /failedColors\('cucumber-header'\)/
+  end
+
+  it "is yellow if any steps are pending" do
+    run_cucumber 'spec/test_project/features/create_user.feature:17'
+    html.should match /pendingColors\('cucumber-header'\)/
+  end
+
+  it "is green if all steps passed" do
+    run_cucumber 'spec/test_project/features/create_user.feature:6'
+    html.should match /passedColors\('cucumber-header'\)/
+  end
+end
+
+describe 'The Cuukie content panel' do
   before(:all) do
     start_server
     run_cucumber
@@ -6,11 +37,6 @@ describe 'Cuukie' do
   
   after(:all) do
     stop_server
-  end
-
-  it "shows a html page" do
-    html.should match '<h1>Cucumber Features</h1>'
-    html.should match '<title>Cuukie</title>'
   end
 
   it "cleans up previous data at the beginning of a run" do
@@ -35,24 +61,6 @@ describe 'Cuukie' do
   it "shows the scenario source position" do
     html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;create_user.feature:6<'
   end
-
-  it "assigns a sequential id to scenarios" do
-    html.should match 'id="scenario_1_2"'
-  end
-
-  it "shows the step names" do
-    html.should match '>Given </span><span class="step val">I am on the Admin page</span>'
-    html.should match '>When </span><span class="step val">I create a new User</span>'
-  end
-
-  it "shows the step source position" do
-    html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;step_definitions&#x2F;example_steps.rb:4<'
-  end
-
-  it "shows the test result" do
-     # TODO: right now they're always shown as failing
-     html.should match /failedColors\('cucumber-header'\)/
-  end
   
   it "shows the passed scenarios in green" do
     html.should match /passedColors\('scenario_1_1'\)/
@@ -64,6 +72,19 @@ describe 'Cuukie' do
   
   it "shows the pending scenarios in yellow" do
     html.should match /pendingColors\('scenario_1_3'\)/
+  end
+
+  it "assigns a sequential id to scenarios" do
+    html.should match 'id="scenario_1_2"'
+  end
+
+  it "shows the step names" do
+    html.should match '>Given </span><span class="step val">I am on the Admin page</span>'
+    html.should match '>When </span><span class="step val">I create a new User</span>'
+  end
+  
+  it "shows the step source position" do
+    html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;step_definitions&#x2F;example_steps.rb:4<'
   end
   
   it "shows the step status" do
@@ -107,6 +128,9 @@ def html
   GET('/').body
 end
 
-def run_cucumber
-  system 'cucumber spec/test_project/features --require spec/test_project/features/step_definitions/ --require lib/cuukie/formatter  --format Cuukie --guess'
+def run_cucumber(features = 'spec/test_project/features')
+  system "cucumber #{features} \
+          --require spec/test_project/features/step_definitions/ \
+          --require lib/cuukie/formatter --format Cuukie \
+          --guess"
 end

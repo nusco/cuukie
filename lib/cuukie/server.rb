@@ -5,14 +5,17 @@ module Cuukie
   class Server < Sinatra::Base
     set :port, 4569
     set :features, []
+    set :status, 'undefined'
     
     get '/' do
       @features = settings.features
+      @status = settings.status
       erb :index
     end
 
     post '/before_features' do
       settings.features.clear
+      settings.status = 'undefined'
     end
 
     post '/before_feature' do
@@ -39,19 +42,30 @@ module Cuukie
     end
 
     post '/after_step_result' do
-      current_step.merge! escaped_jsonized_request
+      status = escaped_jsonized_request['status']
+      current_step['status'] = status
+      if status == 'failed'
+        settings.status = 'failed'
+      elsif status == 'pending'
+        settings.status = 'pending'
+      end
       'OK'
     end
 
     post '/after_steps' do
       steps = current_scenario['steps']
-      if steps.find {|step| step['status'] == 'pending' }
-        current_scenario['status'] = 'pending'
-      elsif steps.find {|step| step['status'] == 'failed' }
+      if steps.find {|step| step['status'] == 'failed' }
         current_scenario['status'] = 'failed'
+      elsif steps.find {|step| step['status'] == 'pending' }
+        current_scenario['status'] = 'pending'
       else
         current_scenario['status'] = 'passed'
       end
+      'OK'
+    end
+
+    post '/after_features' do
+      settings.status = 'passed' if settings.status == 'undefined'
       'OK'
     end
     
