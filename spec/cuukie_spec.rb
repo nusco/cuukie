@@ -50,19 +50,20 @@ describe 'Cuukie' do
   end
 
   it "shows the test result" do
-     html.should match /makeRed\('cucumber-header'\)/
+     # TODO: right now they're always shown as failing
+     html.should match /failedColors\('cucumber-header'\)/
   end
   
   it "shows the passed scenarios in green" do
-    html.should match /makeGreen\('scenario_1_1'\)/
+    html.should match /passedColors\('scenario_1_1'\)/
   end
   
   it "shows the failed scenarios in red" do
-    html.should match /makeRed\('scenario_1_2'\)/
+    html.should match /failedColors\('scenario_1_2'\)/
   end
   
   it "shows the pending scenarios in yellow" do
-    html.should match /makeYellow\('scenario_1_3'\)/
+    html.should match /pendingColors\('scenario_1_3'\)/
   end
   
   it "shows the step status" do

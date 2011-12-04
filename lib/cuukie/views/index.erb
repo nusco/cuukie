@@ -13,6 +13,8 @@
         <div id="expand-collapse"><p id="expander">Expand All</p><p id="collapser">Collapse All</p></div>
       </div>
     </div>
+    
+    <script>failedColors('cucumber-header')</script>
 
     <% @features.each do |feature| %>
       <div class="feature">
@@ -25,13 +27,7 @@
             <h3 style="cursor: pointer;" id="<%= scenario['id'] %>">
               <span class="keyword">Scenario: </span><span class="val"><%= scenario['name'] %></span>
             </h3>
-            <% if scenario['status'] == 'failed' %>
-              <script>makeRed('cucumber-header');makeRed('<%= scenario['id'] %>');</script>
-            <% elsif scenario['status'] == 'pending' %>
-              <script>makeRed('cucumber-header');makeYellow('<%= scenario['id'] %>');</script>
-            <% elsif scenario['status'] == 'passed' %>
-              <script>makeGreen('cucumber-header');makeGreen('<%= scenario['id'] %>');</script>
-            <% end %>
+            <script><%= scenario['status'] %>Colors('<%= scenario['id'] %>');</script>
             <ol style="display: block;">
             <% scenario['steps'].each do |step| %>
               <li id="features_" class="step <%= step['status'] %>">
