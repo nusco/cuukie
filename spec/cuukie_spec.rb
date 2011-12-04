@@ -49,6 +49,10 @@ describe 'Cuukie' do
     html.should match '>spec/test_project/features/step_definitions/example_steps.rb:5<'
   end
 
+  it "shows the test result" do
+     html.should match /makeRed\('cucumber-header'\)/
+  end
+  
   it "shows the scenario status" do
     html.should match /makeRed\('scenario_1_2'\)/
     html.should match /makeYellow\('scenario_1_3'\)/
@@ -56,8 +60,6 @@ describe 'Cuukie' do
   
   it "shows the step status" do
     html.should match 'class="step passed"'
-    html.should match 'class="step failed"'
-    html.should match 'class="step skipped"'
     html.should match 'class="step pending"'
   end
 end
@@ -67,7 +69,7 @@ require 'rest-client'
 class Server
   class << self
     def start
-      Process.detach fork { exec "ruby lib/cuukie/server.rb >/dev/null 2>&1" }
+      Process.detach fork { exec "ruby bin/cuukie_server >/dev/null 2>&1" }
 
       # wait until it's up
       loop do
