@@ -1,6 +1,7 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- cleanup
 - jewelized and released first version of gem
 - scenario status, cuukie_server binary
 - struggle to show scenario status (broken tests)
