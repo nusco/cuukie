@@ -50,7 +50,7 @@ describe 'Cuukie' do
   end
 
   it "shows the scenario status" do
-    html.should match "makeRed('scenario_1_2')"
+    html.should match /makeRed\('scenario_1_2'\)/
   end
   
   it "shows the step status" do
