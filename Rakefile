@@ -9,7 +9,11 @@ namespace :test do
 
   desc "Run Cuukie on the test project (needs a cuukie_server on localhost, default port)"
   task :smoke do
-    system "cucumber spec/test_project/features --require spec/test_project/features/step_definitions/ --require lib/cuukie/formatter --format Cuukie --guess"
+    system "cucumber spec/test_project/features \
+            --require spec/test_project/features/step_definitions/ \
+            --require lib/cuukie/formatter \
+            --format Cuukie \
+            --guess"
   end
 end
 

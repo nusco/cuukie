@@ -1,11 +1,11 @@
 describe 'Cuukie' do
   before(:all) do
-    Server.start
+    start_server
     run_cucumber
   end
   
   after(:all) do
-    Server.stop
+    stop_server
   end
 
   it "shows a html page" do
@@ -66,36 +66,33 @@ end
 
 require 'rest-client'
 
-class Server
-  class << self
-    def start
-      Process.detach fork { exec "ruby bin/cuukie_server >/dev/null 2>&1" }
-
-      # wait until it's up
-      loop do
-        begin
-          GET '/ping'
-          return
-        rescue; end
-      end
-    end
-
-    def stop
-      # the server dies without replying, so we expect an error here
-      DELETE '/'
-    rescue
-    end
-
-    def method_missing(name, *args)
-      super unless [:GET, :POST, :PUT, :DELETE].include? name.to_sym
-      args[0] = "http://localhost:4569#{args[0]}"
-      RestClient.send name.downcase, *args
-    end
+[:GET, :POST, :PUT, :DELETE].each do |method|
+  Kernel.send :define_method, method do |*args|
+    args[0] = "http://localhost:4569#{args[0]}"
+    RestClient.send method.downcase, *args
   end
 end
 
+def start_server
+  Process.detach fork { exec "ruby bin/cuukie_server >/dev/null 2>&1" }
+
+  # wait until it's up
+  loop do
+    begin
+      GET '/ping'
+      return
+    rescue; end
+  end
+end
+
+def stop_server
+  # the server dies without replying, so we expect an error here
+  DELETE '/'
+rescue
+end
+
 def html
-  Server.GET('/').body
+  GET('/').body
 end
 
 def run_cucumber
