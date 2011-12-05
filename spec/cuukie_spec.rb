@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe 'Cuukie' do
   before(:all) { start_server }
   after(:all) { stop_server }
@@ -87,33 +89,6 @@ describe 'Cuukie' do
       html.should match 'I pass an &quot;argument&quot;'
     end
   end
-end
-
-require 'rest-client'
-
-[:GET, :POST, :PUT, :DELETE].each do |method|
-  Kernel.send :define_method, method do |*args|
-    args[0] = "http://localhost:4569#{args[0]}"
-    RestClient.send method.downcase, *args
-  end
-end
-
-def start_server
-  Process.detach fork { exec "ruby bin/cuukie_server >/dev/null 2>&1" }
-
-  # wait until it's up
-  loop do
-    begin
-      GET '/ping'
-      return
-    rescue; end
-  end
-end
-
-def stop_server
-  # the server dies without replying, so we expect an error here
-  DELETE '/'
-rescue
 end
 
 def html
