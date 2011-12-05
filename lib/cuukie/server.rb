@@ -30,8 +30,8 @@ module Cuukie
     post '/scenario_name' do
       scenario = read_from_request
       scenario['steps'] = []
-      scenario['id'] = "scenario_#{current_feature['id']}_#{current_scenarios.size + 1}"
-      current_scenarios << scenario
+      scenario['id'] = "scenario_#{current_feature['id']}_#{current_feature['scenarios'].size + 1}"
+      current_feature['scenarios'] << scenario
       'OK'
     end
 
@@ -64,26 +64,14 @@ module Cuukie
     get('/ping') { 'pong!' }
     delete('/') { exit! }
 
-    def current_feature
-      settings.features.last
-    end
-
-    def current_scenarios
-      current_feature['scenarios']
-    end
-
-    def current_scenario
-      current_scenarios.last
-    end
-
-    def current_step
-      current_scenario['steps'].last
-    end
+    def current_feature;  settings.features.last            ;end
+    def current_scenario; current_feature['scenarios'].last ;end
+    def current_step;     current_scenario['steps'].last    ;end
     
     include Rack::Utils
     
     def read_from_request
-      result = JSON.parse(request.body.read)
+      result = JSON.parse request.body.read
       result.each {|k, v| result[k] = escape_html v }
     end
   end
