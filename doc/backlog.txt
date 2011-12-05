@@ -1,0 +1,18 @@
+MMF 0.2
+  - use formatter after installing gem
+  - deal with Scenario Examples
+  - show tables in Scenarios
+  - show wrap-up for Scenarios
+  - show wrap-up for Steps
+  - show running time
+  - configure server and port
+MMF 0.3
+  - show incomplete results
+  - show undefined Scenarios/suite
+  - show undefined Steps
+MMF 1.0
+  - nice graphics
+  - self-updating Steps
+  - self-updating Scenarios
+  - self-updating suite
+  - self-updating running time
