@@ -1,5 +1,4 @@
 MMF 0.3
-  - updated README
   - deal with Scenario Examples
   - show tables in Scenarios
   - show wrap-up for Scenarios

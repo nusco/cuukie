@@ -16,7 +16,7 @@ Require Cuukie from any file in your _features/support_ directory:
 
     require 'cuukie'
 
-Start the Cuukie server from a terminal window:
+Start the Cuukie server from a terminal window and leave it running:
 
     cuukie_server
 
