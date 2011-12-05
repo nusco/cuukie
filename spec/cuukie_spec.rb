@@ -9,19 +9,19 @@ describe 'Cuukie' do
       html.should match '<title>Cuukie</title>'
     end
 
+    it "is green if all steps passed" do
+      run_cucumber '1_visualize_scenarios.feature:9'
+      html.should match /passedColors\('cucumber-header'\)/
+    end
+
     it "is red if any steps failed" do
-      run_cucumber 'visualize_scenarios.feature'
+      run_cucumber '1_visualize_scenarios.feature'
       html.should match /failedColors\('cucumber-header'\)/
     end
 
     it "is yellow if no steps failed but some are pending" do
-      run_cucumber 'visualize_scenarios.feature:17'
+      run_cucumber '1_visualize_scenarios.feature:19'
       html.should match /pendingColors\('cucumber-header'\)/
-    end
-
-    it "is green if all steps passed" do
-      run_cucumber 'visualize_scenarios.feature:6'
-      html.should match /passedColors\('cucumber-header'\)/
     end
   end
 
@@ -42,33 +42,37 @@ describe 'Cuukie' do
       html.should match '>As a Cuker<br/>I want to visualize Scenarios and Steps<br/>So that I know which steps are not passing<bbr/r><'
     end
 
+    it "shows the background names" do
+      html.should match '>Background: </span><span class="val">Common Steps<'
+    end
+
     it "shows the scenario names" do
       html.should match '>Scenario: </span><span class="val">Passing Scenario<'
       html.should match '>Scenario: </span><span class="val">Failing Scenario<'
     end
 
     it "shows the scenario source position" do
-      html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;visualize_scenarios.feature:6<'
+      html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;1_visualize_scenarios.feature:9<'
     end
   
     it "shows the passed scenarios in green" do
-      html.should match /passedColors\('scenario_2_1'\)/
+      html.should match /passedColors\('scenario_1_2'\)/
     end
   
     it "shows the failed scenarios in red" do
-      html.should match /failedColors\('scenario_2_2'\)/
+      html.should match /failedColors\('scenario_1_3'\)/
     end
   
     it "shows the pending scenarios in yellow" do
-      html.should match /pendingColors\('scenario_2_3'\)/
+      html.should match /pendingColors\('scenario_1_4'\)/
     end
 
     it "assigns a sequential id to scenarios" do
-      html.should match 'id="scenario_2_2"'
+      html.should match 'id="scenario_1_3"'
     end
 
     it "shows the step names" do
-      html.should match '>Given </span><span class="step val">I did something</span>'
+      html.should match '>And </span><span class="step val">I do something</span>'
       html.should match '>When </span><span class="step val">I do something else</span>'
     end
   

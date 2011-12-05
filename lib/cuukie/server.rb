@@ -27,6 +27,14 @@ module Cuukie
       'OK'
     end
 
+    post '/background_name' do
+      scenario = read_from_request
+      scenario['steps'] = []
+      scenario['id'] = "scenario_#{current_feature['id']}_#{current_feature['scenarios'].size + 1}"
+      current_feature['scenarios'] << scenario
+      'OK'
+    end
+
     post '/scenario_name' do
       scenario = read_from_request
       scenario['steps'] = []

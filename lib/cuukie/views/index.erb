@@ -25,7 +25,7 @@
           <div class="scenario">
             <span style="display: block;" class="scenario_file"><%= scenario['file_colon_line'] %></span>
             <h3 style="cursor: pointer;" id="<%= scenario['id'] %>">
-              <span class="keyword">Scenario: </span><span class="val"><%= scenario['name'] %></span>
+              <span class="keyword"><%= scenario['keyword'] %>: </span><span class="val"><%= scenario['name'] %></span>
             </h3>
             <script><%= scenario['status'] %>Colors('<%= scenario['id'] %>');</script>
             <ol style="display: block;">
