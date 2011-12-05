@@ -1,5 +1,4 @@
 MMF 0.2
-  - use formatter after installing gem
   - updated README
   - deal with Scenario Examples
   - show tables in Scenarios
