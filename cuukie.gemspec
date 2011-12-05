@@ -5,16 +5,15 @@
 
 Gem::Specification.new do |s|
   s.name = "cuukie"
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paolo \"Nusco\" Perrotta"]
-  s.date = "2011-12-04"
-  s.description = "Cuukie shows the result of running Cucumber feature on a remote server."
+  s.date = "2011-12-05"
+  s.description = "Shows Cucumber results on a web page as they run."
   s.email = "paolo.nusco.perrotta@gmail.com"
   s.executables = ["cuukie_server"]
   s.extra_rdoc_files = [
-    "LICENSE.txt",
     "README.markdown"
   ]
   s.files = [
@@ -22,24 +21,29 @@ Gem::Specification.new do |s|
     ".rspec",
     ".travis.yml",
     "Gemfile",
-    "LICENSE.txt",
     "README.markdown",
     "Rakefile",
     "VERSION",
     "bin/cuukie_server",
     "cuukie.gemspec",
-    "lib/cuukie/formatter/cuukie.rb",
+    "doc/LICENSE.txt",
+    "doc/backlog.txt",
+    "doc/pomodoro.txt",
+    "lib/cuukie.rb",
+    "lib/cuukie/cucumber/formatter/cuukie.rb",
     "lib/cuukie/public/cucumber.css",
     "lib/cuukie/public/cuukie.js",
     "lib/cuukie/public/jquery-1.7.min.js",
     "lib/cuukie/server.rb",
     "lib/cuukie/views/index.erb",
-    "pomodoro.txt",
+    "lib/test.rb",
     "spec/commands_spec.rb",
     "spec/cuukie_spec.rb",
-    "spec/test_project/features/create_user.feature",
-    "spec/test_project/features/delete_user.feature",
-    "spec/test_project/features/step_definitions/example_steps.rb"
+    "spec/test_project/features/1_visualize_scenarios.feature",
+    "spec/test_project/features/2_multiple_features.feature",
+    "spec/test_project/features/3_failed_background.feature",
+    "spec/test_project/features/step_definitions/example_steps.rb",
+    "spec/test_project/features/support/formatters.rb"
   ]
   s.homepage = "http://github.com/nusco/cuukie"
   s.licenses = ["MIT"]
