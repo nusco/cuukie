@@ -14,8 +14,8 @@ Scenario: Passing Scenario
 
 Scenario: Failing Scenario
   When I do something that results in an error
-  Then I the entire Scenario should fail
+  Then the entire Scenario should fail
 
 Scenario: Pending Scenario
   When I call a pending Step
-  Then I the entire Scenario should be pending
+  Then the entire Scenario should be pending

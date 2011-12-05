@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-$:.unshift(File.dirname(__FILE__) + '/../lib') unless $:.include?(File.dirname(__FILE__) + '/../lib')
+lib = File.dirname(__FILE__) + '/../lib'
+$:.unshift lib unless $:.include? lib
 
 require 'cuukie/server'
 Cuukie::Server.run!

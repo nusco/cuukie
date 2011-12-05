@@ -9,11 +9,8 @@ namespace :test do
 
   desc "Run Cuukie on the test project (needs a cuukie_server on localhost, default port)"
   task :smoke do
-    system "cucumber spec/test_project/features \
-            --require spec/test_project/features/step_definitions/ \
-            --require lib/cuukie/formatter \
-            --format Cuukie \
-            --guess"
+    system "cd spec/test_project && \
+            cucumber --format cuukie --guess"
   end
 end
 
@@ -23,7 +20,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/nusco/cuukie"
   gem.license = "MIT"
   gem.summary = %Q{A continuous view on Cucumber features}
-  gem.description = %Q{Cuukie shows the result of running Cucumber feature on a remote server.}
+  gem.description = %Q{Shows Cucumber results on a web page as they run.}
   gem.email = "paolo.nusco.perrotta@gmail.com"
   gem.authors = ['Paolo "Nusco" Perrotta']
 end

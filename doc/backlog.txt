@@ -1,12 +1,18 @@
 MMF 0.2
   - use formatter after installing gem
+  - updated README
   - deal with Scenario Examples
   - show tables in Scenarios
   - show wrap-up for Scenarios
   - show wrap-up for Steps
   - show running time
   - configure server and port
+  - work with Ruby 1.8.7
+  - fail gracefully when cuukie_server is down
 MMF 0.3
+  - show exceptions
+  - show code snippets
+MMF 0.4
   - show incomplete results
   - show undefined Scenarios/suite
   - show undefined Steps

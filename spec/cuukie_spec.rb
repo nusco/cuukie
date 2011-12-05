@@ -48,7 +48,7 @@ describe 'Cuukie' do
     end
 
     it "shows the scenario source position" do
-      html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;1_visualize_scenarios.feature:9<'
+      html.should match '>features&#x2F;1_visualize_scenarios.feature:9<'
     end
   
     it "shows the passed scenarios in green" do
@@ -75,7 +75,7 @@ describe 'Cuukie' do
     end
   
     it "shows the step source position" do
-      html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;step_definitions&#x2F;example_steps.rb:4<'
+      html.should match '>features&#x2F;step_definitions&#x2F;example_steps.rb:4<'
     end
   
     it "shows the step status" do
@@ -121,8 +121,8 @@ def html
 end
 
 def run_cucumber(feature = '')
-  system "cucumber spec/test_project/features/#{feature} \
-          --require spec/test_project/features/step_definitions/ \
-          --require lib/cuukie/formatter --format Cuukie \
+  system "cd spec/test_project &&
+          cucumber features/#{feature} \
+          --format cuukie \
           --guess"
 end
