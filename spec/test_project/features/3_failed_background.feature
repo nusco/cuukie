@@ -11,5 +11,5 @@ Scenario: Skipped Scenario
   Then the entire Scenario should be skipped anyway
 
 Scenario: Another Skipped Scenario
-  When I do something
+  When I do something else
   Then the entire Scenario should be skipped anyway

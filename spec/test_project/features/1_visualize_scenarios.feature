@@ -4,7 +4,7 @@ Feature: Visualize Scenarios
   So that I know which steps are not passing
 
 Background: Common Steps
-  Given I do something for every Scenario
+  Given I execute a Background step
 
 Scenario: Passing Scenario
   And I do something
