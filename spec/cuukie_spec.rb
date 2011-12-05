@@ -55,20 +55,20 @@ describe 'Cuukie' do
       html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;1_visualize_scenarios.feature:9<'
     end
   
-    it "shows the passed scenarios in green" do
-      html.should match /passedColors\('scenario_1_2'\)/
+    it "shows the passed feature elements in green" do
+      html.should match /passedColors\('fe_1_2'\)/
     end
   
-    it "shows the failed scenarios in red" do
-      html.should match /failedColors\('scenario_1_3'\)/
+    it "shows the failed feature elements in red" do
+      html.should match /failedColors\('fe_1_3'\)/
     end
   
-    it "shows the pending scenarios in yellow" do
-      html.should match /pendingColors\('scenario_1_4'\)/
+    it "shows the pending feature elements in yellow" do
+      html.should match /pendingColors\('fe_1_4'\)/
     end
 
-    it "assigns a sequential id to scenarios" do
-      html.should match 'id="scenario_1_3"'
+    it "assigns a sequential id to feature elements" do
+      html.should match 'id="fe_1_3"'
     end
 
     it "shows the step names" do

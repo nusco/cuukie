@@ -21,7 +21,7 @@
         <h2><span class="val">Feature: <%= feature['short_name'] %></span></h2>
         <p class="narrative"><%= feature['description'].join '<br/>' %><bbr/r></p>
         
-        <% feature['scenarios'].each do |scenario| %>
+        <% feature['elements'].each do |scenario| %>
           <div class="scenario">
             <span style="display: block;" class="scenario_file"><%= scenario['file_colon_line'] %></span>
             <h3 style="cursor: pointer;" id="<%= scenario['id'] %>">
