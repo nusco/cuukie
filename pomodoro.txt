@@ -2,6 +2,7 @@ I use this file to track my own work on the project. Each line is a pomodoro (a 
 Latest pomodoro comes first:
 
 - show backgrounds
+- show backgrounds
 - refactor build status
 - status for entire suite
 - better scenario status

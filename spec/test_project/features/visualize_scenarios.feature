@@ -3,8 +3,11 @@ Feature: Visualize Scenarios
   I want to visualize Scenarios and Steps
   So that I know which steps are not passing
 
+Background: Common Steps
+  Given I do something for every Scenario
+
 Scenario: Passing Scenario
-  Given I did something
+  And I do something
   When I do something else
   And I pass an "argument"
   Then the entire Scenario should pass
