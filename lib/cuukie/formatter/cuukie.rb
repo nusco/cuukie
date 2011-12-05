@@ -13,12 +13,6 @@ class Cuukie
     post 'before_feature', { 'short_name' => feature.short_name,
                              'description' => feature.description }
   end
-
-  def background_name(keyword, name, file_colon_line, source_indent)
-    post 'background_name', { 'keyword' => keyword,
-                              'name' => name,
-                              'file_colon_line' => file_colon_line }
-  end
   
   def scenario_name(keyword, name, file_colon_line, source_indent)
     post 'scenario_name', { 'keyword' => keyword,

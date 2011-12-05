@@ -9,17 +9,17 @@ describe 'Cuukie' do
       html.should match '<title>Cuukie</title>'
     end
 
-    it "is green if all steps passed" do
+    it "is green if all scenarios passed" do
       run_cucumber '1_visualize_scenarios.feature:9'
       html.should match /passedColors\('cucumber-header'\)/
     end
 
-    it "is red if any steps failed" do
+    it "is red if any scenario failed" do
       run_cucumber '1_visualize_scenarios.feature'
       html.should match /failedColors\('cucumber-header'\)/
     end
 
-    it "is yellow if no steps failed but some are pending" do
+    it "is yellow if no scenarios failed but some are pending" do
       run_cucumber '1_visualize_scenarios.feature:19'
       html.should match /pendingColors\('cucumber-header'\)/
     end
@@ -42,10 +42,6 @@ describe 'Cuukie' do
       html.should match '>As a Cuker<br/>I want to visualize Scenarios and Steps<br/>So that I know which steps are not passing<bbr/r><'
     end
 
-    it "shows the background names" do
-      html.should match '>Background: </span><span class="val">Common Steps<'
-    end
-
     it "shows the scenario names" do
       html.should match '>Scenario: </span><span class="val">Passing Scenario<'
       html.should match '>Scenario: </span><span class="val">Failing Scenario<'
@@ -55,20 +51,22 @@ describe 'Cuukie' do
       html.should match '>spec&#x2F;test_project&#x2F;features&#x2F;1_visualize_scenarios.feature:9<'
     end
   
-    it "shows the passed feature elements in green" do
-      html.should match /passedColors\('fe_1_2'\)/
+    it "shows the passed scenarios in green" do
+      html.should match /passedColors\('scenario_1_1'\)/
     end
   
-    it "shows the failed feature elements in red" do
-      html.should match /failedColors\('fe_1_3'\)/
+    it "shows the failed scenarios in red" do
+      html.should match /failedColors\('scenario_3_1'\)/
     end
   
-    it "shows the pending feature elements in yellow" do
-      html.should match /pendingColors\('fe_1_4'\)/
+    it "shows the skipped scenarios in yellow" do
+      # This can happen if there is an error in a Background step.
+      # In this case, all the scenarios past the first one are skipped.
+      html.should match /skippedColors\('scenario_3_2'\)/
     end
 
     it "assigns a sequential id to feature elements" do
-      html.should match 'id="fe_1_3"'
+      html.should match 'id="scenario_1_2"'
     end
 
     it "shows the step names" do
