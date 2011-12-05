@@ -2,6 +2,7 @@ I use this file to track my own work on the project. Each line is a pomodoro (a 
 Latest pomodoro comes first:
 
 - working formatter out of gem
+- working formatter out of gem
 - show skipped scenarios
 - show backgrounds
 - show backgrounds
