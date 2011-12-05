@@ -90,14 +90,3 @@ describe 'Cuukie' do
     end
   end
 end
-
-def html
-  GET('/').body
-end
-
-def run_cucumber(feature = '')
-  system "cd spec/test_project &&
-          cucumber features/#{feature} \
-          --format cuukie \
-          --guess"
-end

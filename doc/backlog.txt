@@ -6,7 +6,6 @@ MMF 0.3
   - show running time
   - configure server and port
   - work with Ruby 1.8.7
-  - fail gracefully when cuukie_server is down
 MMF 0.4
   - show exceptions
   - show code snippets

@@ -4,6 +4,13 @@ def start_process(command)
   Process.detach fork { exec command }
 end
 
+def run_cucumber(feature = '')
+  system "cd spec/test_project &&
+          cucumber features/#{feature} \
+          --format cuukie \
+          --guess"
+end
+
 require 'rest-client'
 
 [:GET, :POST, :PUT, :DELETE].each do |method|
@@ -31,4 +38,8 @@ def stop_server
   # the server dies without replying, so we expect an error here
   DELETE '/'
 rescue
+end
+
+def html
+  GET('/').body
 end

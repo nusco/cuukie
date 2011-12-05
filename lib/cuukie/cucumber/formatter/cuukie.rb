@@ -5,6 +5,11 @@ module Cucumber
   module Formatter
     class Cuukie
       def initialize(step_mother, io, options)
+        ping
+      rescue
+        puts 'I cannot find the cuukie_server on localhost:4569.'
+        puts 'Please start the server with the cuukie_server command.'
+        exit
       end
 
       def before_features(features)
@@ -44,6 +49,10 @@ module Cucumber
   
       def post(url, params = {})
         RestClient.post "http://localhost:4569/#{url}", params.to_json
+      end
+      
+      def ping
+        RestClient.get "http://localhost:4569/ping"
       end
     end
   end
