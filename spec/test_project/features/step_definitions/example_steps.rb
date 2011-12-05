@@ -1,11 +1,11 @@
-When /^I press "([^"]*)"$/ do |button|
+When /^I pass an "([^"]*)"$/ do |argument|
 end
 
-When /I create a User with an existing id/ do
+When /I do something that results in an error/ do
   raise "Crash!"
 end
 
-When /I create a User with an empty name/ do
+When /I call a pending Step/ do
   pending
 end
 
