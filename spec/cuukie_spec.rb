@@ -50,7 +50,7 @@ describe 'Cuukie' do
     end
 
     it "shows the scenario source position" do
-      html.should match '>features&#x2F;1_visualize_scenarios.feature:9<'
+      html.should match '>features&#x2F;1_visualize_scenarios.feature:'
     end
   
     it "shows the passed scenarios in green" do
@@ -77,7 +77,7 @@ describe 'Cuukie' do
     end
   
     it "shows the step source position" do
-      html.should match '>features&#x2F;step_definitions&#x2F;example_steps.rb:7<'
+      html.should match '>features&#x2F;step_definitions&#x2F;example_steps.rb:'
     end
   
     it "shows the step status" do

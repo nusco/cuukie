@@ -4,7 +4,6 @@ MMF 0.3
   - show wrap-up for Steps
   - show running time
   - configure server and port
-  - work with Ruby 1.8.7
 MMF 0.4
   - show exceptions
   - show code snippets
@@ -21,5 +20,24 @@ MMF 1.0
 MMF 1.0
   - deal with Scenario Examples
   - show tags
+
 Then...
-  - show status for each table row
+
+- show status for each table row (table rows have an
+  associated status in Cucumber formatters, and the
+  HTML formatter seems to take advantage of this. Why?
+  And what consequences does this have on the way
+  Scenario status is calculated in Cuukie?)
+  
+- find better way to manage Scenario/Step status (Cuukie
+  calculates the status of Scenarios with a few ugly
+  ifs and other dirty tricks. Maybe that information
+  is already known to the formatter, and it's
+  just a matter of using the right formatter events?)
+  
+- check rbx bug (interestingly, Rubynius has a different
+  idea of where a "step" is. it seems to return different
+  lines for steps than other rubies. I removed the line
+  numbers from tests b/c of this, and b/c they made the
+  tests fragile. Try to put back the line numbers,
+  and test under rbx)
