@@ -4,7 +4,7 @@ require 'json'
 module Cucumber
   module Formatter
     class Cuukie
-      def initialize(step_mother, io, options)
+      def initialize(*)
         ping
       rescue
         puts 'I cannot find the cuukie_server on localhost:4569.'

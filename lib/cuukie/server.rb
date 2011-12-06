@@ -6,17 +6,22 @@ module Cuukie
     set :port, 4569
     set :features, []
     set :build_status, nil
+    set :stats, {:scenarios => '', :steps => ''}
     set :duration, '?'
     
     get '/' do
       @features     = settings.features
       @build_status = settings.build_status
       @duration     = settings.duration
+      @stats        = settings.stats
       erb :index
     end
 
     post '/before_features' do
       settings.features.clear
+      settings.build_status = nil
+      settings.stats = {:scenarios => '', :steps => ''}
+      settings.duration = '?'
       settings.build_status = nil
     end
 
@@ -85,6 +90,7 @@ module Cuukie
       min, sec = data['duration'].to_f.divmod(60)
       settings.duration = "#{min}m#{'%.3f' % sec}s" 
       settings.build_status ||= 'passed'
+      settings.stats = stats
       'OK'
     end
 
@@ -108,12 +114,41 @@ module Cuukie
       current_scenario['steps'].last
     end
     
+    def stats
+      scenarios = []
+      settings.features.each {|feature| scenarios.concat feature['scenarios'] }
+
+      result = {:scenarios => String.new, :steps => String.new}
+      result[:scenarios] << dump_count(scenarios.size, "scenario")
+      result[:scenarios] << counts(scenarios)
+      
+      steps = []
+      scenarios.each {|scenario| steps.concat scenario['steps'] }
+      result[:steps] << dump_count(steps.size, "step")
+      step_count = counts steps
+      result[:steps] << step_count if step_count
+      result
+    end
+    
+    # shamelessly ripped from Cucumber's HTML formatter
+    def counts(elements)
+      counts = ['failed', 'skipped', 'undefined', 'pending', 'passed'].map do |status|
+        selected = elements.find_all {|element| element['status'] == status }
+        selected.any? ? "#{selected.size} #{status}" : nil
+      end.compact
+      counts.any? ? " (#{counts.join(', ')})" : ''
+    end
+
+    # also shamelessly ripped from Cucumber's HTML formatter
+    def dump_count(count, what, state=nil)
+      [count, state, "#{what}#{count == 1 ? '' : 's'}"].compact.join(' ')
+    end    
+    
     include Rack::Utils
     
     def read_from_request
       result = JSON.parse request.body.read
       result.each {|k, v| result[k] = escape_html v }
     end
-    
   end
 end

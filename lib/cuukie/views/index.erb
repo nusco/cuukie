@@ -10,7 +10,7 @@
   <body>
     <div class="cucumber"><div id="cucumber-header"><div id="label"><h1>Cucumber Features</h1></div>
       <div id="summary">
-        <!--<p id="totals"></p>-->
+        <p id="stats"></p>
         <p id="duration"></p>
         <div id="expand-collapse"><p id="expander">Expand All</p><p id="collapser">Collapse All</p></div>
       </div>
@@ -60,6 +60,9 @@
     <% end %>
     <script type="text/javascript">
       document.getElementById('duration').innerHTML = "Finished in <strong><%= @duration %> seconds</strong>";
+    </script>
+    <script type="text/javascript">
+      document.getElementById('stats').innerHTML = "<%= @stats[:scenarios] %><br/><%= @stats[:steps] %>";
     </script>
   </div>
   </body>

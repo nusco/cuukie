@@ -101,5 +101,11 @@ describe 'Cuukie' do
     it "shows total duration" do
       html.should match /Finished in <strong>\d+m\d+\.\d+s seconds<\/strong>/
     end
+    
+    it "shows end-of-features stats" do
+      run_cucumber '1_show_scenarios.feature'
+      html.should match /3 scenarios \(1 failed, 1 pending, 1 passed\)/
+      html.should match /11 steps \(1 failed, 2 skipped, 1 pending, 7 passed\)/
+    end
   end
 end
