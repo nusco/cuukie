@@ -77,6 +77,12 @@ module Cuukie
       'OK'
     end
     
+    post '/doc_string' do
+      data = read_from_request
+      current_step['multiline_string'] = data['multiline_string']
+      'OK'
+    end
+    
     get('/ping') { 'pong!' }
     delete('/') { exit! }
     

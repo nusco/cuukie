@@ -12,17 +12,17 @@ describe 'Cuukie' do
     end
 
     it "is green if all scenarios passed" do
-      run_cucumber '1_visualize_scenarios.feature:9'
+      run_cucumber '1_show_scenarios.feature:9'
       html.should match /passedColors\('cucumber-header'\)/
     end
 
     it "is red if any scenario failed" do
-      run_cucumber '1_visualize_scenarios.feature'
+      run_cucumber '1_show_scenarios.feature'
       html.should match /failedColors\('cucumber-header'\)/
     end
 
     it "is yellow if no scenarios failed but some are pending" do
-      run_cucumber '1_visualize_scenarios.feature:19'
+      run_cucumber '1_show_scenarios.feature:19'
       html.should match /pendingColors\('cucumber-header'\)/
     end
   end
@@ -50,7 +50,7 @@ describe 'Cuukie' do
     end
 
     it "shows the scenario source position" do
-      html.should match '>features&#x2F;1_visualize_scenarios.feature:'
+      html.should match '>features&#x2F;1_show_scenarios.feature:'
     end
   
     it "shows the passed scenarios in green" do
@@ -92,6 +92,10 @@ describe 'Cuukie' do
     it "shows tables in steps" do
       html.should match '<td class="step" id="row_-0_0"><div><span class="step param">x</span></div></td>'
       html.should match '<td class="step" id="row_-2_1"><div><span class="step param">22</span></div></td>'
+    end
+    
+    it "shows multiline strings in steps" do
+      html.should match '<pre class=\"val\">  Cuukie is sweet!\n  Let&#x27;s try it out.</pre>'
     end
   end
 end

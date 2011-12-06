@@ -54,6 +54,10 @@ module Cucumber
         post 'table_cell_value', { 'value' => value }
       end
       
+      def doc_string(string)
+        post 'doc_string', { 'multiline_string' => string }
+      end
+      
       private
   
       def post(url, params = {})

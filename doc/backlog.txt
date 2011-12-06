@@ -1,5 +1,4 @@
 MMF 0.3
-  - show multiline strings in Scenarios
   - show wrap-up for Scenarios
   - show wrap-up for Steps
   - show running time
@@ -11,17 +10,24 @@ MMF 0.5
   - show incomplete results
   - show undefined Scenarios/suite
   - show undefined Steps
+  - show incomplete wrap-up for steps/scenarios
+  - show incomplete running time
+MMF 0.6
+  - deal with Scenario Examples
 MMF 1.0
   - nice graphics
   - self-updating Steps
   - self-updating Scenarios
   - self-updating suite
+  - self-updating scenario wrap-up
+  - self-updating step wrap-up
   - self-updating running time
-MMF 1.0
-  - deal with Scenario Examples
-  - show tags
 
 Then...
+
+- show tags
+
+- filter by tag
 
 - show status for each table row (table rows have an
   associated status in Cucumber formatters, and the

@@ -46,6 +46,9 @@
                   <% end %>
                   </table>
                 <% end %>
+                <% if step['multiline_string'] %>
+                  <pre class="val"><%= step['multiline_string'] %></pre>
+                <% end %>
               </li>
             <% end %>
             </ol>

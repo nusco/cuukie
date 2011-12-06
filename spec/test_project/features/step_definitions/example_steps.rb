@@ -20,3 +20,5 @@ Then /^the entire Scenario should pass$/ do; end
 Then /^the entire Scenario should fail$/ do; end
 Then /^the entire Scenario should be pending$/ do; end
 Then /^the entire Scenario should be skipped anyway$/ do; end
+Then /^Cuukie should be OK with it$/ do; end
+Given /^I say$/ do |smart_stuff|; end
