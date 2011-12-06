@@ -1,6 +1,5 @@
 MMF 0.3
   - show multiline strings in Scenarios
-  - fix arguments in step (currently the test step is matched to the generic step, not the arg step!)
   - show wrap-up for Scenarios
   - show wrap-up for Steps
   - show running time

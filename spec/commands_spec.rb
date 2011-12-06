@@ -10,7 +10,7 @@ end
 
 describe "The cuukie formatter" do
   it "fails gracefully if the server is down" do
-    cmd = "cd spec/test_project && cucumber --format cuukie --guess >/dev/null 2>&1"
+    cmd = "cd spec/test_project && cucumber --format cuukie >/dev/null 2>&1"
     system(cmd).should be_true
   end
 end

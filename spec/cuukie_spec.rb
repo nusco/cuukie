@@ -77,7 +77,7 @@ describe 'Cuukie' do
     end
   
     it "shows the step source position" do
-      html.should match '>features&#x2F;step_definitions&#x2F;example_steps.rb:8<'
+      html.should match '>features&#x2F;step_definitions&#x2F;example_steps.rb:7<'
     end
   
     it "shows the step status" do

@@ -6,9 +6,7 @@ end
 
 def run_cucumber(feature = '')
   system "cd spec/test_project &&
-          cucumber features/#{feature} \
-          --format cuukie \
-          --guess"
+          cucumber features/#{feature} --format cuukie"
 end
 
 require 'rest-client'
