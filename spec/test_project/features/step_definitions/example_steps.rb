@@ -1,4 +1,8 @@
+Given /^the following table$/ do |table|
+end
+
 When /^I pass an "([^"]*)"$/ do |argument|
+  raise 'x'
 end
 
 When /I do something that results in an error/ do

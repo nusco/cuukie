@@ -1,6 +1,7 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- support for tables
 - fail gracefully when cuukie_server is down
 - working formatter out of gem (DONE)
 - working formatter out of gem

@@ -35,6 +35,17 @@
                   <span class="keyword"><%= step['keyword'] %></span><span class="step val"><%= step['name'] %></span>
                 </div>
                 <div class="step_file"><span><%= step['file_colon_line'] %></span></div>
+                <% unless step['table'].empty? %>
+                  <table>
+                  <% step['table'].each_with_index do |rowdata, row| %>
+                    <tr class='step' id='row_-<%= row %>'>
+                    <% rowdata.each_with_index do |value, col| %>
+                      <td class="step" id="row_-<%= row %>_<%= col %>"><div><span class="step param"><%= value %></span></div></td>
+                    <% end %>
+                    </tr>
+                  <% end %>
+                  </table>
+                <% end %>
               </li>
             <% end %>
             </ol>

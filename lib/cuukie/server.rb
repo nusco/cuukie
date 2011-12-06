@@ -36,7 +36,9 @@ module Cuukie
     end
 
     post '/before_step_result' do
-      current_scenario['steps'] << read_from_request
+      step = read_from_request
+      step['table'] = []
+      current_scenario['steps'] << step
       'OK'
     end
 
@@ -61,6 +63,17 @@ module Cuukie
 
     post '/after_features' do
       settings.build_status ||= 'passed'
+      'OK'
+    end
+    
+    post '/before_table_row' do
+      current_step['table'] << []
+      'OK'
+    end
+    
+    post '/table_cell_value' do
+      data = read_from_request
+      current_step['table'].last << data['value']
       'OK'
     end
     

@@ -17,6 +17,7 @@ module Cucumber
       end
 
       def before_feature(feature)
+        # TODO: use symbols as hash keys?
         post 'before_feature', { 'short_name' => feature.short_name,
                                  'description' => feature.description }
       end
@@ -44,7 +45,15 @@ module Cucumber
       def after_features(*)
         post 'after_features'
       end
-  
+
+      def before_table_row(table_row)
+        post 'before_table_row'
+      end
+      
+      def table_cell_value(value, status)
+        post 'table_cell_value', { 'value' => value }
+      end
+      
       private
   
       def post(url, params = {})

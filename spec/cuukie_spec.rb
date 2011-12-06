@@ -77,7 +77,7 @@ describe 'Cuukie' do
     end
   
     it "shows the step source position" do
-      html.should match '>features&#x2F;step_definitions&#x2F;example_steps.rb:4<'
+      html.should match '>features&#x2F;step_definitions&#x2F;example_steps.rb:8<'
     end
   
     it "shows the step status" do
@@ -85,8 +85,13 @@ describe 'Cuukie' do
       html.should match 'class="step pending"'
     end
   
-    it "escapes step names" do
+    it "escapes HTML output" do
       html.should match 'I pass an &quot;argument&quot;'
+    end
+    
+    it "shows tables in steps" do
+      html.should match '<td class="step" id="row_-0_0"><div><span class="step param">x</span></div></td>'
+      html.should match '<td class="step" id="row_-2_1"><div><span class="step param">22</span></div></td>'
     end
   end
 end

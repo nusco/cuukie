@@ -17,5 +17,9 @@ Scenario: Failing Scenario
   Then the entire Scenario should fail
 
 Scenario: Pending Scenario
+  And the following table
+    | x  | y  |
+    | 1  | 2  |
+    | 11 | 22 |
   When I call a pending Step
   Then the entire Scenario should be pending

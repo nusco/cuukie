@@ -1,5 +1,6 @@
 MMF 0.3
-  - show tables in Scenarios
+  - show multiline strings in Scenarios
+  - fix arguments in step (currently the test step is matched to the generic step, not the arg step!)
   - show wrap-up for Scenarios
   - show wrap-up for Steps
   - show running time
@@ -21,3 +22,5 @@ MMF 1.0
 MMF 1.0
   - deal with Scenario Examples
   - show tags
+Then...
+  - show status for each table row
