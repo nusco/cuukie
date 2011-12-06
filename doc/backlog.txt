@@ -1,7 +1,6 @@
 MMF 0.3
   - show wrap-up for Scenarios
   - show wrap-up for Steps
-  - show running time
   - configure server and port
 MMF 0.4
   - show exceptions

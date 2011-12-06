@@ -6,10 +6,12 @@ module Cuukie
     set :port, 4569
     set :features, []
     set :build_status, nil
+    set :duration, '?'
     
     get '/' do
-      @features = settings.features
+      @features     = settings.features
       @build_status = settings.build_status
+      @duration     = settings.duration
       erb :index
     end
 
@@ -60,11 +62,6 @@ module Cuukie
       current_scenario['status'] ||= 'passed'
       'OK'
     end
-
-    post '/after_features' do
-      settings.build_status ||= 'passed'
-      'OK'
-    end
     
     post '/before_table_row' do
       current_step['table'] << []
@@ -83,6 +80,14 @@ module Cuukie
       'OK'
     end
     
+    post '/after_features' do
+      data = read_from_request
+      min, sec = data['duration'].to_f.divmod(60)
+      settings.duration = "#{min}m#{'%.3f' % sec}s" 
+      settings.build_status ||= 'passed'
+      'OK'
+    end
+
     get('/ping') { 'pong!' }
     delete('/') { exit! }
     
@@ -109,5 +114,6 @@ module Cuukie
       result = JSON.parse request.body.read
       result.each {|k, v| result[k] = escape_html v }
     end
+    
   end
 end

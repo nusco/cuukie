@@ -9,7 +9,9 @@
 
   <body>
     <div class="cucumber"><div id="cucumber-header"><div id="label"><h1>Cucumber Features</h1></div>
-      <div id="summary"><!--<p id="totals"></p><p id="duration"></p>-->
+      <div id="summary">
+        <!--<p id="totals"></p>-->
+        <p id="duration"></p>
         <div id="expand-collapse"><p id="expander">Expand All</p><p id="collapser">Collapse All</p></div>
       </div>
     </div>
@@ -56,6 +58,9 @@
         <% end %>
       </div>
     <% end %>
+    <script type="text/javascript">
+      document.getElementById('duration').innerHTML = "Finished in <strong><%= @duration %> seconds</strong>";
+    </script>
   </div>
   </body>
 </html>

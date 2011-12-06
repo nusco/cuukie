@@ -41,10 +41,6 @@ module Cucumber
       def after_steps(*)
         post 'after_steps'
       end
-  
-      def after_features(*)
-        post 'after_features'
-      end
 
       def before_table_row(table_row)
         post 'before_table_row'
@@ -58,6 +54,10 @@ module Cucumber
         post 'doc_string', { 'multiline_string' => string }
       end
       
+      def after_features(features)
+        post 'after_features', { 'duration' => features.duration }
+      end
+
       private
   
       def post(url, params = {})

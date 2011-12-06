@@ -4,24 +4,24 @@ describe 'Cuukie' do
   before(:all) { start_server }
   after(:all) { stop_server }
   
-  describe 'on the page header' do
+  describe 'shows suite result at the top of the page' do
     it "contains essential information" do
       run_cucumber
       html.should match '<h1>Cucumber Features</h1>'
       html.should match '<title>Cuukie</title>'
     end
 
-    it "is green if all scenarios passed" do
+    it "shows green if all scenarios passed" do
       run_cucumber '1_show_scenarios.feature:9'
       html.should match /passedColors\('cucumber-header'\)/
     end
 
-    it "is red if any scenario failed" do
+    it "shows red if any scenario failed" do
       run_cucumber '1_show_scenarios.feature'
       html.should match /failedColors\('cucumber-header'\)/
     end
 
-    it "is yellow if no scenarios failed but some are pending" do
+    it "shows yellow if no scenarios failed but some are pending" do
       run_cucumber '1_show_scenarios.feature:19'
       html.should match /pendingColors\('cucumber-header'\)/
     end
@@ -96,6 +96,10 @@ describe 'Cuukie' do
     
     it "shows multiline strings in steps" do
       html.should match '<pre class=\"val\">  Cuukie is sweet!\n  Let&#x27;s try it out.</pre>'
+    end
+    
+    it "shows total duration" do
+      html.should match /Finished in <strong>\d+m\d+\.\d+s seconds<\/strong>/
     end
   end
 end
