@@ -14,7 +14,7 @@ require 'rest-client'
 [:GET, :POST, :PUT, :DELETE].each do |method|
   Kernel.send :define_method, method do |*args|
     args[0] = "http://localhost:4569#{args[0]}"
-    RestClient.send method.downcase, *args
+    RestClient.send method.to_s.downcase, *args
   end
 end
 
