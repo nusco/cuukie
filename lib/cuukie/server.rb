@@ -3,7 +3,6 @@ require 'json'
 
 module Cuukie
   class Server < Sinatra::Base
-    set :port, 4569
     set :features, []
     set :build_status, nil
     set :stats, {:scenarios => '', :steps => ''}

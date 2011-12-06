@@ -3,4 +3,7 @@ lib = File.dirname(__FILE__) + '/../lib'
 $:.unshift lib unless $:.include? lib
 
 require 'cuukie/server'
-Cuukie::Server.run!
+module Cuukie
+  Server.set :port, ARGV[0] || 4569
+  Server.run!
+end

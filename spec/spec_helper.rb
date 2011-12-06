@@ -20,21 +20,21 @@ end
 
 def start_server
   start_process "ruby bin/cuukie_server >/dev/null 2>&1"
-  wait_until_server_is_up
+  wait_for_server_on_port 4569
 end
 
-def wait_until_server_is_up
+def wait_for_server_on_port(port)
   loop do
     begin
-      GET '/ping'
+      RestClient.get "http://localhost:#{port}/ping"
       return
     rescue; end
   end
 end
 
-def stop_server
+def stop_server_on_port(port)
   # the server dies without replying, so we expect an error here
-  DELETE '/'
+  RestClient.delete "http://localhost:#{port}/"
 rescue
 end
 

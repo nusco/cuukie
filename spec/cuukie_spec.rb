@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Cuukie' do
   before(:all) { start_server }
-  after(:all) { stop_server }
+  after(:all) { stop_server_on_port 4569 }
   
   describe 'shows suite result at the top of the page' do
     it "contains essential information" do
