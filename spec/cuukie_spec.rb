@@ -4,29 +4,6 @@ describe 'Cuukie' do
   before(:all) { start_server }
   after(:all) { stop_server_on_port 4569 }
   
-  describe 'shows suite result at the top of the page' do
-    it "contains essential information" do
-      run_cucumber
-      html.should match '<h1>Cucumber Features</h1>'
-      html.should match '<title>Cuukie</title>'
-    end
-
-    it "shows green if all scenarios passed" do
-      run_cucumber '1_show_scenarios.feature:9'
-      html.should match /passedColors\('cucumber-header'\)/
-    end
-
-    it "shows red if any scenario failed" do
-      run_cucumber '1_show_scenarios.feature'
-      html.should match /failedColors\('cucumber-header'\)/
-    end
-
-    it "shows yellow if no scenarios failed but some are pending" do
-      run_cucumber '1_show_scenarios.feature:19'
-      html.should match /pendingColors\('cucumber-header'\)/
-    end
-  end
-
   describe 'in the content area' do
     before(:all) { run_cucumber }
 
@@ -115,6 +92,29 @@ describe 'Cuukie' do
       run_cucumber '1_show_scenarios.feature'
       html.should match /3 scenarios \(1 failed, 1 pending, 1 passed\)/
       html.should match /11 steps \(1 failed, 2 skipped, 1 pending, 7 passed\)/
+    end
+  end
+  
+  describe 'in the page header' do
+    it "contains essential information" do
+      run_cucumber
+      html.should match '<h1>Cucumber Features</h1>'
+      html.should match '<title>Cuukie</title>'
+    end
+
+    it "shows green if all scenarios passed" do
+      run_cucumber '1_show_scenarios.feature:9'
+      html.should match /passedColors\('cucumber-header'\)/
+    end
+
+    it "shows red if any scenario failed" do
+      run_cucumber '1_show_scenarios.feature'
+      html.should match /failedColors\('cucumber-header'\)/
+    end
+
+    it "shows yellow if no scenarios failed but some are pending" do
+      run_cucumber '1_show_scenarios.feature:19'
+      html.should match /pendingColors\('cucumber-header'\)/
     end
   end
 end
