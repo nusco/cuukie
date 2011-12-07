@@ -50,7 +50,11 @@ module Cuukie
 
     post '/exception' do
       data = read_from_request
-      current_step['exception_message'] = data['exception_message']
+      exception = {
+        'message' => data['message'],
+        'backtrace' => data['backtrace']
+      }
+      current_step['exception'] = exception
       'OK'
     end
     

@@ -1,5 +1,4 @@
 MMF 0.1.4
-  - show exceptions
   - show code snippets
 MMF 0.1.5
   - show incomplete suite

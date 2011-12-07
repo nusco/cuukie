@@ -35,7 +35,8 @@ module Cucumber
       end
 
       def exception(exception, status)
-        post 'exception', { :exception_message => exception.message }
+        post 'exception', { :message => exception.message,
+                            :backtrace => exception.backtrace.join('\n') }
       end
       
       def after_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background)

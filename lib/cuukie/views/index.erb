@@ -8,6 +8,7 @@
   </head>
 
   <body>
+    <!-- header -->
     <div class="cucumber"><div id="cucumber-header"><div id="label"><h1>Cucumber Features</h1></div>
       <div id="summary">
         <p id="stats"></p>
@@ -15,8 +16,13 @@
         <div id="expand-collapse"><p id="expander">Expand All</p><p id="collapser">Collapse All</p></div>
       </div>
     </div>
-    
     <script><%= @build_status %>Colors('cucumber-header')</script>
+    <script type="text/javascript">
+      document.getElementById('duration').innerHTML = "Finished in <strong><%= @duration %> seconds</strong>";
+    </script>
+    <script type="text/javascript">
+      document.getElementById('stats').innerHTML = "<%= @stats[:scenarios] %><br/><%= @stats[:steps] %>";
+    </script>
 
     <% @features.each do |feature| %>
       <div class="feature">
@@ -37,8 +43,9 @@
                   <span class="keyword"><%= step['keyword'] %></span><span class="step val"><%= step['name'] %></span>
                 </div>
                 <div class="step_file"><span><%= step['file_colon_line'] %></span></div>
-                <% if step['exception_message'] %>
-                  <div class="message"><pre><%= step['exception_message'] %></pre></div>
+                <% if step['exception'] %>
+                  <div class="message"><pre><%= step['exception']['message'] %></pre></div>
+                  <div class="backtrace"><pre><%= step['exception']['backtrace'].gsub('\n', '<br/>') %></pre></div>
                 <% end %>
                 <% unless step['table'].empty? %>
                   <table>
@@ -61,12 +68,6 @@
         <% end %>
       </div>
     <% end %>
-    <script type="text/javascript">
-      document.getElementById('duration').innerHTML = "Finished in <strong><%= @duration %> seconds</strong>";
-    </script>
-    <script type="text/javascript">
-      document.getElementById('stats').innerHTML = "<%= @stats[:scenarios] %><br/><%= @stats[:steps] %>";
-    </script>
   </div>
   </body>
 </html>

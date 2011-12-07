@@ -85,10 +85,15 @@ describe 'Cuukie' do
       html.should match 'class="step pending"'
     end
 
-    it "shows exceptions" do
+    it "shows exception messages" do
       html.should match /example_steps.rb:7<\/span><\/div>[ \n]*<div class="message"><pre>Crash!<\/pre><\/div>/
     end
-  
+
+    it "shows exception backtraces" do
+      html.should match 'backtrace"><pre>.&#x2F;features&#x2F;step_definitions&#x2F;example_steps.rb:8:in `&#x2F;I do'
+      html.should match '3_failed_background.feature:7:in `Given I do'
+    end
+
     it "escapes HTML output" do
       html.should match 'I pass an &quot;argument&quot;'
     end
