@@ -1,5 +1,3 @@
-MMF 0.3
-  - configure server and port
 MMF 0.4
   - show exceptions
   - show code snippets
