@@ -48,6 +48,12 @@ module Cuukie
       'OK'
     end
 
+    post '/exception' do
+      data = read_from_request
+      current_step['exception_message'] = data['exception_message']
+      'OK'
+    end
+    
     post '/after_step_result' do
       current_step.merge! read_from_request
       if current_step['status'] == 'failed'

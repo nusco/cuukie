@@ -84,6 +84,10 @@ describe 'Cuukie' do
       html.should match 'class="step passed"'
       html.should match 'class="step pending"'
     end
+
+    it "shows exceptions" do
+      html.should match /example_steps.rb:7<\/span><\/div>[ \n]*<div class="message"><pre>Crash!<\/pre><\/div>/
+    end
   
     it "escapes HTML output" do
       html.should match 'I pass an &quot;argument&quot;'

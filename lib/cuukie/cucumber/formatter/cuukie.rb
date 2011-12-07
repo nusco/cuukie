@@ -34,6 +34,10 @@ module Cucumber
                                      :file_colon_line => step_match.file_colon_line }
       end
 
+      def exception(exception, status)
+        post 'exception', { :exception_message => exception.message }
+      end
+      
       def after_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background)
         post 'after_step_result', { :status => status }
       end

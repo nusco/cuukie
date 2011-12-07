@@ -37,6 +37,9 @@
                   <span class="keyword"><%= step['keyword'] %></span><span class="step val"><%= step['name'] %></span>
                 </div>
                 <div class="step_file"><span><%= step['file_colon_line'] %></span></div>
+                <% if step['exception_message'] %>
+                  <div class="message"><pre><%= step['exception_message'] %></pre></div>
+                <% end %>
                 <% unless step['table'].empty? %>
                   <table>
                   <% step['table'].each_with_index do |rowdata, row| %>
