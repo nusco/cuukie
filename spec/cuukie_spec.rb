@@ -37,7 +37,7 @@ describe 'Cuukie' do
 
     it "shows the feature names" do
       html.should match '>Feature: Visualize Scenarios<'
-      html.should match '>Feature: Multiple Features<'
+      html.should match '>Feature: Show Failed Background<'
     end
 
     it "shows the feature narratives" do
