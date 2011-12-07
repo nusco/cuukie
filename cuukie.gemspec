@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "cuukie"
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paolo \"Nusco\" Perrotta"]
-  s.date = "2011-12-05"
+  s.date = "2011-12-07"
   s.description = "Shows Cucumber results on a web page as they run."
   s.email = "paolo.nusco.perrotta@gmail.com"
   s.executables = ["cuukie_server"]
@@ -39,9 +39,11 @@ Gem::Specification.new do |s|
     "lib/test.rb",
     "spec/commands_spec.rb",
     "spec/cuukie_spec.rb",
-    "spec/test_project/features/1_visualize_scenarios.feature",
+    "spec/spec_helper.rb",
+    "spec/test_project/features/1_show_scenarios.feature",
     "spec/test_project/features/2_multiple_features.feature",
     "spec/test_project/features/3_failed_background.feature",
+    "spec/test_project/features/4_show_multiline_args.feature",
     "spec/test_project/features/step_definitions/example_steps.rb",
     "spec/test_project/features/support/formatters.rb"
   ]
