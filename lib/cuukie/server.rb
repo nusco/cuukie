@@ -3,10 +3,10 @@ require 'json'
 
 module Cuukie
   class Server < Sinatra::Base
-    set :features, []
-    set :build_status, nil
-    set :stats, {:scenarios => '', :steps => ''}
-    set :duration, '?'
+    set :features,      []
+    set :build_status,  nil
+    set :duration,      '?'
+    set :stats,         {:scenarios => '', :steps => ''}
     
     get '/' do
       @features     = settings.features
@@ -139,7 +139,6 @@ module Cuukie
       result
     end
     
-    # shamelessly ripped from Cucumber's HTML formatter
     def counts(elements)
       counts = ['failed', 'skipped', 'undefined', 'pending', 'passed'].map do |status|
         selected = elements.find_all {|element| element['status'] == status }
@@ -148,7 +147,6 @@ module Cuukie
       counts.any? ? " (#{counts.join(', ')})" : ''
     end
 
-    # also shamelessly ripped from Cucumber's HTML formatter
     def dump_count(count, what, state=nil)
       [count, state, "#{what}#{count == 1 ? '' : 's'}"].compact.join(' ')
     end    

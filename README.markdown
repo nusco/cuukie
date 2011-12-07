@@ -48,4 +48,4 @@ Right now, Cuukie is not any more useful than Cucumber's own HTML formatter. My 
 
 ## License
 
-MIT License. Copyright (c) 2011 Paolo "Nusco" Perrotta.
+MIT License. Copyright (c) 2011 Paolo "Nusco" Perrotta. I ripped a few lines of code off Cucumber's HTML formatter.
