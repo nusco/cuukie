@@ -18,6 +18,10 @@ require 'rest-client'
   end
 end
 
+def html
+  GET('/').body
+end
+
 def start_server
   start_process "ruby bin/cuukie_server >/dev/null 2>&1"
   wait_for_server_on_port 4569
@@ -36,8 +40,4 @@ def stop_server_on_port(port)
   # the server dies without replying, so we expect an error here
   RestClient.delete "http://localhost:#{port}/"
 rescue
-end
-
-def html
-  GET('/').body
 end

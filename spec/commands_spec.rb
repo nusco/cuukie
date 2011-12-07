@@ -31,7 +31,7 @@ describe "The cuukie formatter" do
       wait_for_server_on_port 4569
       cmd = "cd spec/test_project && \
              cucumber features/1_show_scenarios.feature:9 \
-             --format cuukie > #{@out.path}"
+                      --format cuukie > #{@out.path}"
       system(cmd).should be_true
       @out.read.should == ''
     ensure
@@ -45,8 +45,8 @@ describe "The cuukie formatter" do
       wait_for_server_on_port 4570
       cmd = "cd spec/test_project && \
              cucumber features/1_show_scenarios.feature:9 \
-             CUUKIE_SERVER=http://localhost:4570 \
-             --format cuukie > #{@out.path}"
+                      CUUKIE_SERVER=http://localhost:4570 \
+                      --format cuukie > #{@out.path}"
       system(cmd).should be_true
       @out.read.should == ''
     ensure
@@ -57,8 +57,8 @@ describe "The cuukie formatter" do
   it "fails gracefully if the server is down" do
     cmd = "cd spec/test_project && \
            cucumber features/1_show_scenarios.feature:9 \
-           CUUKIE_SERVER=http://some.server:4570 \
-           --format cuukie > #{@out.path}"
+                    CUUKIE_SERVER=http://some.server:4570 \
+                    --format cuukie > #{@out.path}"
     system(cmd).should be_true
     @out.read.should match 'I cannot find the cuukie_server on http://some.server:4570'
   end

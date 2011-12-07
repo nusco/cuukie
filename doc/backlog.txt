@@ -1,15 +1,15 @@
-MMF 0.4
+MMF 0.1.4
   - show exceptions
   - show code snippets
-MMF 0.5
+MMF 0.1.5
   - show incomplete suite
   - show undefined Scenarios/suite
   - show undefined Steps
   - show incomplete wrap-up for steps/scenarios
   - show incomplete running time
-MMF 0.6
+MMF 0.1.6
   - deal with Scenario Examples
-MMF 1.0
+MMF 1.0.0
   - nice graphics
   - self-updating Steps
   - self-updating Scenarios
@@ -23,6 +23,12 @@ Then...
 - show tags
 
 - filter by tag
+
+- instead of showing scenarios that appear one by one,
+  show the entire suite ASAP, and then proceed to make
+  each scenario red or green (or whatever). this
+  gives an immediate feeling of where you are in the
+  suite.
 
 - show status for each table row (table rows have an
   associated status in Cucumber formatters, and the

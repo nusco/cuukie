@@ -16,7 +16,11 @@ Require Cuukie from any file in your _features/support_ directory:
 
     require 'cuukie'
 
-Start the Cuukie server from a terminal window and leave it running:
+Add this line to any Ruby file in your _features/support_ directory:
+
+    require 'cuukie'
+
+Start the Cuukie server from a terminal window:
 
     cuukie_server
 
