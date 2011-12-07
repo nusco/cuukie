@@ -28,6 +28,16 @@ To look at the results, open this page in a browser:
 
     http://localhost:4569
 
+## Custom port/server
+
+You can pick a port when you start the cuukie_server...
+
+    cuukie_server 4570
+
+...and you can tell the cuukie formatter where to look for the server:
+
+    cucumber --format cuukie CUUKIE_SERVER=http://my.server:4570
+
 ## Cuukie Vision
 
 Right now, Cuukie is not any more useful than Cucumber's own HTML formatter. My plan is to make it more dynamic. You'll be able to see your steps as they run, just like you do with the default command-line formatter - but on a web page. Cuukie wants to be a good choice both when you want to run Cucumber tests locally, and when you want to show Cucumber tests on your build machine.

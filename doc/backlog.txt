@@ -4,7 +4,7 @@ MMF 0.4
   - show exceptions
   - show code snippets
 MMF 0.5
-  - show incomplete results
+  - show incomplete suite
   - show undefined Scenarios/suite
   - show undefined Steps
   - show incomplete wrap-up for steps/scenarios

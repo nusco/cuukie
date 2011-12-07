@@ -4,11 +4,12 @@ require 'json'
 module Cucumber
   module Formatter
     class Cuukie
-      def initialize(*)
+      def initialize(step_mother, path_or_io, options)
+        @server = ENV['CUUKIE_SERVER'] || 'http://localhost:4569'
         ping
       rescue
-        puts 'I cannot find the cuukie_server on localhost:4569.'
-        puts 'Please start the server with the cuukie_server command.'
+        puts "I cannot find the cuukie_server on #{@server}."
+        puts "Please start the server with the cuukie_server command."
         exit
       end
 
@@ -61,11 +62,11 @@ module Cucumber
       private
   
       def post(url, params = {})
-        RestClient.post "http://localhost:4569/#{url}", params.to_json
+        RestClient.post "#{@server}/#{url}", params.to_json
       end
       
       def ping
-        RestClient.get "http://localhost:4569/ping"
+        RestClient.get "#{@server}/ping"
       end
     end
   end
