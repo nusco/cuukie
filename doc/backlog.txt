@@ -1,10 +1,10 @@
-MMF 0.1.5
+MMF 0.2.0
   - show incomplete suite
   - show undefined Scenarios/suite
   - show undefined Steps
   - show incomplete wrap-up for steps/scenarios
   - show incomplete running time
-MMF 0.1.6
+MMF 0.2.1
   - deal with Scenario Examples
   - open/close steps
 MMF 1.0.0
