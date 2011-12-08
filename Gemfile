@@ -3,6 +3,7 @@ source :rubygems
 gem 'sinatra'
 gem 'rest-client'
 gem 'cucumber'
+gem 'syntax'
 
 group :development do
   gem 'rake'

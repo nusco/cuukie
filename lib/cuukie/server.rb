@@ -147,8 +147,8 @@ module Cuukie
       counts.any? ? " (#{counts.join(', ')})" : ''
     end
 
-    def dump_count(count, what, state=nil)
-      [count, state, "#{what}#{count == 1 ? '' : 's'}"].compact.join(' ')
+    def dump_count(count, what)
+      "#{count} #{what}#{count == 1 ? '' : 's'}"
     end    
     
     include Rack::Utils

@@ -1,6 +1,10 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- code snippet reader
+- code snippet reader
+- code snippet reader
+- "fix" Travis build (i.e. remove rbx)
 - show exception backtraces
 - show exception messages
 - run formatter with custom server
