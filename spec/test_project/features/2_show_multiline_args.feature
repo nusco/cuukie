@@ -1,4 +1,4 @@
-Feature:
+Feature: Show Multiline Arguments
   As a Cuker
   I want to see multiline arguments in the result
   To see everything about steps

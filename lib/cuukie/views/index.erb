@@ -8,7 +8,6 @@
   </head>
 
   <body>
-    <!-- header -->
     <div class="cucumber"><div id="cucumber-header"><div id="label"><h1>Cucumber Features</h1></div>
       <div id="summary">
         <p id="stats"></p>
@@ -26,31 +25,31 @@
 
     <% @features.each do |feature| %>
       <div class="feature">
-        <h2><span class="val">Feature: <%= feature['short_name'] %></span></h2>
-        <p class="narrative"><%= feature['description'].join '<br/>' %><bbr/r></p>
+        <h2><span class="val">Feature: <%= feature[:short_name] %></span></h2>
+        <p class="narrative"><%= feature[:description].join '<br/>' %><bbr/r></p>
         
-        <% feature['scenarios'].each do |scenario| %>
+        <% feature[:scenarios].each do |scenario| %>
           <div class="scenario">
-            <span style="display: block;" class="scenario_file"><%= scenario['file_colon_line'] %></span>
-            <h3 style="cursor: pointer;" id="<%= scenario['id'] %>">
-              <span class="keyword"><%= scenario['keyword'] %>: </span><span class="val"><%= scenario['name'] %></span>
+            <span style="display: block;" class="scenario_file"><%= scenario[:file_colon_line] %></span>
+            <h3 style="cursor: pointer;" id="<%= scenario[:id] %>">
+              <span class="keyword"><%= scenario[:keyword] %>: </span><span class="val"><%= scenario[:name] %></span>
             </h3>
-            <script><%= scenario['status'] %>Colors('<%= scenario['id'] %>');</script>
+            <script><%= scenario[:status] %>Colors('<%= scenario[:id] %>');</script>
             <ol style="display: block;">
-            <% scenario['steps'].each do |step| %>
-              <li id="features_" class="step <%= step['status'] %>">
+            <% scenario[:steps].each do |step| %>
+              <li id="features_" class="step <%= step[:status] %>">
                 <div class="step_name">
-                  <span class="keyword"><%= step['keyword'] %></span><span class="step val"><%= step['name'] %></span>
+                  <span class="keyword"><%= step[:keyword] %></span><span class="step val"><%= step[:name] %></span>
                 </div>
-                <div class="step_file"><span><%= step['file_colon_line'] %></span></div>
-                <% if step['exception'] %>
-                  <div class="message"><pre><%= step['exception']['message'] %></pre></div>
-                  <div class="backtrace"><pre><%= step['exception']['backtrace'].gsub('\n', '<br/>') %></pre></div>
-                  <%= snippet step['exception'] %>
+                <div class="step_file"><span><%= step[:file_colon_line] %></span></div>
+                <% if step[:exception] %>
+                  <div class="message"><pre><%= step[:exception][:message] %></pre></div>
+                  <div class="backtrace"><pre><%= step[:exception][:backtrace].gsub('\n', '<br/>') %></pre></div>
+                  <%= code_snippet_for step[:exception] %>
                 <% end %>
-                <% unless step['table'].empty? %>
+                <% unless step[:table].empty? %>
                   <table>
-                  <% step['table'].each_with_index do |rowdata, row| %>
+                  <% step[:table].each_with_index do |rowdata, row| %>
                     <tr class='step' id='row_-<%= row %>'>
                     <% rowdata.each_with_index do |value, col| %>
                       <td class="step" id="row_-<%= row %>_<%= col %>"><div><span class="step param"><%= value %></span></div></td>
@@ -59,8 +58,8 @@
                   <% end %>
                   </table>
                 <% end %>
-                <% if step['multiline_string'] %>
-                  <pre class="val"><%= step['multiline_string'] %></pre>
+                <% if step[:multiline_string] %>
+                  <pre class="val"><%= step[:multiline_string] %></pre>
                 <% end %>
               </li>
             <% end %>

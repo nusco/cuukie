@@ -31,12 +31,12 @@ SOURCE
     snippet['lines'].should be_nil
   end
   
-  it "returns nil if the file is not valid" do
+  it "returns a nil snippet if the file is not valid" do
     snippet = code_snippet '', 4
     snippet['lines'].should be_nil
   end
   
-  it "returns nil if it cannot find the line" do
+  it "returns a nil snippet if it cannot find the line" do
     snippet = code_snippet @source.path, 7
     snippet['lines'].should be_nil
   end
@@ -87,7 +87,7 @@ SOURCE
     end
   end
 
-  it "returns nil if the extraction fails" do
+  it "returns a nil snippet if the extraction fails" do
     backtrace_to_snippet(['abcd'])['lines'].should be_nil
   end
 end

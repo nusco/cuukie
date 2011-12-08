@@ -1,21 +1,21 @@
-require "#{File.dirname(__FILE__)}/code_snippets"
+require File.dirname(__FILE__) + '/code_snippets'
 require 'rest-client'
 require 'json'
 
 module Cuukie
   class Formatter
-    include ::Cuukie::CodeSnippets
+    include CodeSnippets
     
-    def initialize(step_mother, path_or_io, options)
+    def initialize(*)
       @server = ENV['CUUKIE_SERVER'] || 'http://localhost:4569'
-      ping
+      RestClient.get "#{@server}/ping"
     rescue
       puts "I cannot find the cuukie_server on #{@server}."
       puts "Please start the server with the cuukie_server command."
       exit
     end
 
-    def before_features(features)
+    def before_features(*)
       post 'before_features'
     end
 
@@ -24,28 +24,28 @@ module Cuukie
                                :description => feature.description }
     end
 
-    def scenario_name(keyword, name, file_colon_line, source_indent)
+    def scenario_name(keyword, name, file_colon_line, *)
       post 'scenario_name', { :keyword => keyword,
                               :name => name,
                               :file_colon_line => file_colon_line }
     end
 
-    def before_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background)
+    def before_step_result(keyword, step_match, *)
       post 'before_step_result', { :keyword => keyword,
                                    :name => step_match.format_args,
                                    :file_colon_line => step_match.file_colon_line }
     end
 
-    def exception(exception, status)
+    def exception(exception, *)
       source = backtrace_to_snippet(exception.backtrace)
       post 'exception', { :message => exception.message,
                           :backtrace => exception.backtrace.join('\n'),
+                          :raw_lines => source[:raw_lines],
                           :first_line => source[:first_line],
-                          :marked_line => source[:marked_line],
-                          :raw_lines => source[:raw_lines] }
+                          :marked_line => source[:marked_line]  }
     end
     
-    def after_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background)
+    def after_step_result(keyword, step_match, multiline_arg, status, *)
       post 'after_step_result', { :status => status }
     end
 
@@ -53,11 +53,11 @@ module Cuukie
       post 'after_steps'
     end
 
-    def before_table_row(table_row)
+    def before_table_row(*)
       post 'before_table_row'
     end
     
-    def table_cell_value(value, status)
+    def table_cell_value(value, *)
       post 'table_cell_value', { :value => value }
     end
     
@@ -73,10 +73,6 @@ module Cuukie
 
     def post(url, params = {})
       RestClient.post "#{@server}/#{url}", params.to_json
-    end
-    
-    def ping
-      RestClient.get "#{@server}/ping"
     end
   end
 end

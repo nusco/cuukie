@@ -9,10 +9,10 @@ module Cuukie
       return NULL_SNIPPET unless line <= all_lines.size
 
       first_line = [1, line - 2].max
-
-      {:first_line => first_line,
-       :marked_line => line,
-       :raw_lines => all_lines[(first_line - 1)..line].join }
+      
+      { :raw_lines   => all_lines[(first_line - 1)..line].join,
+        :first_line  => first_line,
+        :marked_line => line }
     end
 
     def backtrace_to_snippet(backtrace)
