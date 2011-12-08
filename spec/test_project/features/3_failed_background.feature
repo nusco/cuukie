@@ -4,12 +4,10 @@ Feature: Show Failed Background
   So that I know that everything else is skipped
 
 Background: Failing Background
-  Given I do something that results in an error
+  Given a Background Step fails
 
-Scenario: Skipped Scenario
-  When I do something
-  Then the entire Scenario should be skipped anyway
+Scenario: First Scenario
+  Then the first Scenario should be failing
 
-Scenario: Another Skipped Scenario
-  When I do something else
-  Then the entire Scenario should be skipped anyway
+Scenario: Other Scenarios
+  Then the following Scenarios should be skipped

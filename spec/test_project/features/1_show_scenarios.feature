@@ -4,7 +4,7 @@ Feature: Visualize Scenarios
   So that I know which steps are not passing
 
 Background: Common Steps
-  Given I execute a Background step
+  Given a Background step
 
 Scenario: Passing Scenario
   And I do something
@@ -13,9 +13,9 @@ Scenario: Passing Scenario
   Then the entire Scenario should pass
 
 Scenario: Failing Scenario
-  When I do something that results in an error
+  When a Step fails
   Then the entire Scenario should fail
 
 Scenario: Pending Scenario
-  When I call a pending Step
+  When a Step is pending
   Then the entire Scenario should be pending

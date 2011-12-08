@@ -63,17 +63,17 @@ describe 'Cuukie' do
     end
 
     it "shows exception messages" do
-      html.should match /main_steps.rb:7<\/span><\/div>[ \n]*<div class="message"><pre>Crash!<\/pre><\/div>/
+      html.should match /main_steps.rb:[\d+]<\/span><\/div>[ \n]*<div class="message"><pre>Crash!<\/pre><\/div>/
     end
 
     it "shows exception backtraces" do
-      html.should match 'backtrace"><pre>.&#x2F;features&#x2F;step_definitions&#x2F;main_steps.rb:8:in `&#x2F;I do'
-      html.should match '3_failed_background.feature:7:in `Given I do'
+      html.should match 'features&#x2F;3_failed_background.feature:7:in `Given a Background Step fails&#x27;'
+      html.should match '3_failed_background.feature:7:in `Given a Background Step'
     end
 
     it "shows exception source snippets" do
       html.should match '<pre class="ruby"><code><span class="linenum">6<\/span>'
-      html.should match '<span class="constant">I</span> <span class="keyword">do</span> <span class="ident">something'
+      html.should match '<span class="keyword">raise</span> <span class="punct">&quot;</span><span class="string">Crash!'
     end
     
     it "marks the exception source in snippets" do
