@@ -1,5 +1,4 @@
 MMF 0.2.0
-  - show undefined Scenarios/suite
   - show undefined Steps
   - show incomplete wrap-up for steps/scenarios
   - show incomplete running time

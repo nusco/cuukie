@@ -15,16 +15,25 @@ describe 'Cuukie' do
   end
   
   describe "while Cucumber is running" do
+    require 'ostruct'
+    
     before(:all) do
       start_server
       formatter = Cuukie::Formatter.new
       formatter.before_features
+      formatter.before_feature OpenStruct.new(:short_name => 'Stuff Works',
+                                              :description => 'As somebody...')
+      formatter.scenario_name 'Scenario','Do Stuff', 'file.rb:10'
     end
 
     after(:all) { stop_server_on_port 4569 }
     
     it "shows a grey status bar" do
       html.should match /undefinedColors\('cucumber-header'\)/
+    end
+    
+    it "shows incomplete scenarios in grey" do
+      html.should match /undefinedColors\('scenario_1_1'\)/
     end
   end
   

@@ -37,6 +37,7 @@ module Cuukie
       scenario = read_from_request
       scenario[:steps] = []
       scenario[:id] = "scenario_#{current_feature[:id]}_#{current_feature[:scenarios].size + 1}"
+      scenario[:status] = 'undefined'
       current_feature[:scenarios] << scenario
       'OK'
     end
@@ -68,7 +69,7 @@ module Cuukie
       if current_scenario[:steps].all? {|step| step[:status] == 'skipped' }
         current_scenario[:status] = 'skipped'
       end
-      current_scenario[:status] ||= 'passed'
+      current_scenario[:status] = 'passed' if current_scenario[:status] == 'undefined'
       'OK'
     end
     

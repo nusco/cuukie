@@ -25,6 +25,7 @@
 
     <% @features.each do |feature| %>
       <div class="feature">
+        <!-- FIXME: show feature keyword, not a static "Feature:" text -->
         <h2><span class="val">Feature: <%= feature[:short_name] %></span></h2>
         <p class="narrative"><%= feature[:description].join '<br/>' %><bbr/r></p>
         
