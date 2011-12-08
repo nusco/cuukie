@@ -6,6 +6,7 @@ MMF 0.1.5
   - show incomplete running time
 MMF 0.1.6
   - deal with Scenario Examples
+  - open/close steps
 MMF 1.0.0
   - nice graphics
   - self-updating Steps
