@@ -5,7 +5,7 @@ require 'syntax/convertors/html'
 module Cuukie
   class Server < Sinatra::Base
     set :features,      []
-    set :build_status,  nil
+    set :build_status,  'undefined'
     set :duration,      '?'
     set :stats,         {:scenarios => '', :steps => ''}
     
@@ -19,10 +19,9 @@ module Cuukie
 
     post '/before_features' do
       settings.features.clear
-      settings.build_status = nil
+      settings.build_status = 'undefined'
       settings.stats = {:scenarios => '', :steps => ''}
       settings.duration = '?'
-      settings.build_status = nil
     end
 
     post '/before_feature' do
@@ -60,7 +59,7 @@ module Cuukie
         current_scenario[:status] = settings.build_status = 'failed' 
       elsif current_step[:status] == 'pending'
         current_scenario[:status] = 'pending'
-        settings.build_status ||= 'pending' 
+        settings.build_status = 'pending' if settings.build_status == 'undefined'
       end
       'OK'
     end
@@ -94,7 +93,7 @@ module Cuukie
       data = read_from_request
       min, sec = data[:duration].to_f.divmod(60)
       settings.duration = "#{min}m#{'%.3f' % sec}s" 
-      settings.build_status ||= 'passed'
+      settings.build_status = 'passed' if settings.build_status == 'undefined'
       settings.stats = stats
       'OK'
     end

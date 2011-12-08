@@ -1,11 +1,40 @@
 require 'spec_helper'
 
 describe 'Cuukie' do
-  before(:all) { start_server }
-  after(:all) { stop_server_on_port 4569 }
+  describe "before Cucumber has run" do
+    before(:all) { start_server }
+    after(:all) { stop_server_on_port 4569 }
+    
+    it "shows a grey status bar" do
+      html.should match /undefinedColors\('cucumber-header'\)/
+    end
+
+    it "shows no features" do
+      html.should_not match "Feature:"
+    end
+  end
   
-  describe 'in the content area' do
-    before(:all) { run_cucumber }
+  describe "while Cucumber is running" do
+    before(:all) do
+      start_server
+      formatter = Cuukie::Formatter.new
+      formatter.before_features
+    end
+
+    after(:all) { stop_server_on_port 4569 }
+    
+    it "shows a grey status bar" do
+      html.should match /undefinedColors\('cucumber-header'\)/
+    end
+  end
+  
+  describe "once Cucumber has run" do
+    before(:all) do
+      start_server
+      run_cucumber
+    end
+
+    after(:all) { stop_server_on_port 4569 }
 
     it "cleans up previous data at the beginning of a run" do
       run_cucumber
@@ -102,26 +131,23 @@ describe 'Cuukie' do
       html.should match /3 scenarios \(1 failed, 1 pending, 1 passed\)/
       html.should match /11 steps \(1 failed, 2 skipped, 1 pending, 7 passed\)/
     end
-  end
-  
-  describe 'in the page header' do
-    it "contains essential information" do
-      run_cucumber
+
+    it "contains essential information in the status bar" do
       html.should match '<h1>Cucumber Features</h1>'
       html.should match '<title>Cuukie</title>'
     end
 
-    it "shows green if all scenarios passed" do
+    it "shows a green status bar if all scenarios passed" do
       run_cucumber '1_show_scenarios.feature:9'
       html.should match /passedColors\('cucumber-header'\)/
     end
 
-    it "shows red if any scenario failed" do
+    it "shows a red status bar if any scenario failed" do
       run_cucumber '1_show_scenarios.feature'
       html.should match /failedColors\('cucumber-header'\)/
     end
 
-    it "shows yellow if no scenarios failed but some are pending" do
+    it "shows a yellow status bar if no scenarios failed but some are pending" do
       run_cucumber '1_show_scenarios.feature:19'
       html.should match /pendingColors\('cucumber-header'\)/
     end

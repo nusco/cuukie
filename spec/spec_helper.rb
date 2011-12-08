@@ -1,4 +1,5 @@
 require 'bundler/setup'
+require 'cuukie'
 
 def start_process(command)
   Process.detach fork { exec command }

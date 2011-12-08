@@ -2,6 +2,7 @@ I use this file to track my own work on the project. Each line is a pomodoro (a 
 Latest pomodoro comes first:
 
 - refactoring
+- refactoring
 - show code snippets (and release 0.1.4)
 - show code snippets
 - show code snippets
