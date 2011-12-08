@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "cuukie"
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paolo \"Nusco\" Perrotta"]
-  s.date = "2011-12-07"
+  s.date = "2011-12-08"
   s.description = "Shows Cucumber results on a web page as they run."
   s.email = "paolo.nusco.perrotta@gmail.com"
   s.executables = ["cuukie_server"]
@@ -30,21 +30,23 @@ Gem::Specification.new do |s|
     "doc/backlog.txt",
     "doc/pomodoro.txt",
     "lib/cuukie.rb",
+    "lib/cuukie/cucumber/formatter/code_snippets.rb",
     "lib/cuukie/cucumber/formatter/cuukie.rb",
     "lib/cuukie/public/cucumber.css",
     "lib/cuukie/public/cuukie.js",
     "lib/cuukie/public/jquery-1.7.min.js",
     "lib/cuukie/server.rb",
     "lib/cuukie/views/index.erb",
-    "lib/test.rb",
+    "spec/code_snippets_spec.rb",
     "spec/commands_spec.rb",
     "spec/cuukie_spec.rb",
     "spec/spec_helper.rb",
     "spec/test_project/features/1_show_scenarios.feature",
-    "spec/test_project/features/2_multiple_features.feature",
+    "spec/test_project/features/2_show_multiline_args.feature",
     "spec/test_project/features/3_failed_background.feature",
-    "spec/test_project/features/4_show_multiline_args.feature",
-    "spec/test_project/features/step_definitions/example_steps.rb",
+    "spec/test_project/features/4_exception_with_no_source.feature",
+    "spec/test_project/features/step_definitions/exception_steps.rb",
+    "spec/test_project/features/step_definitions/main_steps.rb",
     "spec/test_project/features/support/formatters.rb"
   ]
   s.homepage = "http://github.com/nusco/cuukie"
@@ -60,12 +62,14 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<sinatra>, [">= 0"])
       s.add_runtime_dependency(%q<rest-client>, [">= 0"])
       s.add_runtime_dependency(%q<cucumber>, [">= 0"])
+      s.add_runtime_dependency(%q<syntax>, [">= 0"])
       s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<sinatra>, [">= 0"])
       s.add_dependency(%q<rest-client>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<syntax>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
     end
@@ -73,6 +77,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<sinatra>, [">= 0"])
     s.add_dependency(%q<rest-client>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<syntax>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
   end
