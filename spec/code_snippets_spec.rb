@@ -26,19 +26,19 @@ SOURCE
     snippet[:marked_line].should == 4
   end
   
-  it "returns nil if it cannot find the file" do
+  it "returns a nil snippet if it cannot find the file" do
     snippet = code_snippet 'no_such_file.txt', 4
-    snippet.should be_nil
+    snippet['lines'].should be_nil
   end
   
   it "returns nil if the file is not valid" do
     snippet = code_snippet '', 4
-    snippet.should be_nil
+    snippet['lines'].should be_nil
   end
   
   it "returns nil if it cannot find the line" do
     snippet = code_snippet @source.path, 7
-    snippet.should be_nil
+    snippet['lines'].should be_nil
   end
   
   it "returns a snippet of the lines around the marked line" do
@@ -88,6 +88,6 @@ SOURCE
   end
 
   it "returns nil if the extraction fails" do
-    backtrace_to_snippet(['abcd']).should be_nil
+    backtrace_to_snippet(['abcd'])['lines'].should be_nil
   end
 end

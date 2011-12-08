@@ -104,15 +104,14 @@ module Cuukie
     
     helpers do
       def snippet(exception)
-        # TODO: test this first line
-        return '' unless exception['lines']
+        return '' unless exception['raw_lines']
         result = '<pre class="ruby"><code>'
         linenum = exception['first_line']
-        exception['lines'].each do |line|
-          linetype = (linenum == exception['marked_line']) ? 'offending' : 'linenum'
-          html_line = "<span class=\"linenum\">#{linenum}</span>#{line}"
-          html_line = "<span class=\"offending\">#{html_line}</span>" if linenum == exception['marked_line']
-          result << "#{html_line}<br/>"
+        html_lines = htmlize(exception['raw_lines']).split "\n"
+        html_lines.each do |html_line|
+          line = "<span class=\"linenum\">#{linenum}</span>#{html_line}"
+          line = "<span class=\"offending\">#{line}</span>" if linenum == exception['marked_line']
+          result << "#{line}<br/>"
           linenum += 1
         end
         result << '</code></pre>'
@@ -173,17 +172,10 @@ module Cuukie
     
     def read_from_request
       data = JSON.parse request.body.read
-      result = {}
-      data.each do |k, v|
-        if v.class != String
-          result[k] = v
-        elsif k =~ /^raw_/
-          result[k.gsub /^raw_/, ''] = htmlize(v).split "\n"
-        else
-          result[k] = escape_html v
-        end
+      result = data.clone
+      result.each do |k, v|
+        result[k] = escape_html(v) if v.class == String && k !~ /^raw_/
       end
-      result
     end
   end
 end

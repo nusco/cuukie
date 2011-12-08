@@ -54,7 +54,7 @@ describe 'Cuukie' do
     end
   
     it "shows the step source position" do
-      html.should match '>features&#x2F;step_definitions&#x2F;example_steps.rb:'
+      html.should match '>features&#x2F;step_definitions&#x2F;main_steps.rb:'
     end
   
     it "shows the step status" do
@@ -63,11 +63,11 @@ describe 'Cuukie' do
     end
 
     it "shows exception messages" do
-      html.should match /example_steps.rb:7<\/span><\/div>[ \n]*<div class="message"><pre>Crash!<\/pre><\/div>/
+      html.should match /main_steps.rb:7<\/span><\/div>[ \n]*<div class="message"><pre>Crash!<\/pre><\/div>/
     end
 
     it "shows exception backtraces" do
-      html.should match 'backtrace"><pre>.&#x2F;features&#x2F;step_definitions&#x2F;example_steps.rb:8:in `&#x2F;I do'
+      html.should match 'backtrace"><pre>.&#x2F;features&#x2F;step_definitions&#x2F;main_steps.rb:8:in `&#x2F;I do'
       html.should match '3_failed_background.feature:7:in `Given I do'
     end
 

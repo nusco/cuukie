@@ -4,6 +4,8 @@ Latest pomodoro comes first:
 - show code snippets
 - show code snippets
 - show code snippets
+- show code snippets
+- show code snippets
 - code snippet reader
 - code snippet reader
 - code snippet reader

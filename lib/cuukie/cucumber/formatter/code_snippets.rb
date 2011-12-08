@@ -1,10 +1,12 @@
 module Cuukie
   module CodeSnippets
+    NULL_SNIPPET = Hash.new
+    
     def code_snippet(file, line)
-      return nil unless File.exist? file
+      return NULL_SNIPPET unless File.exist? file
 
       all_lines = File.open(file) {|f| f.readlines}
-      return nil unless line <= all_lines.size
+      return NULL_SNIPPET unless line <= all_lines.size
 
       first_line = [1, line - 2].max
 
@@ -14,7 +16,7 @@ module Cuukie
     end
 
     def backtrace_to_snippet(backtrace)
-      return nil unless backtrace[0] =~ /(.*):(\d+)/
+      return NULL_SNIPPET unless backtrace[0] =~ /(.*):(\d+)/
       code_snippet $1, $2.to_i
     end
   end
