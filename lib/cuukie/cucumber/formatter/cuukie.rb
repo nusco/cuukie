@@ -1,9 +1,12 @@
+require "#{File.dirname(__FILE__)}/code_snippets"
 require 'rest-client'
 require 'json'
 
 module Cucumber
   module Formatter
     class Cuukie
+      include ::Cuukie::CodeSnippets
+      
       def initialize(step_mother, path_or_io, options)
         @server = ENV['CUUKIE_SERVER'] || 'http://localhost:4569'
         ping
@@ -35,8 +38,12 @@ module Cucumber
       end
 
       def exception(exception, status)
+        source = backtrace_to_snippet(exception.backtrace)
         post 'exception', { :message => exception.message,
-                            :backtrace => exception.backtrace.join('\n') }
+                            :backtrace => exception.backtrace.join('\n'),
+                            :first_line => source[:first_line],
+                            :marked_line => source[:marked_line],
+                            :lines => source[:lines] }
       end
       
       def after_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background)

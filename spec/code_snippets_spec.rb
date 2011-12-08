@@ -1,7 +1,9 @@
 require 'cuukie/cucumber/formatter/code_snippets'
 require 'tempfile'
 
-describe "The Cuukie::code_snippet method" do
+describe "The code_snippet method" do
+  include Cuukie::CodeSnippets
+  
   before(:all) do
     @source = Tempfile.new('source.rb')
     @source.write <<SOURCE
@@ -20,49 +22,51 @@ SOURCE
   end
   
   it "has a marked line number" do
-    snippet = Cuukie::code_snippet @source.path, 4
+    snippet = code_snippet @source.path, 4
     snippet[:marked_line].should == 4
   end
   
   it "returns nil if it cannot find the file" do
-    snippet = Cuukie::code_snippet 'no_such_file.txt', 4
+    snippet = code_snippet 'no_such_file.txt', 4
     snippet.should be_nil
   end
   
   it "returns nil if the file is not valid" do
-    snippet = Cuukie::code_snippet '', 4
+    snippet = code_snippet '', 4
     snippet.should be_nil
   end
   
   it "returns nil if it cannot find the line" do
-    snippet = Cuukie::code_snippet @source.path, 7
+    snippet = code_snippet @source.path, 7
     snippet.should be_nil
   end
   
   it "returns a snippet of the lines around the marked line" do
-    snippet = Cuukie::code_snippet @source.path, 5
+    snippet = code_snippet @source.path, 5
     snippet[:lines].should == "line_three()\nline_four.each do |x|\n  x.line_five\nend # line six\n"
   end
   
   it "has a first line number" do
-    snippet = Cuukie::code_snippet @source.path, 5
+    snippet = code_snippet @source.path, 5
     snippet[:first_line].should == 3
   end
   
   it "clips lines at the beginning of the file" do
-    snippet = Cuukie::code_snippet @source.path, 2
+    snippet = code_snippet @source.path, 2
     snippet[:lines].should == "# line one\nline_two = 2\nline_three()\n"
     snippet[:first_line].should == 1
   end
   
   it "clips lines at the end of the file" do
-    snippet = Cuukie::code_snippet @source.path, 6
+    snippet = code_snippet @source.path, 6
     snippet[:lines].should == "line_four.each do |x|\n  x.line_five\nend # line six\n"
     snippet[:first_line].should == 4
   end
 end
 
-describe "The Cuukie::backtrace_to_snippet method" do
+describe "The backtrace_to_snippet method" do
+  include Cuukie::CodeSnippets
+  
   it "extracts file and line from a backtrace" do
     source = Tempfile.new('source.rb')
     source.write <<SOURCE
@@ -75,15 +79,15 @@ SOURCE
     begin
       load source.path
     rescue Exception => e
-      expected = {:first_line => 1,
-                  :marked_line => 3,
-                  :lines => "# one\n# two\n1 / 0\n# four\n"}
-      Cuukie::backtrace_to_snippet(e.backtrace).should == expected
+      backtrace_to_snippet(e.backtrace).should == {:first_line => 1,
+                                                   :marked_line => 3,
+                                                   :lines => "# one\n# two\n1 / 0\n# four\n"}
+    ensure
       source.delete
     end
   end
 
   it "returns nil if the extraction fails" do
-    Cuukie::backtrace_to_snippet(['abcd']).should be_nil
+    backtrace_to_snippet(['abcd']).should be_nil
   end
 end

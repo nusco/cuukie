@@ -71,6 +71,15 @@ describe 'Cuukie' do
       html.should match '3_failed_background.feature:7:in `Given I do'
     end
 
+    it "shows exception source snippets" do
+      html.should match /<pre class="ruby"><code>[ \n]*<span class="linenum">6<\/span>/
+      html.should match '<span class="constant">I</span> <span class="keyword">do</span> <span class="ident">something'
+    end
+    
+    it "marks the exception source in snippets" do
+      html.should match '<span class="offending"><span class="linenum">8</span>'
+    end
+
     it "escapes HTML output" do
       html.should match 'I pass an &quot;argument&quot;'
     end

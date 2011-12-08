@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'json'
+require 'syntax/convertors/html'
 
 module Cuukie
   class Server < Sinatra::Base
@@ -49,11 +50,9 @@ module Cuukie
     end
 
     post '/exception' do
-      data = read_from_request
-      exception = {
-        'message' => data['message'],
-        'backtrace' => data['backtrace']
-      }
+      exception = read_from_request
+                                                      # FIXME
+      exception['lines'] = htmlize exception['lines'] #if exception['lines']
       current_step['exception'] = exception
       'OK'
     end
@@ -106,6 +105,13 @@ module Cuukie
     get('/ping') { 'pong!' }
     delete('/') { exit! }
     
+    helpers do
+      def htmlize(ruby)
+        convertor = Syntax::Convertors::HTML.for_syntax("ruby")
+        convertor.convert(ruby, false).split "\n"
+      end
+    end
+      
     def current_feature
       settings.features.last
     end
@@ -155,7 +161,13 @@ module Cuukie
     
     def read_from_request
       result = JSON.parse request.body.read
-      result.each {|k, v| result[k] = escape_html v }
+      result.each do |k, v|
+        unless Numeric === v
+          unless k == 'lines'
+            result[k] = escape_html(v)
+          end
+        end
+      end
     end
   end
 end

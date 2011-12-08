@@ -1,5 +1,5 @@
 module Cuukie
-  class << self
+  module CodeSnippets
     def code_snippet(file, line)
       return nil unless File.exist? file
 
