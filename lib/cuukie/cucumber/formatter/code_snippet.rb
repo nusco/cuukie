@@ -1,25 +1,21 @@
-s = "abc \
-def"
 module Cuukie
-  class CodeSnippet
-    attr_reader :marked_line, :first_line, :lines
-    
-    def initialize(file, line)
-      @file = file
-      @marked_line = line
+  class << self
+    def code_snippet(file, line)
+      return nil unless File.exist? file
 
-      if File.exist? @file
-        all_lines = File.open(@file) {|f| f.readlines}
-        if all_lines.size >= @marked_line
-          @first_line = [1, @marked_line - 2].max
-          selected_lines = all_lines[(@first_line - 1)..@marked_line]
-          while selected_lines.first == "\n"
-            selected_lines.delete_at(0)
-            @first_line += 1
-          end
-          @lines = selected_lines.join
-        end
-      end
+      all_lines = File.open(file) {|f| f.readlines}
+      return nil unless line <= all_lines.size
+
+      first_line = [1, line - 2].max
+
+      {:first_line => first_line,
+       :marked_line => line,
+       :lines => all_lines[(first_line - 1)..line].join }
+    end
+
+    def backtrace_to_snippet(backtrace)
+      return ['', 0] unless backtrace[0] =~ /(.*):(\d+)/
+      code_snippet $1, $2.to_i
     end
   end
 end
