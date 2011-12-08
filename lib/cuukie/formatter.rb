@@ -30,10 +30,10 @@ module Cuukie
                               :file_colon_line => file_colon_line }
     end
 
-    def before_step_result(keyword, step_match, *)
-      post 'before_step_result', { :keyword => keyword,
-                                   :name => step_match.format_args,
-                                   :file_colon_line => step_match.file_colon_line }
+    def before_step(step)
+      post 'before_step', { :keyword => step.keyword,
+                            :name => step.name,
+                            :file_colon_line => step.file_colon_line }
     end
 
     def exception(exception, *)

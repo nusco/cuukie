@@ -24,6 +24,9 @@ describe 'Cuukie' do
       formatter.before_feature OpenStruct.new(:short_name => 'Stuff Works',
                                               :description => 'As somebody...')
       formatter.scenario_name 'Scenario','Do Stuff', 'file.rb:10'
+      formatter.before_step OpenStruct.new(:keyword => 'Given',
+                                           :name => 'I do something',
+                                           :file_colon_line => 'file.rb:11' )
     end
 
     after(:all) { stop_server_on_port 4569 }
@@ -34,6 +37,10 @@ describe 'Cuukie' do
     
     it "shows incomplete scenarios in grey" do
       html.should match /undefinedColors\('scenario_1_1'\)/
+    end
+    
+    it "shows incomplete steps in grey" do
+      html.should match 'class="step undefined"'
     end
   end
   
@@ -68,11 +75,11 @@ describe 'Cuukie' do
       html.should match '>features&#x2F;1_show_scenarios.feature:'
     end
   
-    it "shows the passed scenarios in green" do
+    it "shows passed scenarios in green" do
       html.should match /passedColors\('scenario_1_1'\)/
     end
   
-    it "shows the failed scenarios in red" do
+    it "shows failed scenarios in red" do
       html.should match /failedColors\('scenario_3_1'\)/
     end
   
@@ -92,7 +99,7 @@ describe 'Cuukie' do
     end
   
     it "shows the step source position" do
-      html.should match '>features&#x2F;step_definitions&#x2F;main_steps.rb:'
+      html.should match '>.&#x2F;features&#x2F;step_definitions&#x2F;main_steps.rb:'
     end
   
     it "shows the step status" do
@@ -101,7 +108,7 @@ describe 'Cuukie' do
     end
 
     it "shows exception messages" do
-      html.should match /main_steps.rb:[\d+]<\/span><\/div>[ \n]*<div class="message"><pre>Crash!<\/pre><\/div>/
+      html.should match /1_show_scenarios.feature:16<\/span><\/div>[ \n]*<div class=\"message\"><pre>Crash!/
     end
 
     it "shows exception backtraces" do

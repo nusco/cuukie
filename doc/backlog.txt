@@ -1,5 +1,4 @@
 MMF 0.2.0
-  - show undefined Steps
   - show incomplete wrap-up for steps/scenarios
   - show incomplete running time
 MMF 0.2.1
@@ -20,6 +19,8 @@ Then...
 
 - filter by tag
 
+- default policy for open/close elements (like: close
+  successfull scenarios/steps, open unsuccessful ones)
 - instead of showing scenarios that appear one by one,
   show the entire suite ASAP, and then proceed to make
   each scenario red or green (or whatever). this

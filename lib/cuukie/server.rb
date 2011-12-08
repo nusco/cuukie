@@ -42,9 +42,10 @@ module Cuukie
       'OK'
     end
 
-    post '/before_step_result' do
+    post '/before_step' do
       step = read_from_request
       step[:table] = []
+      step[:status] = 'undefined'
       current_scenario[:steps] << step
       'OK'
     end

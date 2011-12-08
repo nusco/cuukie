@@ -182,7 +182,7 @@ body {
 .cucumber ol li.undefined, td ol li.undefined, th ol li.undefined {
   border-left: 5px solid #faf834;
   border-bottom: 1px solid #faf834;
-  background: #fcfb98;
+  background: #aaaaaa;
   color: #131313;
 }
 .cucumber ol li.message, td ol li.message, th ol li.message {
