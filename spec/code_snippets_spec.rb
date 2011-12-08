@@ -1,4 +1,4 @@
-require 'cuukie/cucumber/formatter/code_snippets'
+require 'cuukie/code_snippets'
 require 'tempfile'
 
 describe "The code_snippet method" do

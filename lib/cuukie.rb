@@ -1,1 +1,1 @@
-require File.dirname(__FILE__) + '/cuukie/cucumber/formatter/cuukie'
+require File.dirname(__FILE__) + '/cuukie/formatter'
