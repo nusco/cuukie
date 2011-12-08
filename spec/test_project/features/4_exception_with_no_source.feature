@@ -1,6 +1,6 @@
 Feature: Exception with no source
   As a Cuker
-  I want to visualize exceptions even if they cannot retrieve the code
+  I want to visualize exceptions even if I cannot retrieve the code
   So that I can still use Cuukie when the source is on another machine
   
 Scenario: Exception with unknown file

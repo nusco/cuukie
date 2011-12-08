@@ -1,6 +1,7 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- show code snippets (and release 0.1.4)
 - show code snippets
 - show code snippets
 - show code snippets

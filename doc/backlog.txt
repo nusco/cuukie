@@ -1,5 +1,3 @@
-MMF 0.1.4
-  - show code snippets
 MMF 0.1.5
   - show incomplete suite
   - show undefined Scenarios/suite
