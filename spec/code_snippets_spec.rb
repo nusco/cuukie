@@ -43,7 +43,7 @@ SOURCE
   
   it "returns a snippet of the lines around the marked line" do
     snippet = code_snippet @source.path, 5
-    snippet[:lines].should == "line_three()\nline_four.each do |x|\n  x.line_five\nend # line six\n"
+    snippet[:raw_lines].should == "line_three()\nline_four.each do |x|\n  x.line_five\nend # line six\n"
   end
   
   it "has a first line number" do
@@ -53,13 +53,13 @@ SOURCE
   
   it "clips lines at the beginning of the file" do
     snippet = code_snippet @source.path, 2
-    snippet[:lines].should == "# line one\nline_two = 2\nline_three()\n"
+    snippet[:raw_lines].should == "# line one\nline_two = 2\nline_three()\n"
     snippet[:first_line].should == 1
   end
   
   it "clips lines at the end of the file" do
     snippet = code_snippet @source.path, 6
-    snippet[:lines].should == "line_four.each do |x|\n  x.line_five\nend # line six\n"
+    snippet[:raw_lines].should == "line_four.each do |x|\n  x.line_five\nend # line six\n"
     snippet[:first_line].should == 4
   end
 end
@@ -81,7 +81,7 @@ SOURCE
     rescue Exception => e
       backtrace_to_snippet(e.backtrace).should == {:first_line => 1,
                                                    :marked_line => 3,
-                                                   :lines => "# one\n# two\n1 / 0\n# four\n"}
+                                                   :raw_lines => "# one\n# two\n1 / 0\n# four\n"}
     ensure
       source.delete
     end

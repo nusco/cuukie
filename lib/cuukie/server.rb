@@ -50,10 +50,7 @@ module Cuukie
     end
 
     post '/exception' do
-      exception = read_from_request
-                                                      # FIXME
-      exception['lines'] = htmlize exception['lines'] #if exception['lines']
-      current_step['exception'] = exception
+      current_step['exception'] = read_from_request
       'OK'
     end
     
@@ -106,12 +103,22 @@ module Cuukie
     delete('/') { exit! }
     
     helpers do
-      def htmlize(ruby)
-        convertor = Syntax::Convertors::HTML.for_syntax("ruby")
-        convertor.convert(ruby, false).split "\n"
+      def snippet(exception)
+        # TODO: test this first line
+        return '' unless exception['lines']
+        result = '<pre class="ruby"><code>'
+        linenum = exception['first_line']
+        exception['lines'].each do |line|
+          linetype = (linenum == exception['marked_line']) ? 'offending' : 'linenum'
+          html_line = "<span class=\"linenum\">#{linenum}</span>#{line}"
+          html_line = "<span class=\"offending\">#{html_line}</span>" if linenum == exception['marked_line']
+          result << "#{html_line}<br/>"
+          linenum += 1
+        end
+        result << '</code></pre>'
       end
     end
-      
+    
     def current_feature
       settings.features.last
     end
@@ -157,17 +164,26 @@ module Cuukie
       "#{count} #{what}#{count == 1 ? '' : 's'}"
     end    
     
+    def htmlize(ruby)
+      convertor = Syntax::Convertors::HTML.for_syntax("ruby")
+      convertor.convert(ruby, false)
+    end
+    
     include Rack::Utils
     
     def read_from_request
-      result = JSON.parse request.body.read
-      result.each do |k, v|
-        unless Numeric === v
-          unless k == 'lines'
-            result[k] = escape_html(v)
-          end
+      data = JSON.parse request.body.read
+      result = {}
+      data.each do |k, v|
+        if v.class != String
+          result[k] = v
+        elsif k =~ /^raw_/
+          result[k.gsub /^raw_/, ''] = htmlize(v).split "\n"
+        else
+          result[k] = escape_html v
         end
       end
+      result
     end
   end
 end

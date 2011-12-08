@@ -10,7 +10,7 @@ module Cuukie
 
       {:first_line => first_line,
        :marked_line => line,
-       :lines => all_lines[(first_line - 1)..line].join }
+       :raw_lines => all_lines[(first_line - 1)..line].join }
     end
 
     def backtrace_to_snippet(backtrace)

@@ -43,7 +43,7 @@ module Cucumber
                             :backtrace => exception.backtrace.join('\n'),
                             :first_line => source[:first_line],
                             :marked_line => source[:marked_line],
-                            :lines => source[:lines] }
+                            :raw_lines => source[:raw_lines] }
       end
       
       def after_step_result(keyword, step_match, multiline_arg, status, exception, source_indent, background)

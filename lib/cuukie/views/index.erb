@@ -46,13 +46,7 @@
                 <% if step['exception'] %>
                   <div class="message"><pre><%= step['exception']['message'] %></pre></div>
                   <div class="backtrace"><pre><%= step['exception']['backtrace'].gsub('\n', '<br/>') %></pre></div>
-                  <% if step['exception']['lines'] %>
-                    <pre class="ruby"><code>
-                      <% linenum = step['exception']['first_line'] %>
-                      <% step['exception']['lines'].each do |line| %>
-                        <% if linenum == step['exception']['marked_line'] %><span class="offending"><% end %><span class="linenum"><%= linenum %></span><%= line %><% if linenum == step['exception']['marked_line'] %></span><% end %><% linenum += 1 %><% end %>
-                    </code></pre>
-                  <% end %>
+                  <%= snippet step['exception'] %>
                 <% end %>
                 <% unless step['table'].empty? %>
                   <table>
