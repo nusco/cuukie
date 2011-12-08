@@ -1,4 +1,4 @@
-require 'cuukie/cucumber/formatter/code_snippet'
+require 'cuukie/cucumber/formatter/code_snippets'
 require 'tempfile'
 
 describe "The Cuukie::code_snippet method" do
@@ -64,17 +64,26 @@ end
 
 describe "The Cuukie::backtrace_to_snippet method" do
   it "extracts file and line from a backtrace" do
+    source = Tempfile.new('source.rb')
+    source.write <<SOURCE
+# one
+# two
+1 / 0
+# four
+SOURCE
+    source.close
     begin
-      1 / 0
+      load source.path
     rescue Exception => e
-      expected = {:first_line => 66,
-                  :marked_line => 68,
-                  :lines => "  it \"extracts file and line from a backtrace\" do\n    begin\n      1 / 0\n    rescue Exception => e\n"}
+      expected = {:first_line => 1,
+                  :marked_line => 3,
+                  :lines => "# one\n# two\n1 / 0\n# four\n"}
       Cuukie::backtrace_to_snippet(e.backtrace).should == expected
+      source.delete
     end
   end
 
   it "returns nil if the extraction fails" do
-    Cuukie::backtrace_to_snippet(['abcd']).should == ['', 0]
+    Cuukie::backtrace_to_snippet(['abcd']).should be_nil
   end
 end

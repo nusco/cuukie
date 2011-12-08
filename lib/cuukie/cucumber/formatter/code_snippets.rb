@@ -14,7 +14,7 @@ module Cuukie
     end
 
     def backtrace_to_snippet(backtrace)
-      return ['', 0] unless backtrace[0] =~ /(.*):(\d+)/
+      return nil unless backtrace[0] =~ /(.*):(\d+)/
       code_snippet $1, $2.to_i
     end
   end
