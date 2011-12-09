@@ -26,6 +26,7 @@ module Cuukie
 
     post '/before_feature' do
       feature = read_from_request
+      feature[:keyword] = '...'
       feature[:description] = feature[:description].split("\n")
       feature[:scenarios] = []
       feature[:id] = settings.features.size + 1
@@ -33,6 +34,11 @@ module Cuukie
       'OK'
     end
 
+    post '/feature_name' do
+      current_feature.merge! read_from_request
+      'OK'
+    end
+    
     post '/scenario_name' do
       scenario = read_from_request
       scenario[:steps] = []

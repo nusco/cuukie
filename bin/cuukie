@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require 'rest-client'
+
+at_exit do
+  begin
+    RestClient.delete 'http://localhost:4569'
+  rescue; end
+end
+
+Process.detach(fork do
+  exec "ruby #{File.dirname(__FILE__)}/cuukie_server >/dev/null 2>&1"
+end)
+
+puts 'View your features at http://localhost:4569'
+
+system "cucumber #{ARGV.join(' ')} --format cuukie"
+
+puts 'All features checked. Press a key to exit.'
+gets

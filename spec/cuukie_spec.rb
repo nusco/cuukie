@@ -19,27 +19,33 @@ describe 'Cuukie' do
     
     before(:all) do
       start_server
-      formatter = Cuukie::Formatter.new
-      formatter.before_features
-      formatter.before_feature OpenStruct.new(:short_name => 'Stuff Works',
+      @formatter = Cuukie::Formatter.new
+      @formatter.before_features
+      @formatter.before_feature OpenStruct.new(:short_name => 'Stuff That Works',
                                               :description => 'As somebody...')
-      formatter.scenario_name 'Scenario','Do Stuff', 'file.rb:10'
-      formatter.before_step OpenStruct.new(:keyword => 'Given',
-                                           :name => 'I do something',
-                                           :file_colon_line => 'file.rb:11' )
     end
 
     after(:all) { stop_server_on_port 4569 }
-    
+
     it "shows a grey status bar" do
       html.should match /undefinedColors\('cucumber-header'\)/
     end
     
+    it "shows incomplete description for features" do
+      html.should match '>...: Stuff That Works<'
+      @formatter.feature_name 'Feature'
+      html.should match '>Feature: Stuff That Works<'
+    end
+    
     it "shows incomplete scenarios in grey" do
+      @formatter.scenario_name 'Scenario','Do Stuff', 'file.rb:10'
       html.should match /undefinedColors\('scenario_1_1'\)/
     end
     
     it "shows incomplete steps in grey" do
+      @formatter.before_step OpenStruct.new(:keyword => 'Given',
+                                            :name => 'I do something',
+                                            :file_colon_line => 'file.rb:11' )
       html.should match 'class="step undefined"'
     end
   end

@@ -24,6 +24,10 @@ module Cuukie
                                :description => feature.description }
     end
 
+    def feature_name(keyword, *)
+      post 'feature_name', { :keyword => keyword }
+    end
+    
     def scenario_name(keyword, name, file_colon_line, *)
       post 'scenario_name', { :keyword => keyword,
                               :name => name,
