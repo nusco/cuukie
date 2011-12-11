@@ -8,7 +8,7 @@ namespace :test do
   RSpec::Core::RakeTask.new(:specs)
 
   desc "Run Cuukie on the test project (needs a cuukie_server on localhost, default port)"
-  task :smoke do
+  task :manual do
     system "cd spec/test_project && \
             cucumber --format cuukie"
   end
