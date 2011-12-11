@@ -17,7 +17,7 @@
     </div>
     <script><%= @build_status %>Colors('cucumber-header')</script>
     <script type="text/javascript">
-      document.getElementById('duration').innerHTML = "Finished in <strong><%= @duration %> seconds</strong>";
+      document.getElementById('duration').innerHTML = "<%= time_label %>: <strong><%= format_time %></strong>";
     </script>
     <script type="text/javascript">
       document.getElementById('stats').innerHTML = "<%= @stats[:scenarios] %><br/><%= @stats[:steps] %>";

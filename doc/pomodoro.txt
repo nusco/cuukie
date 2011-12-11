@@ -1,6 +1,9 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- show incomplete running time
+- show incomplete running time
+- fix feature keywords
 - "cuukie" command
 - "cuukie" command
 - show undefined scenarios and steps

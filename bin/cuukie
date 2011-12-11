@@ -1,7 +1,17 @@
 #!/usr/bin/env ruby
-require 'rest-client'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: cuukie [options]"
+
+  opts.on("--[no-]wait", "Wait for key press at the end") do |wait|
+    options[:wait] = wait
+  end
+end.parse!
 
 at_exit do
+  require 'rest-client'
   begin
     RestClient.delete 'http://localhost:4569'
   rescue; end
@@ -16,4 +26,4 @@ puts 'View your features at http://localhost:4569'
 system "cucumber #{ARGV.join(' ')} --format cuukie"
 
 puts 'All features checked. Press a key to exit.'
-gets
+gets if options[:wait]

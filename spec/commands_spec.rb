@@ -65,26 +65,36 @@ describe "The cuukie formatter" do
 end
 
 describe "The cuukie command" do
-#  it "starts the server and runs cucumber with the cuukie formatter" do
-#    out = Tempfile.new('cuukie.tmp')
-#    
-#    system "ruby bin/cuukie spec/test_project/features/ \
-#                            --require spec/test_project/features/step_definitions/ \
-#                            --require lib/cuukie \
-#                            >#{out.path}"
-#
+  it "shows help with -h" do
+    out = Tempfile.new('cuukie.tmp')
+    system "ruby bin/cuukie --help >#{out.path}"
+    out.read.should match /Usage: cuukie \[options\]/
+    out.delete
+  end
+
+  it "starts the server and runs cucumber with the cuukie formatter" do
+    out = Tempfile.new('cuukie.tmp')
+    
+    system "ruby bin/cuukie spec/test_project/features/ \
+                            --require spec/test_project/features/step_definitions/ \
+                            --require lib/cuukie \
+                            --no-wait \
+                            >#{out.path}"
+
+    # TODO
 #    out.read.should match 'All features checked.'
 #    html.should match "Passing Scenario"
-#
-#    out.delete
-#  end
+
+    out.delete
+  end
 
   it "closes the server on exit" do
     system "ruby bin/cuukie spec/test_project/features/ \
                             --require spec/test_project/features/step_definitions/ \
                             --require lib/cuukie \
+                            --no-wait
                             >/dev/null 2>&1"
 
-    lambda { html }.should raise_error
+    lambda { GET '/' }.should raise_error
   end
 end

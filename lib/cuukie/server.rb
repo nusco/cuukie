@@ -6,13 +6,13 @@ module Cuukie
   class Server < Sinatra::Base
     set :features,      []
     set :build_status,  'undefined'
-    set :duration,      '?'
+    set :start_time,    nil
+    set :duration,      nil
     set :stats,         {:scenarios => '', :steps => ''}
     
     get '/' do
       @features     = settings.features
       @build_status = settings.build_status
-      @duration     = settings.duration
       @stats        = settings.stats
       erb :index
     end
@@ -21,7 +21,8 @@ module Cuukie
       settings.features.clear
       settings.build_status = 'undefined'
       settings.stats = {:scenarios => '', :steps => ''}
-      settings.duration = '?'
+      settings.start_time = Time.now
+      settings.duration = nil
     end
 
     post '/before_feature' do
@@ -98,9 +99,7 @@ module Cuukie
     end
     
     post '/after_features' do
-      data = read_from_request
-      min, sec = data[:duration].to_f.divmod(60)
-      settings.duration = "#{min}m#{'%.3f' % sec}s" 
+      settings.duration = read_from_request[:duration]
       settings.build_status = 'passed' if settings.build_status == 'undefined'
       settings.stats = stats
       'OK'
@@ -123,6 +122,15 @@ module Cuukie
         end
         result << '</code></pre>'
       end
+      
+      def time_label
+        settings.duration ? "Duration" : "Running time"
+      end
+      
+      def format_time
+        min, sec = time.to_i.divmod(60)
+        "#{min}':#{sec}''"
+      end
     end
     
     def current_feature
@@ -140,6 +148,12 @@ module Cuukie
 
     def current_step
       current_scenario[:steps].last
+    end
+    
+    def time
+      return settings.duration if settings.duration
+      return 0 unless settings.start_time
+      return Time.now - settings.start_time
     end
     
     def stats

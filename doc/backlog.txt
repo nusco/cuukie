@@ -1,8 +1,7 @@
 MMF 0.2.0
+  - show incomplete wrap-up for steps/scenarios
   - single command for formatter+server
   - open page automatically (with command line arg)
-  - show incomplete wrap-up for steps/scenarios
-  - show incomplete running time
 MMF 0.2.1
   - deal with Scenario Examples
   - open/close steps

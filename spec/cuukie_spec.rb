@@ -12,6 +12,10 @@ describe 'Cuukie' do
     it "shows no features" do
       html.should_not match "Feature:"
     end
+
+    it "shows zero running time" do
+      html.should match "Running time: <strong>0':0''</strong>"
+    end
   end
   
   describe "while Cucumber is running" do
@@ -47,6 +51,11 @@ describe 'Cuukie' do
                                             :name => 'I do something',
                                             :file_colon_line => 'file.rb:11' )
       html.should match 'class="step undefined"'
+    end
+    
+    it "shows partial running time" do
+      html.should_not match "Finished in"
+      html.should match /Running time: <strong>\d+\':\d+\'\'<\/strong>/
     end
   end
   
@@ -144,8 +153,8 @@ describe 'Cuukie' do
       html.should match '<pre class=\"val\">  Cuukie is sweet!\n  Let&#x27;s try it out.</pre>'
     end
     
-    it "shows total duration" do
-      html.should match /Finished in <strong>\d+m\d+\.\d+s seconds<\/strong>/
+    it "shows total running time" do
+      html.should match /Duration: <strong>\d+\':\d+\'\'<\/strong>/
     end
     
     it "shows end-of-features stats" do
