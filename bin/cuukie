@@ -1,14 +1,8 @@
 #!/usr/bin/env ruby
-require 'optparse'
+lib = File.dirname(__FILE__) + '/../lib'
+$:.unshift lib unless $:.include? lib
 
-options = {}
-OptionParser.new do |opts|
-  opts.banner = "Usage: cuukie [options]"
-
-  opts.on("--[no-]wait", "Wait for key press at the end") do |wait|
-    options[:wait] = wait
-  end
-end.parse!
+require 'cuukie/cli'
 
 at_exit do
   require 'rest-client'
