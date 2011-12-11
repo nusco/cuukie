@@ -40,6 +40,18 @@ module Cuukie
                             :file_colon_line => step.file_colon_line }
     end
 
+    def before_table_row(*)
+      post 'before_table_row'
+    end
+    
+    def table_cell_value(value, *)
+      post 'table_cell_value', { :value => value }
+    end
+    
+    def doc_string(string)
+      post 'doc_string', { :multiline_string => string }
+    end
+
     def exception(exception, *)
       source = backtrace_to_snippet(exception.backtrace)
       post 'exception', { :message => exception.message,
@@ -55,18 +67,6 @@ module Cuukie
 
     def after_steps(*)
       post 'after_steps'
-    end
-
-    def before_table_row(*)
-      post 'before_table_row'
-    end
-    
-    def table_cell_value(value, *)
-      post 'table_cell_value', { :value => value }
-    end
-    
-    def doc_string(string)
-      post 'doc_string', { :multiline_string => string }
     end
     
     def after_features(features)

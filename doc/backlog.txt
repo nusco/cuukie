@@ -1,10 +1,11 @@
 MMF 0.2.0
-  - show incomplete wrap-up for steps/scenarios
+  - hide wrap-up for steps/scenarios while running
   - single command for formatter+server
   - open page automatically (with command line arg)
 MMF 0.2.1
   - deal with Scenario Examples
   - open/close steps
+  - show incomplete wrap-up for steps/scenarios
 MMF 1.0.0
   - nice graphics
   - self-updating Steps
@@ -22,6 +23,7 @@ Then...
 
 - default policy for open/close elements (like: close
   successfull scenarios/steps, open unsuccessful ones)
+  
 - instead of showing scenarios that appear one by one,
   show the entire suite ASAP, and then proceed to make
   each scenario red or green (or whatever). this

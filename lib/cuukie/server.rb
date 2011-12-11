@@ -8,7 +8,7 @@ module Cuukie
     set :build_status,  'undefined'
     set :start_time,    nil
     set :duration,      nil
-    set :stats,         {:scenarios => '', :steps => ''}
+    set :stats,         Hash.new('')
     
     get '/' do
       @features     = settings.features
@@ -20,9 +20,9 @@ module Cuukie
     post '/before_features' do
       settings.features.clear
       settings.build_status = 'undefined'
-      settings.stats = {:scenarios => '', :steps => ''}
       settings.start_time = Time.now
       settings.duration = nil
+      settings.stats = Hash.new('')
     end
 
     post '/before_feature' do
@@ -56,7 +56,24 @@ module Cuukie
       current_scenario[:steps] << step
       'OK'
     end
-
+    
+    post '/before_table_row' do
+      current_step[:table] << []
+      'OK'
+    end
+    
+    post '/table_cell_value' do
+      data = read_from_request
+      current_step[:table].last << data[:value]
+      'OK'
+    end
+    
+    post '/doc_string' do
+      data = read_from_request
+      current_step[:multiline_string] = data[:multiline_string]
+      'OK'
+    end
+    
     post '/exception' do
       current_step[:exception] = read_from_request
       'OK'
@@ -78,23 +95,6 @@ module Cuukie
         current_scenario[:status] = 'skipped'
       end
       current_scenario[:status] = 'passed' if current_scenario[:status] == 'undefined'
-      'OK'
-    end
-    
-    post '/before_table_row' do
-      current_step[:table] << []
-      'OK'
-    end
-    
-    post '/table_cell_value' do
-      data = read_from_request
-      current_step[:table].last << data[:value]
-      'OK'
-    end
-    
-    post '/doc_string' do
-      data = read_from_request
-      current_step[:multiline_string] = data[:multiline_string]
       'OK'
     end
     

@@ -17,18 +17,10 @@ describe 'Cuukie' do
       html.should match "Running time: <strong>0':0''</strong>"
     end
   end
-  
-  describe "while Cucumber is running" do
+
+  shared_examples_for "while Cucumber is running" do
     require 'ostruct'
     
-    before(:all) do
-      start_server
-      @formatter = Cuukie::Formatter.new
-      @formatter.before_features
-      @formatter.before_feature OpenStruct.new(:short_name => 'Stuff That Works',
-                                              :description => 'As somebody...')
-    end
-
     after(:all) { stop_server_on_port 4569 }
 
     it "shows a grey status bar" do
@@ -57,6 +49,35 @@ describe 'Cuukie' do
       html.should_not match "Finished in"
       html.should match /Running time: <strong>\d+\':\d+\'\'<\/strong>/
     end
+  end
+  
+  describe "while Cucumber is running for the first time" do
+    before(:all) do
+      start_server
+      @formatter = Cuukie::Formatter.new
+      
+      @formatter.before_features
+      @formatter.before_feature OpenStruct.new(:short_name => 'Stuff That Works',
+                                               :description => 'As somebody...')
+    end
+
+    it_behaves_like "while Cucumber is running"
+  end
+  
+  describe "while Cucumber is running for the nth time" do
+    before(:all) do
+      start_server
+      @formatter = Cuukie::Formatter.new
+      
+      @formatter.before_features
+      @formatter.after_features OpenStruct.new(:duration => 70)
+
+      @formatter.before_features
+      @formatter.before_feature OpenStruct.new(:short_name => 'Stuff That Works',
+                                               :description => 'As somebody...')
+    end
+
+    it_behaves_like "while Cucumber is running"
   end
   
   describe "once Cucumber has run" do
