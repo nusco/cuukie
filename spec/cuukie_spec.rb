@@ -16,6 +16,11 @@ describe 'Cuukie' do
     it "shows zero running time" do
       html.should match "Running time: <strong>0':0''</strong>"
     end
+
+     it "doesn't show end-of-features stats" do
+       html.should_not match /\d+ scenarios \(.*\)/
+       html.should_not match /\d+ steps \(.*\)/
+     end
   end
 
   shared_examples_for "while Cucumber is running" do
@@ -48,6 +53,11 @@ describe 'Cuukie' do
     it "shows partial running time" do
       html.should_not match "Finished in"
       html.should match /Running time: <strong>\d+\':\d+\'\'<\/strong>/
+    end
+     
+    it "doesn't show end-of-features stats" do
+      html.should_not match /\d+ scenarios \(.*\)/
+      html.should_not match /\d+ steps \(.*\)/
     end
   end
   

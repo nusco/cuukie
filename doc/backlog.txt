@@ -1,5 +1,4 @@
 MMF 0.2.0
-  - hide wrap-up for steps/scenarios while running
   - single command for formatter+server
   - open page automatically (with command line arg)
 MMF 0.2.1
