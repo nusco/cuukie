@@ -3,21 +3,35 @@ lib = File.dirname(__FILE__) + '/../lib'
 $:.unshift lib unless $:.include? lib
 
 require 'cuukie/cli'
+include Cuukie::Cli
+cuukie_options = []
+['--wait', '--no-wait', '--showpage', '--leave_server_open', '-h', '--help'].each do |arg|
+  cuukie_options << ARGV.delete(arg) 
+end
+if (ARGV.include? '--cuukieport')
+  cuukie_options << ARGV.delete('--cuukieport') << ARGV[ARGV.index('--cuukieport')]
+end
+options = parse_options cuukie_options.compact!
+exit if options.empty?
 
 at_exit do
   require 'rest-client'
   begin
-    RestClient.delete 'http://localhost:4569'
+    RestClient.delete 'http://localhost:4569' unless options[:leave_server_open]
   rescue; end
 end
 
 Process.detach(fork do
-  exec "ruby #{File.dirname(__FILE__)}/cuukie_server >/dev/null 2>&1"
+  system "ruby #{File.dirname(__FILE__)}/cuukie_server >/dev/null 2>&1"
 end)
 
-puts 'View your features at http://localhost:4569'
+puts 'View your features at http://localhost:4569' unless options[:showpage]
 
 system "cucumber #{ARGV.join(' ')} --format cuukie"
 
-puts 'All features checked. Press a key to exit.'
-gets if options[:wait]
+puts 'All features checked'
+
+if options[:wait]
+  puts 'Press a key to exit'
+  gets
+end

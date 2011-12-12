@@ -65,36 +65,44 @@ describe "The cuukie formatter" do
 end
 
 describe "The cuukie command" do
+  before(:each) { @out = Tempfile.new('cuukie.tmp') }
+  after(:each) { @out.delete }
+
   it "shows help with -h" do
-    out = Tempfile.new('cuukie.tmp')
-    system "ruby bin/cuukie --help >#{out.path}"
-    out.read.should match /Usage: cuukie \[options\]/
-    out.delete
+    system "ruby bin/cuukie --help >#{@out.path}"
+    @out.read.should match /Usage: cuukie \[options\]/
   end
 
   it "starts the server and runs cucumber with the cuukie formatter" do
-    out = Tempfile.new('cuukie.tmp')
-    
     system "ruby bin/cuukie spec/test_project/features/ \
                             --require spec/test_project/features/step_definitions/ \
                             --require lib/cuukie \
                             --no-wait \
-                            >#{out.path}"
+                            --leave_server_open \
+                            >#{@out.path}"
 
-    # TODO
-#    out.read.should match 'All features checked.'
-#    html.should match "Passing Scenario"
-
-    out.delete
+    @out.read.should match 'All features checked'
+    html.should match "Passing Scenario"
+    stop_server_on_port '4569'
+  end
+  
+  it "gives instructions to access the page if --showpage is not enabled" do
+    system "ruby bin/cuukie spec/test_project/features/ \
+                            --require spec/test_project/features/step_definitions/ \
+                            --require lib/cuukie \
+                            --no-wait \
+                            >#{@out.path}"
+    
+    @out.read.should match 'View your features at http://localhost:4569'
   end
 
   it "closes the server on exit" do
     system "ruby bin/cuukie spec/test_project/features/ \
                             --require spec/test_project/features/step_definitions/ \
                             --require lib/cuukie \
-                            --no-wait
+                            --no-wait \
                             >/dev/null 2>&1"
-
+    
     lambda { GET '/' }.should raise_error
   end
 end
