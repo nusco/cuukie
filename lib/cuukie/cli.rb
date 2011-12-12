@@ -1,6 +1,6 @@
 require 'optparse'
 
-Version = File.read 'VERSION' unless Kernel.const_defined? :Version
+Version = File.read File.dirname(__FILE__) + '/../../VERSION' unless Kernel.const_defined? :Version
 
 module Cuukie
   module Cli
