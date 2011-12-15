@@ -19,7 +19,7 @@ describe "The parse_options method" do
   end
 
   it "defaults to --cuukieport 4569" do
-    parse_options(['--wait'])[:cuukieport].should == '4569'
+    parse_options(['--nowait'])[:cuukieport].should == '4569'
   end
 
   it "raises error on bad --cuukieport" do
@@ -32,21 +32,23 @@ describe "The parse_options method" do
   end
   
   it "defaults to --showpage = false" do
-    parse_options([])[:showpage].should be_false
+    parse_options(['--nowait'])[:showpage].should be_false
   end
 
-  it "recognises --wait" do
-    parse_options(['--wait'])[:wait].should be_true
-  end
-
-  it "recognises --no-wait" do
-    options = ['--no-wait']
-    parse_options(options)[:wait].should be_false
-    options.should be_empty
+  it "recognises --nowait" do
+    parse_options(['--nowait'])[:nowait].should be_true
   end
   
-  it "defaults to --wait" do
-    parse_options([''])[:wait].should be_true
+  it "defaults to --nowait = false" do
+    parse_options(['--showpage'])[:nowait].should be_false
+  end
+  
+  it "recognises --keepserver" do
+    parse_options(['--keepserver'])[:keepserver].should be_true
+  end
+  
+  it "defaults to --keepserver = false" do
+    parse_options(['--nowait'])[:keepserver].should be_false
   end
 
   it "shows the help with -h" do

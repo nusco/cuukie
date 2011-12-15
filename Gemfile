@@ -3,6 +3,7 @@ source :rubygems
 gem 'sinatra',      "~> 1.3"
 gem 'cucumber',     "~> 1.1"
 gem 'rest-client',  "~> 1.6"
+gem 'launchy'
 gem 'syntax'
 
 group :development do

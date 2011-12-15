@@ -5,7 +5,7 @@ $:.unshift lib unless $:.include? lib
 require 'cuukie/cli'
 include Cuukie::Cli
 cuukie_options = []
-['--wait', '--no-wait', '--showpage', '--leave_server_open', '-h', '--help'].each do |arg|
+['--nowait', '--showpage', '--keepserver', '-h', '--help'].each do |arg|
   cuukie_options << ARGV.delete(arg) 
 end
 if (ARGV.include? '--cuukieport')
@@ -17,16 +17,25 @@ exit if options.empty?
 at_exit do
   require 'rest-client'
   begin
-    RestClient.delete 'http://localhost:4569' unless options[:leave_server_open]
+    RestClient.delete 'http://localhost:4569' unless options[:keepserver]
   rescue; end
 end
 
+# FIXME: use --port
 Process.detach(fork do
   system "ruby #{File.dirname(__FILE__)}/cuukie_server >/dev/null 2>&1"
 end)
 
-puts 'View your features at http://localhost:4569' unless options[:showpage]
+if options[:showpage]
+#  require 'launchy'
+#  Launchy.open("http://localhost:#{options[:cuukieport]}")
+else
+  # FIXME: use --port
+  puts 'View your features at http://localhost:4569' 
+end
 
+# TODO: auto-require formatter (warning: if you tell Cucumber to --require
+# something, it will want to --require everything!)
 system "cucumber #{ARGV.join(' ')} --format cuukie"
 
 puts 'All features checked'

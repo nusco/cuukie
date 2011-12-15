@@ -77,8 +77,8 @@ describe "The cuukie command" do
     system "ruby bin/cuukie spec/test_project/features/ \
                             --require spec/test_project/features/step_definitions/ \
                             --require lib/cuukie \
-                            --no-wait \
-                            --leave_server_open \
+                            --nowait \
+                            --keepserver \
                             >#{@out.path}"
 
     @out.read.should match 'All features checked'
@@ -90,7 +90,7 @@ describe "The cuukie command" do
     system "ruby bin/cuukie spec/test_project/features/ \
                             --require spec/test_project/features/step_definitions/ \
                             --require lib/cuukie \
-                            --no-wait \
+                            --nowait \
                             >#{@out.path}"
     
     @out.read.should match 'View your features at http://localhost:4569'
@@ -100,7 +100,7 @@ describe "The cuukie command" do
     system "ruby bin/cuukie spec/test_project/features/ \
                             --require spec/test_project/features/step_definitions/ \
                             --require lib/cuukie \
-                            --no-wait \
+                            --nowait \
                             >/dev/null 2>&1"
     
     lambda { GET '/' }.should raise_error
