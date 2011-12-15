@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "cuukie"
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paolo \"Nusco\" Perrotta"]
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
     "doc/pomodoro.txt",
     "lib/cuukie.rb",
     "lib/cuukie/cli.rb",
+    "lib/cuukie/client.rb",
     "lib/cuukie/code_snippets.rb",
     "lib/cuukie/formatter.rb",
     "lib/cuukie/public/cucumber.css",
