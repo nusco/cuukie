@@ -1,6 +1,9 @@
 require 'bundler/setup'
 require 'cuukie'
 
+require 'cuukie/client'
+include Cuukie::Client
+
 def start_process(command)
   Process.detach fork { exec command }
 end
@@ -26,23 +29,4 @@ end
 def start_server
   start_process "ruby bin/cuukie --server >/dev/null 2>&1"
   wait_for_server_on_port 4569
-end
-
-def ping_on_port(port)
-  RestClient.get "http://localhost:#{port}/ping"
-end
-
-def wait_for_server_on_port(port)
-  loop do
-    begin
-      ping_on_port port
-      return
-    rescue; end
-  end
-end
-
-def stop_server_on_port(port)
-  # the server dies without replying, so we expect an error here
-  RestClient.delete "http://localhost:#{port}/"
-rescue
 end

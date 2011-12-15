@@ -16,6 +16,10 @@ else
   Process.detach(fork { system "#{server_command} >/dev/null 2>&1" })
 end
 
+require 'cuukie/client'
+include Cuukie::Client
+wait_for_server_on_port options[:cuukieport]
+
 unless options[:keepserver]
   at_exit do
     require 'rest-client'
