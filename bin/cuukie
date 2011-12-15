@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 lib = File.dirname(__FILE__) + '/../lib'
 $:.unshift lib unless $:.include? lib
+require 'rubygems'
 
 require 'cuukie/cli'
 include Cuukie::Cli

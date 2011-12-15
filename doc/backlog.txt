@@ -1,7 +1,7 @@
 MMF 0.2.1
+  - "ruby bug" fixed
   - better error messages
   - work on any cucumber project out of the box (no need to add require())
-  - "ruby bug" fixed
 MMF 0.2.2
   - don't launch server if it's already up
   - give detailed instructions if the port is unavailable 
