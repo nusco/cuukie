@@ -4,17 +4,11 @@ Cuukie shows your Cucumber results on a web page.
 
 [![Build Status](https://secure.travis-ci.org/nusco/cuukie.png)](http://travis-ci.org/nusco/cuukie.png)
 
-## Using it
-
 Install Cuukie via Bundler, or directly with:
 
     gem install cuukie
 
-Require Cuukie from any file in your _features/support_ directory:
-
-    require 'cuukie'
-
-Add this line to any Ruby file in your _features/support_ directory:
+Go to your Cucumber folder and add this line to any file in _features/support_:
 
     require 'cuukie'
 
@@ -22,11 +16,11 @@ Run Cuukie:
 
     cuukie --showpage
 
+Cuukie passes any command-line argument that it doesn't recognize to Cucumber, so just use _cuukie_ instead of _cucumber_ when you want Cuukie to kick in.
+
 ## Advanced Cuuking
 
-Cuukie is actually two things: a server that shows you the Cucumber results on a web page, and a Cucumber formatter that sends data to the server. You can run these two components independently (for example, you might want to keep the server running all the time).
-
-To run Cuukie as a server:
+Cuukie is actually two things: a server that displays running features on a web page, and a Cucumber formatter that sends data to the server. You can run these two components independently. For example, you might want to keep the server running all the time:
 
     cuukie --server
 
@@ -46,10 +40,14 @@ You can pick a port when you start the cuukie server...
 
     cucumber --format cuukie CUUKIE_SERVER=http://my.server:4570
 
-## Cuukie Vision
+This stuff is useful if you want to put the Cuukie server on your build machine.
 
-Right now, Cuukie is not any more useful than Cucumber's own HTML formatter. My plan is to make it more dynamic. You'll be able to see your steps as they run, just like you do with the default command-line formatter - but on a web page. Cuukie wants to be a good choice both when you want to run Cucumber tests locally, and when you want to show Cucumber tests on your build machine.
+For more options:
+
+    cuukie --server
+
+Enjoy!
 
 ## License
 
-MIT License. Copyright (c) 2011 Paolo "Nusco" Perrotta. I ripped a few lines of code off Cucumber's HTML formatter.
+MIT License. Copyright (c) 2011 Paolo "Nusco" Perrotta. I also ripped a few lines of code off Cucumber's HTML formatter.

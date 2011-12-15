@@ -14,7 +14,7 @@ describe "The parse_options method" do
     $stdout = @old_stdout
   end
   
-  it "recognises --server" do
+  it "recognizes --server" do
     parse_options(['--server'])[:server].should be_true
   end
   
@@ -22,7 +22,7 @@ describe "The parse_options method" do
     parse_options([])[:server].should be_false
   end
   
-  it "recognises --cuukieport" do
+  it "recognizes --cuukieport" do
     parse_options(['--cuukieport', '4570'])[:cuukieport].should == 4570
   end
 
@@ -35,7 +35,7 @@ describe "The parse_options method" do
     lambda { parse_options ['--cuukieport'] }.should raise_error
   end
   
-  it "recognises --showpage" do
+  it "recognizes --showpage" do
     parse_options(['--showpage'])[:showpage].should be_true
   end
   
@@ -43,7 +43,7 @@ describe "The parse_options method" do
     parse_options([])[:showpage].should be_false
   end
 
-  it "recognises --nowait" do
+  it "recognizes --nowait" do
     parse_options(['--nowait'])[:nowait].should be_true
   end
   
@@ -51,7 +51,7 @@ describe "The parse_options method" do
     parse_options([])[:nowait].should be_false
   end
   
-  it "recognises --keepserver" do
+  it "recognizes --keepserver" do
     parse_options(['--keepserver'])[:keepserver].should be_true
   end
   
@@ -78,7 +78,7 @@ describe "The parse_options method" do
     parse_options(['-h']).should be_empty
   end
   
-  it "consumes recognised options" do
+  it "consumes recognized options" do
     options = ['--showpage', '--invalid', '--cuukieport', '4570']
     parse_options options
     options.should == ['--invalid']
