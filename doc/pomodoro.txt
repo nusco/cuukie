@@ -1,6 +1,7 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- refactoring
 - command-line options
 - roll bin/cuukie_server into bin/cuukie
 - command-line options

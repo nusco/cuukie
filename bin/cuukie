@@ -4,15 +4,8 @@ $:.unshift lib unless $:.include? lib
 
 require 'cuukie/cli'
 include Cuukie::Cli
-cuukie_options = []
-['--server', '--showpage', '--nowait', '--keepserver', '-h', '--help'].each do |arg|
-  cuukie_options << ARGV.delete(arg) 
-end
-if (ARGV.include? '--cuukieport')
-  port_index = ARGV.index('--cuukieport')
-  cuukie_options << ARGV.delete('--cuukieport') << ARGV.delete_at(port_index)
-end
-options = parse_options cuukie_options.compact!
+options = parse_options ARGV
+
 exit if options.empty?
 
 server_command = "ruby #{File.dirname(__FILE__)}/../lib/cuukie/server.rb #{options[:cuukieport]}"

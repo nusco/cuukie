@@ -31,7 +31,7 @@ describe "The parse_options method" do
   end
 
   it "raises error on bad --cuukieport" do
-    lambda { parse_options ['--cuukieport --4569'] }.should raise_error
+    lambda { parse_options ['--cuukieport', 'abc'] }.should raise_error
     lambda { parse_options ['--cuukieport'] }.should raise_error
   end
   
@@ -76,5 +76,11 @@ describe "The parse_options method" do
 
   it "returns no result after showing help" do
     parse_options(['-h']).should be_empty
+  end
+  
+  it "consumes recognised options" do
+    options = ['--showpage', '--invalid', '--cuukieport', '4570']
+    parse_options options
+    options.should == ['--invalid']
   end
 end
