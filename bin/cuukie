@@ -5,42 +5,45 @@ $:.unshift lib unless $:.include? lib
 require 'cuukie/cli'
 include Cuukie::Cli
 cuukie_options = []
-['--nowait', '--showpage', '--keepserver', '-h', '--help'].each do |arg|
+['--server', '--showpage', '--nowait', '--keepserver', '-h', '--help'].each do |arg|
   cuukie_options << ARGV.delete(arg) 
 end
 if (ARGV.include? '--cuukieport')
-  cuukie_options << ARGV.delete('--cuukieport') << ARGV[ARGV.index('--cuukieport')]
+  port_index = ARGV.index('--cuukieport')
+  cuukie_options << ARGV.delete('--cuukieport') << ARGV.delete_at(port_index)
 end
 options = parse_options cuukie_options.compact!
 exit if options.empty?
 
-at_exit do
-  require 'rest-client'
-  begin
-    RestClient.delete 'http://localhost:4569' unless options[:keepserver]
-  rescue; end
+server_command = "ruby #{File.dirname(__FILE__)}/../lib/cuukie/server.rb #{options[:cuukieport]}"
+if options[:server]
+  system server_command
+  exit 
+else
+  Process.detach(fork { system "#{server_command} >/dev/null 2>&1" })
 end
 
-# FIXME: use --port
-Process.detach(fork do
-  system "ruby #{File.dirname(__FILE__)}/cuukie_server >/dev/null 2>&1"
-end)
+unless options[:keepserver]
+  at_exit do
+    require 'rest-client'
+    begin
+      RestClient.delete "http://localhost:#{options[:cuukieport]}"
+    rescue; end
+  end
+end
 
 if options[:showpage]
-#  require 'launchy'
-#  Launchy.open("http://localhost:#{options[:cuukieport]}")
+  require 'launchy'
+  Launchy.open("http://localhost:#{options[:cuukieport]}")
 else
-  # FIXME: use --port
-  puts 'View your features at http://localhost:4569' 
+  puts "View your features at http://localhost:#{options[:cuukieport]}" 
 end
 
 # TODO: auto-require formatter (warning: if you tell Cucumber to --require
 # something, it will want to --require everything!)
 system "cucumber #{ARGV.join(' ')} --format cuukie"
 
-puts 'All features checked'
-
-if options[:wait]
+unless options[:nowait]
   puts 'Press a key to exit'
   gets
 end

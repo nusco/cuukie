@@ -1,19 +1,4 @@
 require 'spec_helper'
-
-describe "The cuukie_server command" do
-  it "starts the Cuukie server on port 4569 by default" do
-    start_process "ruby bin/cuukie_server >/dev/null 2>&1"
-    wait_for_server_on_port 4569
-    stop_server_on_port 4569
-  end
-
-  it "starts the Cuukie server on any given port" do
-    start_process "ruby bin/cuukie_server 4570 >/dev/null 2>&1"
-    wait_for_server_on_port 4570
-    stop_server_on_port 4570
-  end
-end
-
 require 'tempfile'
 
 describe "The cuukie formatter" do
@@ -27,7 +12,7 @@ describe "The cuukie formatter" do
   
   it "expects a server on localhost:4569 by default" do
     begin
-      start_process "ruby bin/cuukie_server 4569 >/dev/null 2>&1"
+      start_process "ruby bin/cuukie --server >/dev/null 2>&1"
       wait_for_server_on_port 4569
       cmd = "cd spec/test_project && \
              cucumber features/1_show_scenarios.feature:9 \
@@ -40,7 +25,7 @@ describe "The cuukie formatter" do
   end
 
   it "can point to a different server" do
-    start_process "ruby bin/cuukie_server 4570 >/dev/null 2>&1"
+    start_process "ruby bin/cuukie --server --cuukieport 4570 >/dev/null 2>&1"
     begin
       wait_for_server_on_port 4570
       cmd = "cd spec/test_project && \
@@ -60,7 +45,7 @@ describe "The cuukie formatter" do
                     CUUKIE_SERVER=http://some.server:4570 \
                     --format cuukie >#{@out.path}"
     system(cmd).should be_true
-    @out.read.should match 'I cannot find the cuukie_server on http://some.server:4570'
+    @out.read.should match 'I cannot find the cuukie server on http://some.server:4570'
   end
 end
 
@@ -68,7 +53,7 @@ describe "The cuukie command" do
   before(:each) { @out = Tempfile.new('cuukie.tmp') }
   after(:each) { @out.delete }
 
-  it "shows help with -h" do
+  it "shows help with --help" do
     system "ruby bin/cuukie --help >#{@out.path}"
     @out.read.should match /Usage: cuukie \[options\]/
   end
@@ -79,11 +64,10 @@ describe "The cuukie command" do
                             --require lib/cuukie \
                             --nowait \
                             --keepserver \
-                            >#{@out.path}"
+                            >/dev/null 2>&1"
 
-    @out.read.should match 'All features checked'
     html.should match "Passing Scenario"
-    stop_server_on_port '4569'
+    stop_server_on_port 4569
   end
   
   it "gives instructions to access the page if --showpage is not enabled" do
@@ -91,9 +75,10 @@ describe "The cuukie command" do
                             --require spec/test_project/features/step_definitions/ \
                             --require lib/cuukie \
                             --nowait \
+                            --cuukieport 4570 \
                             >#{@out.path}"
     
-    @out.read.should match 'View your features at http://localhost:4569'
+    @out.read.should match 'View your features at http://localhost:4570'
   end
 
   it "closes the server on exit" do
@@ -101,8 +86,31 @@ describe "The cuukie command" do
                             --require spec/test_project/features/step_definitions/ \
                             --require lib/cuukie \
                             --nowait \
+                            --cuukieport 4570 \
                             >/dev/null 2>&1"
     
-    lambda { GET '/' }.should raise_error
+    lambda { ping_on_port 4570 }.should raise_error
+  end
+
+  describe "when used with the --server switch" do
+    it "starts the Cuukie server on port 4569 by default" do
+      start_process "ruby bin/cuukie --server >/dev/null 2>&1"
+      wait_for_server_on_port 4569
+      stop_server_on_port 4569
+    end
+
+    it "starts the Cuukie server on any given port" do
+      start_process "ruby bin/cuukie --server --cuukieport 4570 >/dev/null 2>&1"
+      wait_for_server_on_port 4570
+      stop_server_on_port 4570
+    end
+
+    it "exits immediately after starting the server" do
+      start_process "ruby bin/cuukie --server >/dev/null 2>&1"
+      wait_for_server_on_port 4569
+      html.should match /Cuukie/
+      html.should_not match /Feature:/
+      stop_server_on_port 4569
+    end
   end
 end

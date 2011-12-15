@@ -24,14 +24,18 @@ def html
 end
 
 def start_server
-  start_process "ruby bin/cuukie_server >/dev/null 2>&1"
+  start_process "ruby bin/cuukie --server >/dev/null 2>&1"
   wait_for_server_on_port 4569
+end
+
+def ping_on_port(port)
+  RestClient.get "http://localhost:#{port}/ping"
 end
 
 def wait_for_server_on_port(port)
   loop do
     begin
-      RestClient.get "http://localhost:#{port}/ping"
+      ping_on_port port
       return
     rescue; end
   end

@@ -2,6 +2,9 @@ I use this file to track my own work on the project. Each line is a pomodoro (a 
 Latest pomodoro comes first:
 
 - command-line options
+- roll bin/cuukie_server into bin/cuukie
+- command-line options
+- command-line options
 - command-line options
 - command-line options
 - command-line options

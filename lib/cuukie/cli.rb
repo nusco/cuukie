@@ -5,17 +5,20 @@ Version = File.read File.dirname(__FILE__) + '/../../VERSION' unless Kernel.cons
 module Cuukie
   module Cli
     def parse_options(options)
-      result = { :cuukieport  => '4569',
+      result = { :server      => false,
+                 :cuukieport  => 4569,
                  :showpage    => false,
                  :nowait      => false,
                  :keepserver  => false }
-
-      options << '-h' if options.empty?
       
       OptionParser.new do |opts|
         opts.banner = "cuukie #{::Version}\nUsage: cuukie [options] [cucumber-options]"
 
-        opts.on("--cuukieport PORT", "Start the server on PORT (instead of the default 4569)") do |port|
+        opts.on("--server", "Run as a server") do
+          result[:server] = true
+        end
+
+        opts.on("--cuukieport PORT", Integer, "Start the server on PORT (instead of the default 4569)") do |port|
           result[:cuukieport] = port
         end
 

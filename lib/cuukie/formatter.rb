@@ -10,8 +10,8 @@ module Cuukie
       @server = ENV['CUUKIE_SERVER'] || 'http://localhost:4569'
       RestClient.get "#{@server}/ping"
     rescue
-      puts "I cannot find the cuukie_server on #{@server}."
-      puts "Please start the server with the cuukie_server command."
+      puts "I cannot find the cuukie server on #{@server}."
+      puts "Please start the server with cuukie --server."
       exit
     end
 

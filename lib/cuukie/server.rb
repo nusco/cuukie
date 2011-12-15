@@ -205,3 +205,8 @@ module Cuukie
     end
   end
 end
+
+if __FILE__ == $0
+  Cuukie::Server.set :port, ARGV[0] if ARGV[0]
+  Cuukie::Server.run!
+end

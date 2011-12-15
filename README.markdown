@@ -22,7 +22,7 @@ Add this line to any Ruby file in your _features/support_ directory:
 
 Start the Cuukie server from a terminal window:
 
-    cuukie_server
+    cuukie --server
 
 Leave the server running. When you run Cucumber, ask it to use the _cuukie_ formatter:
 
@@ -34,9 +34,9 @@ To look at the results, open this page in a browser:
 
 ## Custom port/server
 
-You can pick a port when you start the cuukie_server...
+You can pick a port when you start the cuukie server...
 
-    cuukie_server 4570
+    cuukie --server --cuukieport 4570
 
 ...and you can tell the cuukie formatter where to look for the server:
 
