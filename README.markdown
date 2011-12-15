@@ -6,11 +6,9 @@ Cuukie shows your Cucumber results on a web page.
 
 ## Using it
 
-Install Cuukie:
+Install Cuukie via Bundler, or directly with:
 
     gem install cuukie
-
-(Or better still, you can use Bundler).
 
 Require Cuukie from any file in your _features/support_ directory:
 
@@ -20,19 +18,25 @@ Add this line to any Ruby file in your _features/support_ directory:
 
     require 'cuukie'
 
-Start the Cuukie server from a terminal window:
+Run Cuukie:
+
+    cuukie --showpage
+
+## Advanced Cuuking
+
+Cuukie is actually two things: a server that shows you the Cucumber results on a web page, and a Cucumber formatter that sends data to the server. You can run these two components independently (for example, you might want to keep the server running all the time).
+
+To run Cuukie as a server:
 
     cuukie --server
 
-Leave the server running. When you run Cucumber, ask it to use the _cuukie_ formatter:
+When you run Cucumber, ask it to use the _cuukie_ formatter to send data to the server:
 
     cucumber --format cuukie
-    
-To look at the results, open this page in a browser:
+
+To look at the results, visit:
 
     http://localhost:4569
-
-## Custom port/server
 
 You can pick a port when you start the cuukie server...
 
