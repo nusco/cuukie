@@ -16,7 +16,7 @@ Run Cuukie:
 
     cuukie --showpage
 
-Cuukie passes any command-line argument that it doesn't recognize to Cucumber, so just use _cuukie_ instead of _cucumber_ when you want Cuukie to kick in.
+Cuukie passes any command-line argument that it doesn't recognize to Cucumber, so just use _cuukie_ instead of _cucumber_ when you want to see your features in the browser.
 
 ## Advanced Cuuking
 
@@ -40,11 +40,9 @@ You can pick a port when you start the cuukie server...
 
     cucumber --format cuukie CUUKIE_SERVER=http://my.server:4570
 
-This stuff is useful if you want to put the Cuukie server on your build machine.
+This stuff is useful if you want to put the Cuukie server on your build machine. For more options:
 
-For more options:
-
-    cuukie --server
+    cuukie --help
 
 Enjoy!
 

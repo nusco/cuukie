@@ -19,8 +19,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "cuukie"
   gem.homepage = "http://github.com/nusco/cuukie"
   gem.license = "MIT"
+  gem.description = %Q{A drop-in replacement for the "cucumber" command. It shows running features on a web page.}
   gem.summary = %Q{A continuous view on Cucumber features}
-  gem.description = %Q{Shows Cucumber results on a web page as they run.}
   gem.email = "paolo.nusco.perrotta@gmail.com"
   gem.authors = ['Paolo "Nusco" Perrotta']
 end

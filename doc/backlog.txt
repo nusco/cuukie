@@ -1,10 +1,11 @@
-MMF 0.2.0
-  - single command for formatter+server
-  - open page automatically (with command line arg)
-  - work on any cucumber project out of the box (no need to add require())
 MMF 0.2.1
+  - better error messages
+  - work on any cucumber project out of the box (no need to add require())
+MMF 0.2.2
   - deal with Scenario Examples
+MMF 0.2.3
   - open/close steps
+MMF 0.2.4
   - show incomplete wrap-up for steps/scenarios
 MMF 1.0.0
   - nice graphics
