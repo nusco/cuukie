@@ -5,14 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = "cuukie"
-  s.version = "0.1.4"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paolo \"Nusco\" Perrotta"]
-  s.date = "2011-12-08"
-  s.description = "Shows Cucumber results on a web page as they run."
+  s.date = "2011-12-15"
+  s.description = "A drop-in replacement for the \"cucumber\" command. It shows running features on a web page."
   s.email = "paolo.nusco.perrotta@gmail.com"
-  s.executables = ["cuukie_server"]
+  s.executables = ["cuukie"]
   s.extra_rdoc_files = [
     "README.markdown"
   ]
@@ -24,19 +24,21 @@ Gem::Specification.new do |s|
     "README.markdown",
     "Rakefile",
     "VERSION",
-    "bin/cuukie_server",
+    "bin/cuukie",
     "cuukie.gemspec",
     "doc/LICENSE.txt",
     "doc/backlog.txt",
     "doc/pomodoro.txt",
     "lib/cuukie.rb",
-    "lib/cuukie/cucumber/formatter/code_snippets.rb",
-    "lib/cuukie/cucumber/formatter/cuukie.rb",
+    "lib/cuukie/cli.rb",
+    "lib/cuukie/code_snippets.rb",
+    "lib/cuukie/formatter.rb",
     "lib/cuukie/public/cucumber.css",
     "lib/cuukie/public/cuukie.js",
     "lib/cuukie/public/jquery-1.7.min.js",
     "lib/cuukie/server.rb",
     "lib/cuukie/views/index.erb",
+    "spec/cli_spec.rb",
     "spec/code_snippets_spec.rb",
     "spec/commands_spec.rb",
     "spec/cuukie_spec.rb",
@@ -59,24 +61,27 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<sinatra>, [">= 0"])
-      s.add_runtime_dependency(%q<rest-client>, [">= 0"])
-      s.add_runtime_dependency(%q<cucumber>, [">= 0"])
+      s.add_runtime_dependency(%q<sinatra>, ["~> 1.3"])
+      s.add_runtime_dependency(%q<cucumber>, ["~> 1.1"])
+      s.add_runtime_dependency(%q<rest-client>, ["~> 1.6"])
+      s.add_runtime_dependency(%q<launchy>, [">= 0"])
       s.add_runtime_dependency(%q<syntax>, [">= 0"])
       s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
-      s.add_dependency(%q<sinatra>, [">= 0"])
-      s.add_dependency(%q<rest-client>, [">= 0"])
-      s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<sinatra>, ["~> 1.3"])
+      s.add_dependency(%q<cucumber>, ["~> 1.1"])
+      s.add_dependency(%q<rest-client>, ["~> 1.6"])
+      s.add_dependency(%q<launchy>, [">= 0"])
       s.add_dependency(%q<syntax>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
-    s.add_dependency(%q<sinatra>, [">= 0"])
-    s.add_dependency(%q<rest-client>, [">= 0"])
-    s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<sinatra>, ["~> 1.3"])
+    s.add_dependency(%q<cucumber>, ["~> 1.1"])
+    s.add_dependency(%q<rest-client>, ["~> 1.6"])
+    s.add_dependency(%q<launchy>, [">= 0"])
     s.add_dependency(%q<syntax>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
