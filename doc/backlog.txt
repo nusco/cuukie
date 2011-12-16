@@ -1,15 +1,16 @@
-MMF 0.2.1
-  - "ruby bug" fixed
+MMF 0.2.3
+  - 1.9.3 bug fixed
+  - 1.9.7 bug fixed
   - better error messages
   - work on any cucumber project out of the box (no need to add require())
-MMF 0.2.2
+MMF 0.2.4
   - don't launch server if it's already up
   - give detailed instructions if the port is unavailable 
-MMF 0.2.3
-  - deal with Scenario Examples
-MMF 0.2.4
-  - show incomplete wrap-up for steps/scenarios
 MMF 0.2.5
+  - deal with Scenario Examples
+MMF 0.2.6
+  - show incomplete wrap-up for steps/scenarios
+MMF 0.2.7
   - open/close steps
 MMF 1.0.0
   - nice graphics

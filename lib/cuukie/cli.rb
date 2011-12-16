@@ -34,7 +34,7 @@ module Cuukie
         opts.on("--cuukieport PORT", Integer, "Start the server on PORT") {|port| result[:cuukieport] = port }
         opts.on("--server", "Run as a server")                            { result[:server] = true           }
         opts.on("--showpage", "Open the features in the default browser") { result[:showpage] = true         }
-        opts.on("--nowait", "Don't wait for keypress on exit")            { result[:nowait] = true           }
+        opts.on("--nowait", "Don't wait for ENTER on exit")               { result[:nowait] = true           }
         opts.on("--keepserver", "Leave the server running on exit")       { result[:keepserver] = true       }
         
         opts.on_tail("-h", "--help", "You're looking at it") do
