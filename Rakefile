@@ -1,18 +1,10 @@
 require 'bundler/setup'
 
-task :default => 'test:specs'
+task :default => :test
 
-namespace :test do
-  require 'rspec/core/rake_task'
-  desc "Run all specs"
-  RSpec::Core::RakeTask.new(:specs)
-
-  desc "Run Cuukie on the test project (needs a cuukie server on localhost, default port)"
-  task :manual do
-    system "cd spec/test_project && \
-            cucumber --format cuukie"
-  end
-end
+require 'rspec/core/rake_task'
+desc "Run all specs"
+RSpec::Core::RakeTask.new(:test)
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
