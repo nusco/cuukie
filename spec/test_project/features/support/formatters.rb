@@ -1,1 +1,1 @@
-require '../../lib/cuukie'
+require File.dirname(__FILE__) + '/../../../../lib/cuukie'

@@ -57,5 +57,8 @@ Then...
   numbers from tests b/c of this, and b/c they made the
   tests fragile. Try to put back the line numbers,
   and test under rbx)
+
+- windows compatibility
   
 - test against rbx
+

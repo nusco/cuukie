@@ -13,21 +13,21 @@ describe "The cuukie formatter" do
   it "expects a server on localhost:4569 by default" do
     begin
       start_process "ruby bin/cuukie --server >/dev/null 2>&1"
-      wait_for_server_on_port 4569
+      wait_for_server_at 4569
       cmd = "cd spec/test_project && \
              cucumber features/1_show_scenarios.feature:9 \
                       --format cuukie >#{@out.path}"
       system(cmd).should be_true
       @out.read.should == ''
     ensure
-      stop_server_on_port 4569
+      stop_server_at 4569
     end
   end
 
   it "can point to a different server" do
     start_process "ruby bin/cuukie --server --cuukieport 4570 >/dev/null 2>&1"
     begin
-      wait_for_server_on_port 4570
+      wait_for_server_at 4570
       cmd = "cd spec/test_project && \
              cucumber features/1_show_scenarios.feature:9 \
                       CUUKIE_SERVER=http://localhost:4570 \
@@ -35,7 +35,7 @@ describe "The cuukie formatter" do
       system(cmd).should be_true
       @out.read.should == ''
     ensure
-      stop_server_on_port 4570
+      stop_server_at 4570
     end
   end
   
@@ -67,7 +67,7 @@ describe "The cuukie command" do
                             >/dev/null 2>&1"
 
     html.should match "Passing Scenario"
-    stop_server_on_port 4569
+    stop_server_at 4569
   end
   
   it "gives instructions to access the page if --showpage is not enabled" do
@@ -89,28 +89,28 @@ describe "The cuukie command" do
                             --cuukieport 4570 \
                             >/dev/null 2>&1"
     
-    lambda { ping_on_port 4570 }.should raise_error
+    lambda { ping_at 4570 }.should raise_error
   end
 
   describe "when used with the --server switch" do
     it "starts the Cuukie server on port 4569 by default" do
       start_process "ruby bin/cuukie --server >/dev/null 2>&1"
-      wait_for_server_on_port 4569
-      stop_server_on_port 4569
+      wait_for_server_at 4569
+      stop_server_at 4569
     end
 
     it "starts the Cuukie server on any given port" do
       start_process "ruby bin/cuukie --server --cuukieport 4570 >/dev/null 2>&1"
-      wait_for_server_on_port 4570
-      stop_server_on_port 4570
+      wait_for_server_at 4570
+      stop_server_at 4570
     end
 
     it "exits immediately after starting the server" do
       start_process "ruby bin/cuukie --server >/dev/null 2>&1"
-      wait_for_server_on_port 4569
+      wait_for_server_at 4569
       html.should match /Cuukie/
       html.should_not match /Feature:/
-      stop_server_on_port 4569
+      stop_server_at 4569
     end
   end
 end

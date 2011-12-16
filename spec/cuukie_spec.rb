@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Cuukie' do
   describe "before Cucumber has run" do
     before(:all) { start_server }
-    after(:all) { stop_server_on_port 4569 }
+    after(:all) { stop_server_at 4569 }
     
     it "shows a grey status bar" do
       html.should match /undefinedColors\('cucumber-header'\)/
@@ -26,7 +26,7 @@ describe 'Cuukie' do
   shared_examples_for "while Cucumber is running" do
     require 'ostruct'
     
-    after(:all) { stop_server_on_port 4569 }
+    after(:all) { stop_server_at 4569 }
 
     it "shows a grey status bar" do
       html.should match /undefinedColors\('cucumber-header'\)/
@@ -96,7 +96,7 @@ describe 'Cuukie' do
       run_cucumber
     end
 
-    after(:all) { stop_server_on_port 4569 }
+    after(:all) { stop_server_at 4569 }
 
     it "cleans up previous data at the beginning of a run" do
       run_cucumber

@@ -28,5 +28,5 @@ end
 
 def start_server
   start_process "ruby bin/cuukie --server >/dev/null 2>&1"
-  wait_for_server_on_port 4569
+  wait_for_server_at 4569
 end

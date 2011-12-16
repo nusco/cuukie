@@ -74,8 +74,8 @@ describe "The parse_options method" do
     @out.should match /cuukie \d+\.\d+\.\d+/
   end
 
-  it "returns no result after showing help" do
-    parse_options(['-h']).should be_empty
+  it "leaves behind a help option after showing help" do
+    parse_options(['-h'])[:help].should be_true
   end
   
   it "consumes recognized options" do

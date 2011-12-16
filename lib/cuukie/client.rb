@@ -2,20 +2,20 @@ require 'rest-client'
 
 module Cuukie
   module Client
-    def ping_on_port(port)
+    def ping_at(port)
       RestClient.get "http://localhost:#{port}/ping"
     end
 
-    def wait_for_server_on_port(port)
+    def wait_for_server_at(port)
       loop do
         begin
-          ping_on_port port
+          ping_at port
           return
         rescue; end
       end
     end
 
-    def stop_server_on_port(port)
+    def stop_server_at(port)
       # the server dies without replying, so we expect an error here
       RestClient.delete "http://localhost:#{port}/"
     rescue

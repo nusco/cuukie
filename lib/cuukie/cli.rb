@@ -24,7 +24,7 @@ module Cuukie
     
     def to_options_hash(options)
       result = { :cuukieport  => 4569 }
-      [:server, :showpage, :nowait, :keepserver].each do |opt|
+      [:server, :showpage, :nowait, :keepserver, :help].each do |opt|
         result[opt] = false
       end
       
@@ -39,7 +39,7 @@ module Cuukie
         
         opts.on_tail("-h", "--help", "You're looking at it") do
           puts opts.help
-          return {}
+          result[:help] = true
         end
       end.parse! options
       result

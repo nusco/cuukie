@@ -5,10 +5,11 @@ $:.unshift lib unless $:.include? lib
 require 'cuukie/cli'
 include Cuukie::Cli
 options = parse_options ARGV
+exit if options[:help]
 
-exit if options.empty?
+port = options[:cuukieport]
 
-server_command = "ruby #{File.dirname(__FILE__)}/../lib/cuukie/server.rb #{options[:cuukieport]}"
+server_command = "ruby #{File.dirname(__FILE__)}/../lib/cuukie/server.rb #{port}"
 if options[:server]
   system server_command
   exit 
@@ -18,27 +19,21 @@ end
 
 require 'cuukie/client'
 include Cuukie::Client
-wait_for_server_on_port options[:cuukieport]
+wait_for_server_at port
 
-unless options[:keepserver]
-  at_exit do
-    require 'rest-client'
-    begin
-      RestClient.delete "http://localhost:#{options[:cuukieport]}"
-    rescue; end
-  end
-end
+at_exit { stop_server_at port } unless options[:keepserver]
 
 if options[:showpage]
   require 'launchy'
-  Launchy.open("http://localhost:#{options[:cuukieport]}")
+  Launchy.open "http://localhost:#{port}"
 else
-  puts "View your features at http://localhost:#{options[:cuukieport]}" 
+  puts "View your features at http://localhost:#{port}" 
 end
 
 # TODO: auto-require formatter (warning: if you tell Cucumber to --require
 # something, it will want to --require everything!)
-system "cucumber #{ARGV.join(' ')} --format cuukie"
+# TODO: run cucumber through a local call instead of using system()
+system "cucumber --format cuukie #{ARGV.join(' ')}"
 
 unless options[:nowait]
   puts 'RETURN to exit'
