@@ -42,5 +42,5 @@ system "cucumber #{ARGV.join(' ')} --format cuukie"
 
 unless options[:nowait]
   puts 'ENTER to exit'
-  getc
+  STDIN.getc
 end
