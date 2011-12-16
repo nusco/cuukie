@@ -1,6 +1,8 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- multiple formatters
+- debugging
 - fix race condition, debugging
 - testing/debugging
 - testing

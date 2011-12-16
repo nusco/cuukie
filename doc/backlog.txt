@@ -1,6 +1,5 @@
 MMF 0.2.3
-  - 1.9.3 bug fixed
-  - 1.9.7 bug fixed
+  - you can use other formatters with cuukie
   - better error messages
   - work on any cucumber project out of the box (no need to add require())
 MMF 0.2.4
