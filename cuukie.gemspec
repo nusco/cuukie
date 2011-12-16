@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "cuukie"
-  s.version = "0.2.2"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paolo \"Nusco\" Perrotta"]
-  s.date = "2011-12-15"
+  s.date = "2011-12-16"
   s.description = "A drop-in replacement for the \"cucumber\" command. It shows running features on a web page."
   s.email = "paolo.nusco.perrotta@gmail.com"
   s.executables = ["cuukie"]
@@ -34,11 +34,11 @@ Gem::Specification.new do |s|
     "lib/cuukie/client.rb",
     "lib/cuukie/code_snippets.rb",
     "lib/cuukie/formatter.rb",
-    "lib/cuukie/public/cucumber.css",
-    "lib/cuukie/public/cuukie.js",
-    "lib/cuukie/public/jquery-1.7.min.js",
-    "lib/cuukie/server.rb",
-    "lib/cuukie/views/index.erb",
+    "lib/cuukie/server/public/cucumber.css",
+    "lib/cuukie/server/public/cuukie.js",
+    "lib/cuukie/server/public/jquery-1.7.min.js",
+    "lib/cuukie/server/server.rb",
+    "lib/cuukie/server/views/index.erb",
     "spec/cli_spec.rb",
     "spec/code_snippets_spec.rb",
     "spec/commands_spec.rb",
@@ -49,8 +49,7 @@ Gem::Specification.new do |s|
     "spec/test_project/features/3_failed_background.feature",
     "spec/test_project/features/4_exception_with_no_source.feature",
     "spec/test_project/features/step_definitions/exception_steps.rb",
-    "spec/test_project/features/step_definitions/main_steps.rb",
-    "spec/test_project/features/support/formatters.rb"
+    "spec/test_project/features/step_definitions/main_steps.rb"
   ]
   s.homepage = "http://github.com/nusco/cuukie"
   s.licenses = ["MIT"]
