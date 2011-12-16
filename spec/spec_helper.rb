@@ -10,7 +10,10 @@ end
 
 def run_cucumber(feature = '')
   system "cd spec/test_project &&
-          cucumber features/#{feature} --format cuukie"
+          cucumber features/#{feature} \
+                   --require ../../lib/cuukie \
+                   --require features \
+                   --format Cuukie::Formatter"
 end
 
 require 'rest-client'

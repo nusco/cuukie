@@ -16,7 +16,10 @@ describe "The cuukie formatter" do
       wait_for_server_at 4569
       cmd = "cd spec/test_project && \
              cucumber features/1_show_scenarios.feature:9 \
-                      --format cuukie >#{@out.path}"
+                      --require ../../lib/cuukie \
+                      --require features \
+                      --format Cuukie::Formatter \
+                      >#{@out.path}"
       system(cmd).should be_true
       @out.read.should == ''
     ensure
@@ -31,7 +34,10 @@ describe "The cuukie formatter" do
       cmd = "cd spec/test_project && \
              cucumber features/1_show_scenarios.feature:9 \
                       CUUKIE_SERVER=http://localhost:4570 \
-                      --format cuukie >#{@out.path}"
+                      --require ../../lib/cuukie \
+                      --require features \
+                      --format Cuukie::Formatter \
+                      >#{@out.path}"
       system(cmd).should be_true
       @out.read.should == ''
     ensure
@@ -43,7 +49,10 @@ describe "The cuukie formatter" do
     cmd = "cd spec/test_project && \
            cucumber features/1_show_scenarios.feature:9 \
                     CUUKIE_SERVER=http://some.server:4570 \
-                    --format cuukie >#{@out.path}"
+                    --require ../../lib/cuukie \
+                    --require features \
+                    --format Cuukie::Formatter \
+                    >#{@out.path}"
     system(cmd).should be_true
     @out.read.should match 'I cannot find the cuukie server on http://some.server:4570'
   end
@@ -93,13 +102,13 @@ describe "The cuukie command" do
   end
 
   describe "when used with the --server switch" do
-    it "starts the Cuukie server on port 4569 by default" do
+    it "starts the server on port 4569 by default" do
       start_process "ruby bin/cuukie --server >/dev/null 2>&1"
       wait_for_server_at 4569
       stop_server_at 4569
     end
 
-    it "starts the Cuukie server on any given port" do
+    it "starts the server on any given port" do
       start_process "ruby bin/cuukie --server --cuukieport 4570 >/dev/null 2>&1"
       wait_for_server_at 4570
       stop_server_at 4570

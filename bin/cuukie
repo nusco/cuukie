@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 lib = File.dirname(__FILE__) + '/../lib'
 $:.unshift lib unless $:.include? lib
+require 'cuukie'
 
-require 'cuukie/cli'
 include Cuukie::Cli
 options = parse_options ARGV
 exit if options[:help]
@@ -17,7 +17,6 @@ else
   Process.detach(fork { system "#{server_command} >/dev/null 2>&1" })
 end
 
-require 'cuukie/client'
 include Cuukie::Client
 wait_for_server_at port
 
@@ -30,10 +29,10 @@ else
   puts "View your features at http://localhost:#{port}" 
 end
 
-# TODO: auto-require formatter (warning: if you tell Cucumber to --require
-# something, it will want to --require everything!)
-# TODO: run cucumber through a local call instead of using system()
-system "cucumber --format cuukie #{ARGV.join(' ')}"
+require 'cucumber'
+runtime = Cucumber::Runtime.new
+runtime.load_programming_language('rb')
+Cucumber::Cli::Main.new(ARGV + ['--format', 'cuukie']).execute!(runtime)
 
 unless options[:nowait]
   puts 'RETURN to exit'

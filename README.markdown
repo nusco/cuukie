@@ -8,15 +8,11 @@ Install Cuukie via Bundler, or directly with:
 
     gem install cuukie
 
-Go to your Cucumber folder and add this line to any file in _features/support_:
-
-    require 'cuukie'
-
-Run Cuukie:
+Go to a folder where you would normally run _cucumber_, and run _cuukie_ instead:
 
     cuukie --showpage
 
-Cuukie passes any command-line argument that it doesn't recognize to Cucumber, so just use _cuukie_ instead of _cucumber_ when you want to see your features in the browser.
+Cuukie passes arguments that it doesn't recognize to Cucumber.
 
 ## Advanced Cuuking
 
@@ -24,13 +20,17 @@ Cuukie is actually two things: a server that displays running features on a web 
 
     cuukie --server
 
+You can visit the server on port 4569 by default.
+
+Now you need to tell Cucumber about the Cuukie formatter. Go to your Cucumber folder and add this line to any file in _features/support_:
+
+    require 'cuukie'
+
 When you run Cucumber, ask it to use the _cuukie_ formatter to send data to the server:
 
     cucumber --format cuukie
 
-To look at the results, visit:
-
-    http://localhost:4569
+## Even More Advanced Cuuking
 
 You can pick a port when you start the cuukie server...
 
