@@ -9,7 +9,7 @@ exit if options[:help]
 
 port = options[:cuukieport]
 
-server_command = "ruby #{File.dirname(__FILE__)}/../lib/cuukie/server.rb #{port}"
+server_command = "ruby #{File.dirname(__FILE__)}/../lib/cuukie/server/server.rb #{port}"
 if options[:server]
   system server_command
   exit 
