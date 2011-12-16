@@ -1,6 +1,5 @@
 require File.dirname(__FILE__) + '/code_snippets'
 require 'rest-client'
-require 'json'
 
 module Cuukie
   class Formatter
@@ -76,7 +75,7 @@ module Cuukie
     private
 
     def post(url, params = {})
-      RestClient.post "#{@server}/#{url}", params.to_json
+      RestClient.post "#{@server}/#{url}", params
     end
   end
 end

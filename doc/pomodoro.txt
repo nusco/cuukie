@@ -1,6 +1,12 @@
 I use this file to track my own work on the project. Each line is a pomodoro (a 25' slot).
 Latest pomodoro comes first:
 
+- debug (the % bug)
+- debug (the % bug)
+- explore cucumber's new HTML formatter
+- explore cucumber's new HTML formatter
+- debug (the % bug)
+- test on a large project
 - autorequire formatter
 - refactoring
 - debugging

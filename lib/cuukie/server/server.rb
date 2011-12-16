@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'sinatra/base'
-require 'json'
 require 'syntax/convertors/html'
 
 module Cuukie
@@ -113,11 +112,11 @@ module Cuukie
       def code_snippet_for(exception)
         return '' unless exception[:raw_lines]
         result = '<pre class="ruby"><code>'
-        linenum = exception[:first_line]
+        linenum = exception[:first_line].to_i
         html_lines = htmlize(exception[:raw_lines]).split "\n"
         html_lines.each do |html_line|
           line = "<span class=\"linenum\">#{linenum}</span>#{html_line}"
-          line = "<span class=\"offending\">#{line}</span>" if linenum == exception[:marked_line]
+          line = "<span class=\"offending\">#{line}</span>" if linenum.to_s == exception[:marked_line]
           result << "#{line}<br/>"
           linenum += 1
         end
@@ -190,17 +189,10 @@ module Cuukie
       convertor.convert(ruby, false)
     end
     
-    include Rack::Utils
-    
     def read_from_request
-      data = JSON.parse request.body.read
       result = {}
-      data.each do |k, v|
-        if v.class == String && k !~ /^raw_/
-          result[k.to_sym] = escape_html(v)
-        else
-          result[k.to_sym] = v
-        end
+      request.params.each do |k, v|
+        result[k.to_sym] = (k =~ /^raw_/) ? v : Rack::Utils.escape_html(v)
       end
       result
     end
