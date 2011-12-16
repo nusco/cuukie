@@ -1,15 +1,11 @@
-MMF 0.2.3
-  - you can use other formatters with cuukie
   - better error messages
-  - work on any cucumber project out of the box (no need to add require())
-MMF 0.2.4
   - don't launch server if it's already up
   - give detailed instructions if the port is unavailable 
-MMF 0.2.5
+MMF 
   - deal with Scenario Examples
-MMF 0.2.6
+MMF 
   - show incomplete wrap-up for steps/scenarios
-MMF 0.2.7
+MMF 
   - open/close steps
 MMF 1.0.0
   - nice graphics

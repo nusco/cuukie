@@ -12,7 +12,19 @@ Go to a folder where you would normally run _cucumber_, and run _cuukie_ instead
 
     cuukie --showpage
 
-Cuukie passes arguments that it doesn't recognize to Cucumber.
+That's basically it.
+
+# Command-line Arguments
+
+Cuukie passes arguments that it doesn't recognize to Cucumber, so feel free to mix Cuukie arguments and Cucumber arguments:
+
+    cuukie --showpage --dry-run --format pretty --out out.txt
+
+Only thing to notice: Cuukie uses its own Cucumber formatter, so remember to use --out if you want to use additional formatters. 
+
+For more options:
+
+    cuukie --help
 
 ## Advanced Cuuking
 
@@ -40,9 +52,7 @@ You can pick a port when you start the cuukie server...
 
     cucumber --format cuukie CUUKIE_SERVER=http://my.server:4570
 
-This stuff is useful if you want to put the Cuukie server on your build machine. For more options:
-
-    cuukie --help
+This stuff is useful if you want to put the Cuukie server on your build machine.
 
 Enjoy!
 
